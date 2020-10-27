@@ -1,5 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import '../../stylesheets/nav_bar.scss';
+import logo from "../../stylesheets/images/logo.png";
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -16,17 +18,28 @@ class NavBar extends React.Component {
   getLinks() {
       if (this.props.loggedIn) {
         return (
-            <div>
-                <p>You're logged in!!</p>
-                <button onClick={this.logoutUser}>Logout</button>
-            </div>
+          <div className="nav-bar">
+            <Link to="/">
+              <img className="logo" src={logo} alt="" />
+            </Link>
+            <button className="login-button" onClick={this.logoutUser}>Logout</button>
+          </div>
         );
       } else {
         return (
-            <div>
-                <Link to={'/signup'}>Signup</Link>
-                <Link to={'/login'}>Login</Link>
+          <div className="nav-bar">
+            <Link to="/"><img className="logo" src={logo} alt="" /></Link>
+
+            <div className="nav-right">
+              {this.props.history.location.pathname !== "/login" &&
+                this.props.history.location.pathname !== "/signup" && (
+                  <div>
+                    <Link className="login-button" to={"/signup"}>Signup</Link>
+                    <Link className="login-button" to={"/login"}>Login</Link>
+                  </div>
+                )}
             </div>
+          </div>
         );
       }
   }
@@ -34,7 +47,6 @@ class NavBar extends React.Component {
   render() {
       return (
         <div>
-            <h1>Nav Bar</h1>
             { this.getLinks() }
         </div>
       );

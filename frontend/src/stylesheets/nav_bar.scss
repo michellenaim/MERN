@@ -1,0 +1,40 @@
+@import "./colors.scss";
+@import "./fonts.scss";
+
+.nav-bar {
+    background-color: $light-blue;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+}
+
+.logo {
+    height: 80px;
+    width: 80px;
+    margin-left: 20px;
+}
+
+.login-button {
+    font-family: $links;
+    background: $light-green;
+    letter-spacing: 3px;
+    font-size: 13px;
+    color: $dark-green;
+    border: 1px solid $dark-green;
+    padding: 10px;
+    text-align: center;
+    margin-right: 20px;
+    width: 100px;
+    height: 35px;
+    transition: all 0.6s ease;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.login-button:hover {
+    cursor: pointer;
+    background-color: $light-gold;
+    transition: all 0.6s ease
+}
