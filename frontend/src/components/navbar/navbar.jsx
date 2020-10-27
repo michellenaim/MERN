@@ -28,8 +28,10 @@ class NavBar extends React.Component {
       } else {
         return (
           <div className="nav-bar">
-            <Link to="/"><img className="logo" src={logo} alt="" /></Link>
-
+            <Link to="/">
+              <img className="logo" src={logo} alt="" />
+              <p className="logo-name">Budgeting App</p>
+              </Link>
             <div className="nav-right">
               {this.props.history.location.pathname !== "/login" &&
                 this.props.history.location.pathname !== "/signup" && (
