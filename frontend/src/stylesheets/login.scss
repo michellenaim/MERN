@@ -1,31 +1,25 @@
+@import "./colors.scss";
+@import "./fonts.scss";
+
 .session-background {
-    // background-image: url('../../../images/money-tree.jpg');
     background-image: url('https://blog.izi-by-edf.fr/2019/10/iStock-623514254-min.jpg');
-    height: 825px;
+    height: 750px;
     background-size: cover;
     background-position: center;
     display: flex;
     justify-content: flex-end;
-
 }
 
 .login-wrapper {
-    // border: 2px red solid;
     width: 40%;
     margin-top: 6%;
     margin-bottom: 15%;
-    margin-right: 18%;
-    // height: 20%;
-    // display: grid;
-    // justify-items: flex-end;
-    // align-items: center;
-    // margin-left: 200px;
+    margin-right: 8%;
 } 
 
 .input-text-wrapper {
     display: flex;
     flex-direction: column;
-
     align-items: center;
 }
 
@@ -33,6 +27,8 @@
     padding: 10px;
     margin: 10px;
     border-radius: 10px;
+    border: none;
+    border: 1px solid $dark-gray;
     outline: none;
     width: 40%;
     display: flex;
@@ -40,19 +36,16 @@
     justify-content: center;
 }
 
-.login {
-    // flex: 1;
-    // margin-right: 570px;
-    // margin-top: 300px;
-   
+.input-text::placeholder {
+    color: $dark-gray;
+    font-family: $body;
 }
 
 .session-text {
-    // font-family: "Proxima Nova", Arial, sans-serif;
-    font-family: Times, "Times New Roman", serif;
+    font-family: $body;
     font-weight: 800;
     font-size: 24px;
-    color: #4C7A4F;
+    color: $dark-green;
 }
 
 .session-text > p {
@@ -60,7 +53,6 @@
     justify-content: center;
     padding-top: 20%;
     padding-bottom: 5%;
-    font-style: italic;
     font-weight: 400;
 }
 
@@ -70,21 +62,30 @@
 }
 
 .session-button {
-    background-color: #4C7A4F;
-    color: #FFF9C2;
-    font-size: 14px;
-    // line-height: 20pt;
-    padding: 10px 30px;
-    border: 2px solid #5F5F5F;
-    font-weight: 500;
-    margin-top: 20px;
-    border-radius: 8px;
-    // margin: auto;
-    // margin-left: 20px;
+    font-family: $links;
+    font-size: 15px;
+    background: $dark-green;
+    color: white;
+    border: 1px solid transparent;
+    padding: 8px 10px; 
+    margin-top: 10px;
+    text-align: center;
+    vertical-align: center;
+    transition: all 0.4s ease;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.session-button:hover {
     cursor: pointer;
+    background-color: $light-green;
+    border: 1px solid $dark-green;
+    color: $dark-green;
+    transition: all 0.4s ease
 }
 
 .demo-user-text {
+    font-family: $body;
     font-weight: 200;
     font-size: 14px;
     color: black;
@@ -94,7 +95,7 @@
 }
 
 .demo-user-button {
-    color: #4C7A4F;
+    color: $dark-green;
     padding-left: 4px;
     font-weight: 800;
     cursor: pointer;
@@ -105,7 +106,6 @@
     font-family: Proxima Nova, Arial, sans-serif;
     text-align: left;
     font-size: 13px;
-    // padding: 2px;
     padding-left: 10px;
     border: 0px;
     font-weight: 500;

@@ -23,7 +23,7 @@ class NavBar extends React.Component {
               <Link to="/">
                 <img className="logo-img" src={logo} alt="" />
               </Link>
-              <p>Budgeting App</p>
+              <p>Making cents</p>
             </div>
             <button className="login-button" onClick={this.logoutUser}>
               Logout
@@ -37,7 +37,7 @@ class NavBar extends React.Component {
               <Link to="/">
                 <img className="logo-img" src={logo} alt="" />
               </Link>
-                <p>Budgeting App</p>
+              <p>Making Cent$</p>
             </div>
             <div className="nav-right">
               {this.props.history.location.pathname !== "/login" &&

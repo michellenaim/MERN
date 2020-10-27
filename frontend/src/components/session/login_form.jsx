@@ -91,7 +91,7 @@ class LoginForm extends React.Component {
           <div className="login-wrapper">
             <form className="login" onSubmit={this.handleSubmit}>
               <div className="session-text">
-                <p>Welcome back! Login</p>
+                <p>Welcome back!</p>
                 <div className="input-text-wrapper">
                     <input type="text"
                     className="input-text"

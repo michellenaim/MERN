@@ -12,9 +12,7 @@ class MainPage extends React.Component {
         <div className="main-first-section">
           <div className="main-first-left">
             <p>Saving money has never been so easy.</p>
-            <Link className="login-button" to={"/signup"}>
-              Sign Up Now
-            </Link>
+            <Link className="signup-button" to={"/signup"}>Sign Up Now</Link>
           </div>
 
           <img src={splash2} alt="" />
