@@ -81,6 +81,7 @@
     border-radius: 8px;
     // margin: auto;
     // margin-left: 20px;
+    cursor: pointer;
 }
 
 .demo-user-text {
@@ -96,14 +97,16 @@
     color: #4C7A4F;
     padding-left: 4px;
     font-weight: 800;
+    cursor: pointer;
 }
 
 .popup-errors {
     color: red;
     font-family: Proxima Nova, Arial, sans-serif;
     text-align: left;
-    font-size: 12px;
+    font-size: 13px;
     // padding: 2px;
     padding-left: 10px;
     border: 0px;
+    font-weight: 500;
 }

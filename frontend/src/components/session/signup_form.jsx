@@ -14,6 +14,7 @@ class SignupForm extends React.Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.loginDemoUser = this.loginDemoUser.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -47,11 +48,21 @@ class SignupForm extends React.Component {
     this.props.signup(user, this.props.history); 
   }
 
+  loginDemoUser(e) {
+    e.preventDefault()
+    const demoUser = {
+      email: "testuser@email.com",
+      password: "password"
+    }
+
+    this.props.login(demoUser);
+  }
+
+
   render() {
 
-    let errors = null;
     if (this.props.errors) {
-      errors = this.props.errors.map((error, idx) => {
+      this.props.errors.map((error, idx) => {
         return <ul className="popup-errors" key={idx}>{error}</ul>;
       });
     }
@@ -112,9 +123,15 @@ class SignupForm extends React.Component {
                   />
                   {printErrors("Confirm password field is required")}
                   {printErrors("Passwords must match")}
-                <div className="session-button-wrapper">
-                  <input className="session-button" type="submit" value="Sign Up" />
+                  <div className="session-button-wrapper">
+                    <input className="session-button" type="submit" value="Sign Up" />
+                  </div>
                 </div>
+                  <div className="demo-user-text">
+                  Just exploring? Login as a 
+                  <div className="demo-user-button" onClick={this.loginDemoUser}>
+                    demo user                   
+                  </div>
                 </div>
               </div>
             </form>

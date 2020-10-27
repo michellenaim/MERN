@@ -12,6 +12,7 @@ class LoginForm extends React.Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.loginDemoUser = this.loginDemoUser.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -42,6 +43,16 @@ class LoginForm extends React.Component {
 
     this.props.login(user); 
   }
+  
+  loginDemoUser(e) {
+    e.preventDefault()
+    const demoUser = {
+      email: "testuser@email.com",
+      password: "password"
+    }
+
+    this.props.login(demoUser);
+  }
 
   renderErrors() {
     return(
@@ -55,11 +66,11 @@ class LoginForm extends React.Component {
     );
   }
 
+
   render() {
 
-    let errors = null;
     if (this.props.errors) {
-      errors = this.props.errors.map((error, idx) => {
+      this.props.errors.map((error, idx) => {
         return <ul className="popup-errors" key={idx}>{error}</ul>;
       });
     }
@@ -105,7 +116,7 @@ class LoginForm extends React.Component {
 
                 <div className="demo-user-text">
                   Just exploring? Login as a 
-                  <div className="demo-user-button">
+                  <div className="demo-user-button" onClick={this.loginDemoUser}>
                     demo user                   
                   </div>
                 </div>
