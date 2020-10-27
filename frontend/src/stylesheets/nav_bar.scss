@@ -10,17 +10,25 @@
 }
 
 .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    p {
+        font-size: 24px;
+        text-align: center;
+        font-family: $body;
+        color: $dark-gray;
+        margin-left: 10px;
+    }
+}
+
+.logo-img {
     height: 80px;
     width: 80px;
     margin-left: 20px;
 }
 
-.logo-name{
-    font-size: 13px;
-    text-align: right;
-    margin-top: -5px;
-    font-family: $body;
-}
 
 .login-button {
     font-family: $links;

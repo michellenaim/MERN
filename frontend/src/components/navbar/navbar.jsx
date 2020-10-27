@@ -19,19 +19,26 @@ class NavBar extends React.Component {
       if (this.props.loggedIn) {
         return (
           <div className="nav-bar">
-            <Link to="/">
-              <img className="logo" src={logo} alt="" />
-            </Link>
-            <button className="login-button" onClick={this.logoutUser}>Logout</button>
+            <div className="logo" >
+              <Link to="/">
+                <img className="logo-img" src={logo} alt="" />
+              </Link>
+              <p>Budgeting App</p>
+            </div>
+            <button className="login-button" onClick={this.logoutUser}>
+              Logout
+            </button>
           </div>
         );
       } else {
         return (
           <div className="nav-bar">
-            <Link to="/">
-              <img className="logo" src={logo} alt="" />
-              <p className="logo-name">Budgeting App</p>
+            <div className="logo" >
+              <Link to="/">
+                <img className="logo-img" src={logo} alt="" />
               </Link>
+                <p>Budgeting App</p>
+            </div>
             <div className="nav-right">
               {this.props.history.location.pathname !== "/login" &&
                 this.props.history.location.pathname !== "/signup" && (
