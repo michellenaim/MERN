@@ -58,44 +58,46 @@ class SignupForm extends React.Component {
 
   render() {
     return (
-      <div className="login-form-container">
-        <form onSubmit={this.handleSubmit}>
-          <div className="login-form">
-            <br/>
-              <input type="text"
-                value={this.state.firstname}
-                onChange={this.update('firstname')}
-                placeholder="First Name"
-              />
-            <br/>
-              <input type="text"
-                value={this.state.lastname}
-                onChange={this.update('lastname')}
-                placeholder="Last Name"
-              />
-            <br/>
-              <input type="text"
-                value={this.state.email}
-                onChange={this.update('email')}
-                placeholder="Email"
-              />
-            <br/>
-              <input type="password"
-                value={this.state.password}
-                onChange={this.update('password')}
-                placeholder="Password"
-              />
-            <br/>
-              <input type="password"
-                value={this.state.password2}
-                onChange={this.update('password2')}
-                placeholder="Confirm Password"
-              />
-            <br/>
-            <input type="submit" value="Submit" />
-            {this.renderErrors()}
-          </div>
-        </form>
+      <div className="session-background-wrapper">
+        <div className="session-background">
+          <form onSubmit={this.handleSubmit}>
+            <div className="login-form">
+              <br/>
+                <input type="text"
+                  value={this.state.firstname}
+                  onChange={this.update('firstname')}
+                  placeholder="First Name"
+                />
+              <br/>
+                <input type="text"
+                  value={this.state.lastname}
+                  onChange={this.update('lastname')}
+                  placeholder="Last Name"
+                />
+              <br/>
+                <input type="text"
+                  value={this.state.email}
+                  onChange={this.update('email')}
+                  placeholder="Email"
+                />
+              <br/>
+                <input type="password"
+                  value={this.state.password}
+                  onChange={this.update('password')}
+                  placeholder="Password"
+                />
+              <br/>
+                <input type="password"
+                  value={this.state.password2}
+                  onChange={this.update('password2')}
+                  placeholder="Confirm Password"
+                />
+              <br/>
+              <input type="submit" value="Submit" />
+              {this.renderErrors()}
+            </div>
+          </form>
+        </div>
       </div>
     );
   }
