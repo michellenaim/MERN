@@ -1,14 +1,35 @@
 import React from 'react';
+import splash1 from "../../stylesheets/images/coins_image.png"
+import splash2 from "../../stylesheets/images/table_image.jpeg"
+import {Link} from 'react-router-dom'
+import "../../stylesheets/main_page.scss";
+import '../../stylesheets/nav_bar.scss';
 
 class MainPage extends React.Component {
-
   render() {
     return (
-      <div>
-        <p>Budgeting App</p>
-        <footer>
-          Copyright &copy; 2020
-        </footer>
+      <div className="main-page">
+        <div className="main-first-section">
+          <div className="main-first-left">
+            <p>Saving money has never been so easy.</p>
+            <Link className="login-button" to={"/signup"}>
+              Sign Up Now
+            </Link>
+          </div>
+
+          <img src={splash2} alt="" />
+        </div>
+
+        <p className="main-about">Use budgeting app to understand your money better! Reach your goals and encourage others to reach theirs.</p>
+
+        <div className="main-second-section">
+          <img src={splash1} alt="" />
+
+          <div className="main-second-right">
+            <h1>Keep track of all your spending.</h1>
+          </div>
+        </div>
+
       </div>
     );
   }

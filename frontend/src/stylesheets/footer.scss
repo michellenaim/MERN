@@ -1,0 +1,49 @@
+@import "./colors.scss";
+@import "./fonts.scss";
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    background-color: $dark-blue;
+    height: 80px;
+}
+
+.footer-names {   
+    color: black;
+    font-size: 15px;
+    font-family: $body;
+    color: $dark-gray;
+    margin-left: 20px;
+}
+
+.footer-about-us {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 40px;
+}
+
+.footer-github {
+    img {
+        height: 60px;
+        width: 60px;
+        border-radius: 50%;
+        border: 2px solid transparent;
+    }
+
+    img:hover {
+        border: 2px solid $dark-green;
+    }
+}
+
+.footer-logo {
+    margin-right: 40px;
+    display: flex;
+    align-items: center;
+    color: $dark-gray;
+
+    h1 {
+        font-family: $title;
+        font-size: 24px;
+    }
+}
