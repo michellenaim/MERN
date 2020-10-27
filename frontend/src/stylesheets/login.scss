@@ -20,7 +20,7 @@
     // justify-items: flex-end;
     // align-items: center;
     // margin-left: 200px;
-}
+} 
 
 .input-text-wrapper {
     display: flex;
@@ -50,17 +50,18 @@
 .session-text {
     // font-family: "Proxima Nova", Arial, sans-serif;
     font-family: Times, "Times New Roman", serif;
-    font-style: italic;
     font-weight: 800;
     font-size: 24px;
     color: #4C7A4F;
 }
 
-.session-text p {
+.session-text > p {
     display: flex;
     justify-content: center;
     padding-top: 20%;
     padding-bottom: 5%;
+    font-style: italic;
+    font-weight: 400;
 }
 
 .session-button-wrapper {
@@ -95,4 +96,14 @@
     color: #4C7A4F;
     padding-left: 4px;
     font-weight: 800;
+}
+
+.popup-errors {
+    color: red;
+    font-family: Proxima Nova, Arial, sans-serif;
+    text-align: left;
+    font-size: 12px;
+    // padding: 2px;
+    padding-left: 10px;
+    border: 0px;
 }

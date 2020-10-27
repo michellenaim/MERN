@@ -12,7 +12,6 @@ class LoginForm extends React.Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.renderErrors = this.renderErrors.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -21,6 +20,10 @@ class LoginForm extends React.Component {
     }
 
     this.setState({errors: nextProps.errors})
+  }
+
+  componentWillMount() {
+    this.props.clearErrors()
   }
 
   update(field) {
@@ -53,6 +56,24 @@ class LoginForm extends React.Component {
   }
 
   render() {
+
+    let errors = null;
+    if (this.props.errors) {
+      errors = this.props.errors.map((error, idx) => {
+        return <ul className="popup-errors" key={idx}>{error}</ul>;
+      });
+    }
+
+    const printErrors = (error) => {
+      if (this.props.errors.includes(error)) {
+        return (
+          <ul className="popup-errors">
+            {error}
+          </ul>
+        );
+      }
+    }
+
     return (
       <div className="session-background-wrapper">
         <div className="session-background">
@@ -61,23 +82,24 @@ class LoginForm extends React.Component {
               <div className="session-text">
                 <p>Welcome back! Login</p>
                 <div className="input-text-wrapper">
-                  
                     <input type="text"
                     className="input-text"
                       value={this.state.email}
                       onChange={this.update('email')}
                       placeholder="Email"
                     />
+                    {printErrors("Email is invalid")}
+                    {printErrors("Email field is required")}
                     <input type="password"
                     className="input-text"
                       value={this.state.password}
                       onChange={this.update('password')}
                       placeholder="Password"
                     />
+                    {printErrors("Password field is required")}
                 </div>
                 <div className="session-button-wrapper">
-                  <input className="session-button" type="submit" value="Submit" />
-                  {this.renderErrors()}
+                  <input className="session-button" type="submit" value="Login" />
                 </div>
               </div>
 
