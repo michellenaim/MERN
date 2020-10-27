@@ -1,5 +1,6 @@
 import React from 'react';
-import coinsimage from "../../stylesheets/images/coins_image.png"
+import splash1 from "../../stylesheets/images/coins_image.png"
+import splash2 from "../../stylesheets/images/table_image.jpeg"
 import {Link} from 'react-router-dom'
 import "../../stylesheets/main_page.scss";
 import '../../stylesheets/nav_bar.scss';
@@ -16,15 +17,16 @@ class MainPage extends React.Component {
             </Link>
           </div>
 
-          <img src={coinsimage} alt="" />
+          <img src={splash2} alt="" />
         </div>
 
+        <p className="main-about">Use budgeting app to understand your money better! Reach your goals and encourage others to reach theirs.</p>
+
         <div className="main-second-section">
-          <img src={coinsimage} alt="" />
+          <img src={splash1} alt="" />
 
           <div className="main-second-right">
             <h1>Keep track of all your spending.</h1>
-            <p></p>
           </div>
         </div>
 

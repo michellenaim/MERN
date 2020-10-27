@@ -1,19 +1,49 @@
-// .footer{
-//     height: 50px;
-//     z-index: 100;
-//     // position: fixed;
-//     // bottom: 0;
-//     height: 100px;
-//     border: 1px solid black;
-
-//     img{
-//         height: 50px;
-//     }
-// }
+@import "./colors.scss";
+@import "./fonts.scss";
 
 .footer {
     display: flex;
     justify-content: space-between;
-    background-color: blue;
-    height: 200px;
+    background-color: $dark-blue;
+    height: 80px;
+}
+
+.footer-names {   
+    color: black;
+    font-size: 15px;
+    font-family: $body;
+    color: $dark-gray;
+    margin-left: 20px;
+}
+
+.footer-about-us {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 40px;
+}
+
+.footer-github {
+    img {
+        height: 60px;
+        width: 60px;
+        border-radius: 50%;
+        border: 2px solid transparent;
+    }
+
+    img:hover {
+        border: 2px solid $dark-green;
+    }
+}
+
+.footer-logo {
+    margin-right: 40px;
+    display: flex;
+    align-items: center;
+    color: $dark-gray;
+
+    h1 {
+        font-family: $title;
+        font-size: 24px;
+    }
 }
