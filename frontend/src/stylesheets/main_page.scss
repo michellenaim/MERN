@@ -3,6 +3,72 @@
 @import "./fonts.scss";
 
 .main-page {
-    background-color: $light-blue;
+    background-color: white;
     height: 800px;
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-first-section {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    margin-top: 30px;
+
+    img {
+        width: 700px;
+        object-fit: cover;
+        opacity: 0.8;
+        margin-left: 20px;
+    }
+}
+
+.main-first-left {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+    margin-left: 20px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+
+    p {
+        font-family: $body;
+        color: $dark-gray;
+        font-size: 24px;
+        margin-bottom: 40px;
+    }
+}
+
+.main-second-section {
+    display: flex;
+    justify-content: center;
+
+
+    img {
+        width: 700px;
+        object-fit: cover;
+        opacity: 0.8;
+        margin-left: 20px;
+    }
+}
+
+.main-second-right {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+    margin-left: 20px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+
+    h1 {
+        font-family: $body;
+        color: $dark-gray;
+        font-size: 24px;
+        margin-bottom: 40px;
+    }
 }

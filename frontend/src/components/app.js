@@ -5,6 +5,7 @@ import NavBarContainer from './navbar/navbar_container.js';
 import MainPage from './main_page/main_page.jsx';
 import LoginFormContainer from './session/login_form_container.js';
 import SignupFormContainer from './session/signup_form_container.js';
+import Footer from "./footer/footer"
 
 const App = () => (
   <div>
@@ -14,6 +15,10 @@ const App = () => (
       <AuthRoute exact path="/login" component={LoginFormContainer} />
       <AuthRoute exact path="/signup" component={SignupFormContainer} />
     </Switch>
+
+    {/* <footer>
+      <Footer />
+    </footer>  */}
   </div>
 );
 
