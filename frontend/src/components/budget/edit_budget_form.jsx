@@ -25,7 +25,7 @@ class EditBudget extends React.Component {
                 <div className="edit-budget-income-wrapper">
                     <form className="edit-budget-income-form">
                         <label>What's your income?</label>
-                        <input type="text"></input>
+                        <input type="text" placeholder="$"></input>
                         <div className="edit-budget-income-submit-button">
                             <input type="submit" value="Submit"/>
                         </div>
