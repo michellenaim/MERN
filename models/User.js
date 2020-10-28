@@ -1,135 +1,94 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// const BudgetCategoriesSchema = new Schema({
-//     percent: {
-//         type: Number,
-//         default: .30
-//     },
-//     category: {
-//         type: String,
-//         default: "Home"
-//     }
-// })
+const defaultBudgetCategories = [
+  {
+    percent: 0.3,
+    category: "Home",
+  },
+  {
+    percent: 0.1,
+    category: "Utilities",
+  },
+  {
+    percent: 0.1,
+    category: "Food",
+  },
+  {
+    percent: 0.1,
+    category: "Transportation",
+  },
+  {
+    percent: 0.1,
+    category: "Health & Fitness",
+  },
+  {
+    percent: 0.1,
+    category: "Shopping",
+  },
+  {
+    percent: 0.1,
+    category: "Entertainment",
+  },
+  {
+    percent: 0.1,
+    category: "Savings",
+  },
+  {
+    percent: 0,
+    category: "Other",
+  },
+];
 
 
-const UserSchema = new Schema({
+const UserSchema = new Schema(
+  {
     firstname: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     lastname: {
-        type: String, 
-        required: true
+      type: String,
+      required: true,
     },
     email: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     password: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
-    // income: {
+    income: {
+      type: Number,
+      default: 0,
+    },
+    budgetBreakdown: {
+    //   type: [        // removing array around type takes away Object Ids
+      type: 
+        {
+          percent: {
+            type: Number,
+          },
+          category: {
+            type: String,
+          },
+        },
+    //   ],
+    //   type: Array,
+    //   percent: {
     //     type: Number,
-    //     required: true// change to default: 0
-    // },
-    // budgetbreakdown: [BudgetCategoriesSchema],
-    budgetBreakdown: [
-        {
-            percent: {
-                type: Number,
-                default: .30
-            }, 
-            category: {
-                type: String,
-                default: "Home"
-            },
-        },
-        {
-            percent: {
-                type: Number,
-                default: .10
-            },
-            category: {
-                type: String,
-                default: "Utilities"
-            },
-        },
-        {
-            percent: {
-                type: Number,
-                default: .10
-            },
-            category: {
-                type: String,
-                default: "Food"
-            },
-        },
-        {
-            percent: {
-                type: Number,
-                default: .10
-            },
-            category: {
-                type: String,
-                default: "Transportation"
-            },
-        },
-        {
-            percent: {
-                type: Number,
-                default: .10
-            },
-            category: {
-                type: String,
-                default: "Health & Fitness"
-            },
-        },
-        {
-            percent: {
-                type: Number,
-                default: .10
-            },
-            category: {
-                type: String,
-                default: "Shopping"
-            },
-        },
-        {
-            percent: {
-                type: Number,
-                default: .10
-            },
-            category: {
-                type: String,
-                default: "Entertainment"
-            },
-        },
-        {
-            percent: {
-                type: Number,
-                default: .10
-            },
-            category: {
-                type: String,
-                default: "Savings"
-            },
-        },
-        {
-            percent: {
-                type: Number,
-                default: .00
-            },
-            category: {
-                type: String,
-                default: "Other"
-            },
-        },
-    ],
-}, {
-    timestamps: true
-})
+    //   },
+    //   category: {
+    //     type: String,
+    //   },
+      default: defaultBudgetCategories,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
 module.exports = User = mongoose.model('User', UserSchema)
 
