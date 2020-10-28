@@ -15,13 +15,13 @@ class LoginForm extends React.Component {
     this.loginDemoUser = this.loginDemoUser.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.currentUser === true) {
-      this.props.history.push('/');
-    }
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.currentUser === true) {
+  //     this.props.history.push('/graph');
+  //   }
 
-    this.setState({errors: nextProps.errors})
-  }
+  //   this.setState({errors: nextProps.errors})
+  // }
 
   componentWillMount() {
     this.props.clearErrors()
@@ -36,12 +36,7 @@ class LoginForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    let user = {
-      email: this.state.email,
-      password: this.state.password
-    };
-
-    this.props.login(user); 
+    this.props.login(this.state)
   }
   
   loginDemoUser(e) {
@@ -51,7 +46,7 @@ class LoginForm extends React.Component {
       password: "password"
     }
 
-    this.props.login(demoUser);
+    this.props.login(demoUser)
   }
 
   render() {

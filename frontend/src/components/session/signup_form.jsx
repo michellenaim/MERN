@@ -19,7 +19,7 @@ class SignupForm extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.signedIn === true) {
-      this.props.history.push('/login'); //push to our home page when we write that route
+      this.props.history.push('/graph'); //push to our home page when we write that route
     }
 
     this.setState({errors: nextProps.errors})
@@ -37,15 +37,9 @@ class SignupForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    let user = {
-        firstname: this.state.firstname,
-        lastname: this.state.lastname,
-        email: this.state.email,
-        password: this.state.password,
-        password2: this.state.password2
-    };
-
-    this.props.signup(user, this.props.history); 
+ 
+    this.props.signup(this.state)
+      .then(() => this.props.history.push("/graph"))
   }
 
   loginDemoUser(e) {
