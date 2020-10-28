@@ -7,11 +7,11 @@ Chart.defaults.global.defaultFontFamily = "'Helvetica', sans-serif;"
 
 
 class Graph extends React.Component {
-  constructor(props) {
-    super(props)
-    // this.currentUser = this.props.currentUser
-    // this.currentPercentages = this.props.currentPercentages
-  }
+  // constructor(props) {
+  //   super(props)
+  //   // this.currentUser = this.props.currentUser
+  //   // this.currentPercentages = this.props.currentPercentages
+  // }
 
   chartRef = React.createRef();
   

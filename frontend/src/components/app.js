@@ -1,5 +1,5 @@
 import React from 'react';
-import { AuthRoute } from '../util/route_util';
+import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import { Switch } from 'react-router-dom';
 import NavBarContainer from './navbar/navbar_container.js';
 import ScrollToTop from './ScrollToTop'
@@ -18,7 +18,7 @@ const App = () => (
       <AuthRoute exact path="/login" component={LoginFormContainer} />
       <AuthRoute exact path="/signup" component={SignupFormContainer} />
 
-      <AuthRoute exact path="/graph" component={Graph}/>
+      <ProtectedRoute exact path="/graph" component={Graph}/>
     </Switch>
 
     <footer>
