@@ -30,10 +30,10 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    income: {
-        type: Number,
-        required: true
-    },
+    // income: {
+    //     type: Number,
+    //     required: true// change to default: 0
+    // },
     // budgetbreakdown: [BudgetCategoriesSchema],
     budgetBreakdown: [
         {
