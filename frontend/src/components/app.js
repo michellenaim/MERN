@@ -8,6 +8,7 @@ import LoginFormContainer from './session/login_form_container.js';
 import SignupFormContainer from './session/signup_form_container.js';
 import Footer from "./footer/footer"
 import Graph from './graph/graph'
+import Dashboard from "./dashboard/dashboard"
 
 const App = () => (
   <div>
@@ -19,6 +20,7 @@ const App = () => (
       <AuthRoute exact path="/signup" component={SignupFormContainer} />
 
       <ProtectedRoute exact path="/graph" component={Graph}/>
+      <ProtectedRoute exact path="/dashboard" component={Dashboard} />
     </Switch>
 
     <footer>
