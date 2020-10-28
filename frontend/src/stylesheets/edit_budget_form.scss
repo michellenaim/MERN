@@ -1,0 +1,70 @@
+@import "./colors.scss";
+@import "./fonts.scss";
+
+.edit-budget {
+    margin-top: 80px;
+    height: 700px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-budget-title {
+    width: 10%;
+}
+
+.edit-budget-income-wrapper {
+    height: 100px;
+}
+
+.edit-budget-sliders-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 700px;
+}
+
+.edit-budget-sliders {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: 70%;
+}
+.edit-budget-slider {
+    padding-right: 10%;
+    width: 20%;
+}
+
+input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 30%;
+}
+
+input[type=range]:focus {
+  outline: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 10px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: $dark-gray;
+  border-radius: 10px;
+  border: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: 2px 2px 2px $dark-gray;
+  height: 20px;
+  width: 20px;
+  border-radius: 23px;
+  background: $dark-green;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -7px;
+}
+
+input[type=range]:active::-webkit-slider-runnable-track {
+  background: $light-green;
+}
