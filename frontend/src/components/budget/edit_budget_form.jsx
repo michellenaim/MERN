@@ -23,10 +23,12 @@ class EditBudget extends React.Component {
                     <h1>Budget Split</h1>
                 </div>
                 <div className="edit-budget-income-wrapper">
-                    <form className="edit-budget-income">
+                    <form className="edit-budget-income-form">
                         <label>What's your income?</label>
                         <input type="text"></input>
-                        <input type="submit" value="Submit"/>
+                        <div className="edit-budget-income-submit-button">
+                            <input type="submit" value="Submit"/>
+                        </div>
                     </form>
                 </div>
                 <div className="edit-budget-sliders-wrapper">

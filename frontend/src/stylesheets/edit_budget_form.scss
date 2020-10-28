@@ -10,17 +10,83 @@
 }
 
 .edit-budget-title {
-    width: 10%;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+
+.edit-budget-income-form label{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 5%;
+}
+
+.edit-budget-income-form {
+    width: 100%;
+    display: flex;
 }
 
 .edit-budget-income-wrapper {
     height: 100px;
 }
 
+.edit-budget-income-wrapper input[type=text] {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    border: none;
+    border: 1px solid $dark-gray;
+    outline: none;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.edit-budget-income-submit-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.edit-budget-income-submit-button input[type=submit] {
+    font-family: $links;
+    font-size: 12px;
+    height: 30px;
+    background: $dark-green;
+    color: white;
+    border: 1px solid transparent;
+    padding: 8px 10px; 
+    text-align: center;
+    vertical-align: center;
+    transition: all 0.4s ease;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.edit-budget-income-submit-button input[type=submit]:hover {
+    cursor: pointer;
+    background-color: $light-green;
+    border: 1px solid $dark-green;
+    color: $dark-green;
+    transition: all 0.4s ease
+}
+.edit-budget-income-submit-button input[type=submit]:focus {
+    outline: none;
+}
+
 .edit-budget-sliders-wrapper {
     display: flex;
     flex-direction: column;
     height: 700px;
+}
+
+.edit-budget-sliders-title {
+    padding-top: 3%;
+    padding-bottom: 3%;
 }
 
 .edit-budget-sliders {
