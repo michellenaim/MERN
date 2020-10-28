@@ -118,4 +118,19 @@ router.post('/login', (req, res) => {
 })
 
 
+
+// router.patch("/", passport.authenticate('jwt', { session: false }), (req, res) => { 
+//     // validations for whether slider values add to 100%
+
+//     // find user 
+//     User.findOne({ id: req.user.id  })
+//       .catch
+//       .then(user => {
+//         if (!user) {
+//           return res.status(404).json(errors);
+//         }
+
+// });
+
+
 module.exports = router;
