@@ -54,19 +54,6 @@ class LoginForm extends React.Component {
     this.props.login(demoUser);
   }
 
-  renderErrors() {
-    return(
-      <ul>
-        {Object.keys(this.state.errors).map((error, i) => (
-          <li key={`error-${i}`}>
-            {this.state.errors[error]}
-          </li>
-        ))}
-      </ul>
-    );
-  }
-
-
   render() {
 
     if (this.props.errors) {
@@ -101,13 +88,15 @@ class LoginForm extends React.Component {
                     />
                     {printErrors("Email is invalid")}
                     {printErrors("Email field is required")}
+                    {printErrors("There is no account with this email")}
                     <input type="password"
                     className="input-text"
-                      value={this.state.password}
-                      onChange={this.update('password')}
-                      placeholder="Password"
+                    value={this.state.password}
+                    onChange={this.update('password')}
+                    placeholder="Password"
                     />
                     {printErrors("Password field is required")}
+                    {printErrors("Incorrect password")}
                 </div>
                 <div className="session-button-wrapper">
                   <input className="session-button" type="submit" value="Login" />

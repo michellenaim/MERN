@@ -105,6 +105,7 @@ class SignupForm extends React.Component {
                     onChange={this.update('email')}
                     placeholder="Email"
                   />
+                  {printErrors("A user is already registered with that email")}
                   {printErrors("Email field is required")}
                   {printErrors("Email is invalid")}
                   <input type="password"
