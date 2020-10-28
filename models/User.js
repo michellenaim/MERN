@@ -64,8 +64,8 @@ const UserSchema = new Schema(
       default: 0,
     },
     budgetBreakdown: {
-    //   type: [        // removing array around type takes away Object Ids
-      type: 
+      type: [        // removing array around type takes away Object Ids
+      // type: 
         {
           percent: {
             type: Number,
@@ -74,7 +74,7 @@ const UserSchema = new Schema(
             type: String,
           },
         },
-    //   ],
+      ],
     //   type: Array,
     //   percent: {
     //     type: Number,
