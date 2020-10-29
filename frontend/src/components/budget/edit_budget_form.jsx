@@ -1,21 +1,61 @@
 import React from 'react';
 
 class EditBudget extends React.Component {
+
+    constructor (props) {
+        super (props);
+        this.state = {
+            home: 10,
+            utilities: 10,
+            savings: 10,
+            food: 30,
+            other: 2,
+            healthAndFitness:  4,
+            shopping: 25,
+            transportation: 4,
+            entertainment: 5
+        };
+        this.handleSplit = this.handleSplit.bind(this);
+    }
+
+    handleSplit(currentSlider) {
+        return e => {
+            e.preventDefault();
+            let sliders = {...this.state};
+            let previousSliderValue = sliders[currentSlider]
+            let currentSliderValue = e.target.value;
+            let valueChange = currentSliderValue - previousSliderValue;
+            if (currentSlider !== "savings") {
+                let newSavings = sliders.savings - valueChange;
+                if (newSavings < 0) return null;
+                this.setState({[currentSlider]: currentSliderValue});
+                this.setState({savings: sliders.savings - valueChange});
+            } 
+        }
+    }
+
     render() {
         const sliderArray = ["home", "utilities", "savings", "food", "other",
-                             "health+fitness", "shopping", "transportation",
+                             "healthAndFitness", "shopping", "transportation",
                              "entertainment"];
         const sliders = sliderArray.map((slider, idx) => {
             return (
-                <div className={`edit-budget-slider`}>
-                    <label>
-                        {slider === "health+fitness" ? 
-                            "Health + Fitness" :
-                            slider.charAt(0).toUpperCase() + slider.slice(1)}
-                    </label>
-                    <input type="range" min="0" max="1" step="0.01"/>
-                </div>
-            )
+              <div key={idx} className={`edit-budget-slider`}>
+                <label>
+                  {slider === "healthAndFitness"
+                    ? "Health + Fitness"
+                    : slider.charAt(0).toUpperCase() + slider.slice(1)}
+                </label>
+                <input
+                onChange={this.handleSplit(slider)}
+                type="range"
+                min="0"
+                max="100"
+                step="1"
+                value={this.state[slider]}
+                />
+              </div>
+            );
         });
         return (
             <div className="edit-budget">

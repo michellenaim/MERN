@@ -1,4 +1,3 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import EditBudgetForm from './edit_budget_form';
 // import budget_actions
