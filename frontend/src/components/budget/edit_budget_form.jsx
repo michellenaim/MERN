@@ -4,6 +4,8 @@ class EditBudget extends React.Component {
 
     constructor (props) {
         super (props);
+        // TODO: the default state will eventually be set by the props:
+        // this.state = this.props.user.budgetBreakdown
         this.state = {
             home: 10,
             utilities: 10,
@@ -16,6 +18,22 @@ class EditBudget extends React.Component {
             entertainment: 5,
             income: 0
         };
+        // the state will then look like the following:
+                    /*
+            {
+                "income": 0,
+                "budgetBreakdown": [
+                    {
+                        "percent": 0.53,
+                        "category": "Home"
+                    },
+                    {
+                        "percent": 0.6,
+                        "category": "Other"
+                    }
+                ]
+            }
+         */
         this.handleSplit = this.handleSplit.bind(this);
     }
 
@@ -64,40 +82,43 @@ class EditBudget extends React.Component {
         });
         return (
             <div className="edit-budget">
-                <div className="edit-budget-title">
-                    <h1>Budget Split</h1>
-                </div>
-                <div className="edit-budget-income-wrapper">
-                    <form className="edit-budget-income-form">
-                        <label>What's your income?</label>
-                        <input type="text" placeholder="$"></input>
-                        <div className="edit-budget-income-submit-button">
-                            <input type="submit" value="Submit"/>
-                        </div>
-                    </form>
-                </div>
-                <div className="edit-budget-sliders-wrapper">
-                    <div className="edit-budget-sliders-title">
-                        <p>Breakdown your budget:</p>
+                <form className="edit-budget-form" >
+                    <div className="edit-budget-title">
+                        <h1>Budget Split</h1>
                     </div>
-                    <div className="income-slider">
-                        <label>Income</label>
-                        <div className="slider-display">
-                            <input
-                            onChange={this.handleSplit("income")}
-                            type="range"
-                            min="0"
-                            max="100"
-                            step="1"
-                            value={this.state.income}
-                            />
-                            <div className="display-value">{this.state.income}</div>
+                    <div className="edit-budget-income-wrapper">
+                        <div className="edit-budget-income">
+                            <label>What's your income?</label>
+                            <input type="text" placeholder="$"></input>
+                        </div>
+                        <div className="edit-budget-income-buttons">
+                            <input type="submit" value="Apply Changes"/>
+                            <button>Discard Changes</button>
                         </div>
                     </div>
-                    <div className="edit-budget-sliders">
-                        {sliders}
+                    <div className="edit-budget-sliders-wrapper">
+                        <div className="edit-budget-sliders-title">
+                            <p>Breakdown your budget:</p>
+                        </div>
+                        <div className="income-slider">
+                            <label>Income</label>
+                            <div className="slider-display">
+                                <input
+                                onChange={this.handleSplit("income")}
+                                type="range"
+                                min="0"
+                                max="100"
+                                step="1"
+                                value={this.state.income}
+                                />
+                                <div className="display-value">{this.state.income}</div>
+                            </div>
+                        </div>
+                        <div className="edit-budget-sliders">
+                            {sliders}
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         );
     }

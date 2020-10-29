@@ -22,7 +22,7 @@ const App = () => (
 
       <ProtectedRoute exact path="/graph" component={DoughnutGraph}/>
       <ProtectedRoute exact path="/polargraph" component={PolarGraph}/>
-      <AuthRoute exact path="/budget/edit" component={BudgetEditContainer} />
+      <ProtectedRoute exact path="/budget/edit" component={BudgetEditContainer} />
     </Switch>
 
     <footer>
