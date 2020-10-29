@@ -61,6 +61,22 @@ class DoughnutGraph extends React.Component {
           ],
           borderWidth: 0.5
         }]
+      },
+      options: {
+        // legend: {
+        //     position: 'left'
+        // },
+        tooltips: {
+          displayColors: false,
+          callbacks: {
+            title: function (tooltipItem, data) {
+              return data['labels'][tooltipItem[0]['index']] + ":";
+            },
+            label: function (tooltipItem, data) {
+              return data['datasets'][0]['data'][tooltipItem['index']] + "% of income allocated";
+            }
+          }
+        },
       }
     });
 
