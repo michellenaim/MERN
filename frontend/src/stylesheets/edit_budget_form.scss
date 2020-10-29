@@ -3,7 +3,7 @@
 
 .edit-budget {
     margin-top: 80px;
-    height: 700px;
+    height: 850px;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -17,14 +17,14 @@
     padding-bottom: 3%;
 }
 
-.edit-budget-income-form label{
+.edit-budget-income label{
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding-left: 5%;
 }
 
-.edit-budget-income-form {
+.edit-budget-income {
     width: 100%;
     display: flex;
 }
@@ -46,13 +46,15 @@
     justify-content: center;
 }
 
-.edit-budget-income-submit-button {
+.edit-budget-income-buttons {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
+    width: 25%;
+    margin-left: 40%;
 }
 
-.edit-budget-income-submit-button input[type=submit] {
+.edit-budget-income-buttons input[type=submit],
+.edit-budget-income-buttons button {
     font-family: $links;
     font-size: 12px;
     height: 30px;
@@ -67,14 +69,16 @@
     text-decoration: none;
 }
 
-.edit-budget-income-submit-button input[type=submit]:hover {
+.edit-budget-income-buttons input[type=submit]:hover,
+.edit-budget-income-buttons button:hover {
     cursor: pointer;
     background-color: $light-green;
     border: 1px solid $dark-green;
     color: $dark-green;
     transition: all 0.4s ease
 }
-.edit-budget-income-submit-button input[type=submit]:focus {
+.edit-budget-income-buttons input[type=submit]:focus,
+.edit-budget-income-buttons button:focus {
     outline: none;
 }
 
