@@ -2,11 +2,8 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const User = require("../../models/User");
-// const db = require("../../config/keys").mongoURI;
 
 // use asynchronous routes
-
-router.get("/test", (req, res) => res.json({ msg: "This is the transactions route" }));
 
 // transactions index
 router.get("/", passport.authenticate('jwt', { session: false }), 
@@ -19,83 +16,106 @@ router.get("/", passport.authenticate('jwt', { session: false }),
 
 router.post("/", passport.authenticate("jwt", { session: false }), 
     async (req, res) => {
-        const { amount, description, category} = req.body.transaction;
-
-        // req.body.save()
-        console.log(req.body)
-        // console.log(res.json(res.body)) 
-
-
-        //  res.json({
-        //    transactions: req.user.transactions,
-        //  });
-        
-        // const { isValid, errors } = validateTweetInput(req.body);
+        // const { isValid, errors } = validateTransactions(req.body);
 
         // if (!isValid) {
         //     return res.status(400).json(errors);
         // }
 
-        // req.user.set({
-        //     toDelete: undefined
-        // });
+        const { date, amount, description, category } = req.body.transaction;
 
-        await req.user.set({
-          transactions: [
-            ...req.user.transactions,
-            {
-              amount,
-              description,
-              category,
-            },
-          ],
-        }).save();
+        console.log(req.body)
+
+
+        await req.user
+          .set({
+            transactions: [
+              {
+                date,
+                amount,
+                description,
+                category,
+              },
+              ...req.user.transactions,
+            ],
+          })
+          .save();
 
         console.log(req.user);
 
-        // res.status(200).jsonp({});
-
-        // const newUser = new User({
-        //     user: req.user.id,
-        //     transaction: req.body.transaction
-        // });
-
-        // newUser
-        //     .save()
-        //     .then(transaction => res.status(200).json(transaction));
+        res.status(200).json({
+            transactions: req.user.transactions
+        });
 });
 
-//transactions update 
-router.patch("/update", passport.authenticate('jwt', { session: false }), async (req, res) => {
+// transactions update 
+router.patch("/update", passport.authenticate('jwt', { session: false }), 
+    async (req, res) => {
     
     
+});
+
+
+// delete one transaction
+router.delete("/delete", passport.authenticate('jwt', { session: false }), 
+    async (req, res) => {
+
+    // how data should come in from frontend. lines 71-74 optional
+    // {
+    //     "transaction": 
+    //         {
+    //             "_id": "5f9b15d556a2a02df13585c0",
+    //             "date": "2020-10-30T00:00:00.000Z",
+    //             "amount": 750,
+    //             "description": "rent",
+    //             "category": "Home"
+    //         }
+    // }
+    
+    // select only the transactions that have object ids !== object id from body 
+    // need to ensure types are same 
+    const updatedTransactions = req.user.transactions.filter((t) => {
+        return t._id.toString() !== req.body.transaction._id
+    });
+    
+    // console.log(updatedTransactions.length);
+
+    req.user.set({
+      transactions: updatedTransactions,
+    });
+
+    await req.user.save();      // update user sans transaction in DB
+
+    // return remaining transactions, or omit if needed 
+    res.json({
+        transactions: req.user.transactions
+    });
 });
 
 
 module.exports = router;
 
+
+// POSTMAN TESTING:
+
+// to create transaction 
 // {
 //     "transaction": {
-//         "amount": 20,
-//         "description": "dinner",
-//         "category": "Food"
+//         "date": "2020-10-30",
+//         "amount": 10,
+//         "description": "book",
+//         "category": "Shopping"
 //     }
 // }
 
+// to delete a transaction, select specific _id
 // {
-//     "income": 1000,
-//     "budgetBreakdown": [
+//     "transaction": 
 //         {
-//             "percent": 0.2,
+//             "_id": "5f9b3339e66bd953e6adf3f6",
+//             "date": "2020-10-30T00:00:00.000Z",
+//             "amount": 750,
+//             "description": "rent",
 //             "category": "Home"
-//         },
-//         {
-//             "percent": 0.2,
-//             "category": "Entertainment"
-//         },
-//         {
-//             "percent": 0,
-//             "category": "Other"
 //         }
-//     ]
 // }
