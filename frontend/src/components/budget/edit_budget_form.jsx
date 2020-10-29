@@ -4,71 +4,73 @@ class EditBudget extends React.Component {
 
     constructor (props) {
         super (props);
-        // TODO: the default state will eventually be set by the props:
-        // this.state = this.props.user.budgetBreakdown
+
         this.state = {
-            percentages: {
-                home: 10,
-                utilities: 10,
-                savings: 10,
-                food: 30,
-                other: 2,
-                healthAndFitness:  4,
-                shopping: 25,
-                transportation: 4,
-                entertainment: 5,
-                income: 0
-            },
+            percentages: {},
+            income: 0,
             isEdited: false
-        };
-        // the state will then look like the following:
-                    /*
-            {
-                "income": 0,
-                "budgetBreakdown": [
-                    {
-                        "percent": 0.53,
-                        "category": "Home"
-                    },
-                    {
-                        "percent": 0.6,
-                        "category": "Other"
-                    }
-                ]
-            }
-         */
+        }
+
         this.handleSplit = this.handleSplit.bind(this);
+        this.loadStateFromProps = this.loadStateFromProps.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.fetchCurrentUser()
+            .then(() => {
+                this.loadStateFromProps();
+            });
     }
 
     handleSplit(currentSlider) {
         return e => {
             e.preventDefault();
-            let { percentages, isEdited } = {...this.state};
+            let { percentages } = {...this.state};
             let currentState = percentages;
             let previousSliderValue = percentages[currentSlider]
             let currentSliderValue = e.target.value;
             let valueChange = currentSliderValue - previousSliderValue;
-            if (currentSlider !== "income") {
-                let newIncome = percentages.income - valueChange;
+            if (currentSlider !== "Income") {
+                let newIncome = percentages.Income - valueChange;
                 if (newIncome < 0) return null;
                 currentState[currentSlider] = currentSliderValue;
-                currentState.income = newIncome;
+                currentState.Income = newIncome;
                 this.setState({isEdited: true});
                 this.setState({percentages: currentState});
             } 
         }
     }
+    
+    loadStateFromProps() {
+        let { percentages } = {...this.state};
+        let currentState = percentages;
+        let totalPercentage = 0;
+        this.props.currentUser.budgetBreakdown.forEach(budgetSplit => {
+            if (budgetSplit.category === "Health & Fitness") {
+                currentState.HealthAndFitness = budgetSplit.percent;
+            }
+            else {
+                this.state.percentages[budgetSplit.category] = budgetSplit.percent;
+                currentState[budgetSplit.category] = budgetSplit.percent;
+            }
+            totalPercentage += budgetSplit.percent;
+        })
+        currentState.Income = 1 - totalPercentage;
+        this.setState({isEdited: false});
+        this.setState({percentages: currentState});
+        this.setState({income: this.props.currentUser.income})
+    }
 
     render() {
-        const sliderArray = ["home", "utilities", "savings", "food", "other",
-                             "healthAndFitness", "shopping", "transportation",
-                             "entertainment"];
+        const sliderArray = ["Home", "Utilities", "Savings", "Food", "Other",
+                             "HealthAndFitness", "Shopping", "Transportation",
+                             "Entertainment"];
         const sliders = sliderArray.map((slider, idx) => {
             return (
               <div key={idx} className='edit-budget-slider tooltip'>
                 <label>
-                  {slider === "healthAndFitness"
-                    ? "Health + Fitness"
+                  {slider === "HealthAndFitness"
+                    ? "Health & Fitness"
                     : slider.charAt(0).toUpperCase() + slider.slice(1)}
                 </label>
                 <div className="slider-display">
@@ -76,13 +78,13 @@ class EditBudget extends React.Component {
                     onChange={this.handleSplit(slider)}
                     type="range"
                     min="0"
-                    max="100"
-                    step="1"
+                    max="1"
+                    step="0.00001"
                     value={this.state.percentages[slider]}
                     />
-                    <div className="display-value">{this.state.percentages[slider]}</div>
+                    <div className="display-value">${(this.state.income*this.state.percentages[slider]).toFixed(2)}</div>
                 </div>
-                <span style={{left: `${7.0+this.state.percentages[slider]/2.35}%`}} class="tooltiptext">{this.state.percentages[slider]}</span>
+                <span style={{left: `${7.0+this.state.percentages[slider]*42}%`}} class="tooltiptext">{Math.round(this.state.percentages[slider]*100)}%</span>
               </div>
             );
         });
@@ -95,11 +97,11 @@ class EditBudget extends React.Component {
                     <div className="edit-budget-income-wrapper">
                         <div className="edit-budget-income">
                             <label>What's your income?</label>
-                            <input type="text" placeholder="$"></input>
+                            <input type="text" placeholder="$" value={this.state.Income}/>
                         </div>
                         <div className={`edit-budget-income-buttons${this.state.isEdited ? '' : '-disable'}`}>
                             <input type="submit" value="Apply Changes"/>
-                            <button>Discard Changes</button>
+                            <button onClick={this.loadStateFromProps}>Discard Changes</button>
                         </div>
                     </div>
                     <div className="edit-budget-sliders-wrapper">
@@ -110,14 +112,14 @@ class EditBudget extends React.Component {
                             <label>Income</label>
                             <div className="slider-display">
                                 <input
-                                onChange={this.handleSplit("income")}
+                                onChange={this.handleSplit("Income")}
                                 type="range"
                                 min="0"
-                                max="100"
-                                step="1"
-                                value={this.state.percentages.income}
+                                max="1"
+                                step="0.00001"
+                                value={this.state.percentages.Income}
                                 />
-                                <div className="display-value">{this.state.percentages.income}</div>
+                                <div className="display-value">${(this.state.percentages.Income * this.state.income).toFixed(2)}</div>
                             </div>
                         </div>
                         <div className="edit-budget-sliders">
