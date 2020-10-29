@@ -20,7 +20,7 @@ class MainPage extends React.Component {
           <img src={splash2} alt="" />
         </div>
 
-        <p className="main-about">Use budgeting app to understand your money better! Reach your goals and encourage others to reach theirs.</p>
+        <p className="main-about">Making Cent$ can help you understand your money better. Reach your goals and encourage others to reach theirs!</p>
 
         <div className="main-second-section">
           <img src={splash1} alt="" />
