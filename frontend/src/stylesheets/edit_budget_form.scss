@@ -46,11 +46,32 @@
     justify-content: center;
 }
 
-.edit-budget-income-buttons {
+.edit-budget-income-buttons,
+.edit-budget-income-buttons-disable {
     display: flex;
     justify-content: space-evenly;
     width: 25%;
     margin-left: 40%;
+}
+
+.edit-budget-income-buttons-disable input,
+.edit-budget-income-buttons-disable button {
+    font-family: $links;
+    font-size: 12px;
+    height: 30px;
+    background-color: $light-green;
+    color: white;
+    padding: 8px 10px; 
+    text-align: center;
+    vertical-align: center;
+    transition: all 0.4s ease;
+    border-radius: 5px;
+    text-decoration: none;
+    border: none;
+}
+
+.edit-budget-income-buttons-disable input[type=submit]:focus {
+    outline: none;
 }
 
 .edit-budget-income-buttons input[type=submit],

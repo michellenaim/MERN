@@ -7,16 +7,19 @@ class EditBudget extends React.Component {
         // TODO: the default state will eventually be set by the props:
         // this.state = this.props.user.budgetBreakdown
         this.state = {
-            home: 10,
-            utilities: 10,
-            savings: 10,
-            food: 30,
-            other: 2,
-            healthAndFitness:  4,
-            shopping: 25,
-            transportation: 4,
-            entertainment: 5,
-            income: 0
+            percentages: {
+                home: 10,
+                utilities: 10,
+                savings: 10,
+                food: 30,
+                other: 2,
+                healthAndFitness:  4,
+                shopping: 25,
+                transportation: 4,
+                entertainment: 5,
+                income: 0
+            },
+            isEdited: false
         };
         // the state will then look like the following:
                     /*
@@ -40,15 +43,18 @@ class EditBudget extends React.Component {
     handleSplit(currentSlider) {
         return e => {
             e.preventDefault();
-            let sliders = {...this.state};
-            let previousSliderValue = sliders[currentSlider]
+            let { percentages, isEdited } = {...this.state};
+            let currentState = percentages;
+            let previousSliderValue = percentages[currentSlider]
             let currentSliderValue = e.target.value;
             let valueChange = currentSliderValue - previousSliderValue;
             if (currentSlider !== "income") {
-                let newIncome = sliders.income - valueChange;
+                let newIncome = percentages.income - valueChange;
                 if (newIncome < 0) return null;
-                this.setState({[currentSlider]: currentSliderValue});
-                this.setState({income: sliders.income - valueChange});
+                currentState[currentSlider] = currentSliderValue;
+                currentState.income = newIncome;
+                this.setState({isEdited: true});
+                this.setState({percentages: currentState});
             } 
         }
     }
@@ -72,11 +78,11 @@ class EditBudget extends React.Component {
                     min="0"
                     max="100"
                     step="1"
-                    value={this.state[slider]}
+                    value={this.state.percentages[slider]}
                     />
-                    <div className="display-value">{this.state[slider]}</div>
+                    <div className="display-value">{this.state.percentages[slider]}</div>
                 </div>
-                <span style={{left: `${7.0+this.state[slider]/2.35}%`}} class="tooltiptext">{this.state[slider]}</span>
+                <span style={{left: `${7.0+this.state.percentages[slider]/2.35}%`}} class="tooltiptext">{this.state.percentages[slider]}</span>
               </div>
             );
         });
@@ -91,7 +97,7 @@ class EditBudget extends React.Component {
                             <label>What's your income?</label>
                             <input type="text" placeholder="$"></input>
                         </div>
-                        <div className="edit-budget-income-buttons">
+                        <div className={`edit-budget-income-buttons${this.state.isEdited ? '' : '-disable'}`}>
                             <input type="submit" value="Apply Changes"/>
                             <button>Discard Changes</button>
                         </div>
@@ -109,9 +115,9 @@ class EditBudget extends React.Component {
                                 min="0"
                                 max="100"
                                 step="1"
-                                value={this.state.income}
+                                value={this.state.percentages.income}
                                 />
-                                <div className="display-value">{this.state.income}</div>
+                                <div className="display-value">{this.state.percentages.income}</div>
                             </div>
                         </div>
                         <div className="edit-budget-sliders">
