@@ -17,14 +17,6 @@ class SignupForm extends React.Component {
     this.loginDemoUser = this.loginDemoUser.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.signedIn === true) {
-      this.props.history.push('/graph'); //push to our home page when we write that route
-    }
-
-    this.setState({errors: nextProps.errors})
-  }
-
   componentWillMount() {
     this.props.clearErrors()
   }
@@ -39,7 +31,6 @@ class SignupForm extends React.Component {
     e.preventDefault();
  
     this.props.signup(this.state)
-      .then(() => this.props.history.push("/graph"))
   }
 
   loginDemoUser(e) {

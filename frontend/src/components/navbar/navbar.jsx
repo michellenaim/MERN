@@ -5,6 +5,7 @@ import logo from "../../stylesheets/images/logo.png";
 
 class NavBar extends React.Component {
   constructor(props) {
+    debugger
     super(props);
     this.logoutUser = this.logoutUser.bind(this);
     this.getLinks = this.getLinks.bind(this);
@@ -18,16 +19,16 @@ class NavBar extends React.Component {
   getLinks() {
       let buttons
       
-      if (this.props.history.location.pathname !== "/login" && this.props.history.location.pathname !== "/signup") {
+    if (this.props.location.pathname !== "/login" && this.props.location.pathname !== "/signup") {
         buttons = (
           <div>
             <Link className="login-button" to={"/signup"}>Signup</Link>
             <Link className="login-button" to={"/login"}>Login</Link>
           </div>
         )
-      } else if (this.props.history.location.pathname !== "/login") {
+      } else if (this.props.location.pathname !== "/login") {
         buttons = <Link className="login-button" to={"/login"}>Login</Link>
-      } else if (this.props.history.location.pathname !== "/signup") {
+      } else if (this.props.location.pathname !== "/signup") {
         buttons = <Link className="login-button" to={"/signup"}>Signup</Link>
       } 
 

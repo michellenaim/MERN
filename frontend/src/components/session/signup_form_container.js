@@ -4,7 +4,6 @@ import SignupForm from './signup_form.jsx';
 
 const mapStateToProps = (state) => {
   return {
-    signedIn: state.session.isSignedIn,
     errors: Object.values(state.errors.session)
   };
 };
