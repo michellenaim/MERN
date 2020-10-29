@@ -41,20 +41,24 @@ class EditBudget extends React.Component {
                              "entertainment"];
         const sliders = sliderArray.map((slider, idx) => {
             return (
-              <div key={idx} className={`edit-budget-slider`}>
+              <div key={idx} className='edit-budget-slider tooltip'>
                 <label>
                   {slider === "healthAndFitness"
                     ? "Health + Fitness"
                     : slider.charAt(0).toUpperCase() + slider.slice(1)}
                 </label>
-                <input
-                onChange={this.handleSplit(slider)}
-                type="range"
-                min="0"
-                max="100"
-                step="1"
-                value={this.state[slider]}
-                />
+                <div className="slider-display">
+                    <input
+                    onChange={this.handleSplit(slider)}
+                    type="range"
+                    min="0"
+                    max="100"
+                    step="1"
+                    value={this.state[slider]}
+                    />
+                    <div className="display-value">{this.state[slider]}</div>
+                </div>
+                <span style={{left: `${7.0+this.state[slider]/2.35}%`}} class="tooltiptext">{this.state[slider]}</span>
               </div>
             );
         });
@@ -78,14 +82,17 @@ class EditBudget extends React.Component {
                     </div>
                     <div className="income-slider">
                         <label>Income</label>
-                        <input
-                        onChange={this.handleSplit("income")}
-                        type="range"
-                        min="0"
-                        max="100"
-                        step="1"
-                        value={this.state.income}
-                        />
+                        <div className="slider-display">
+                            <input
+                            onChange={this.handleSplit("income")}
+                            type="range"
+                            min="0"
+                            max="100"
+                            step="1"
+                            value={this.state.income}
+                            />
+                            <div className="display-value">{this.state.income}</div>
+                        </div>
                     </div>
                     <div className="edit-budget-sliders">
                         {sliders}
