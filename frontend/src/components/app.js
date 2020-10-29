@@ -8,8 +8,10 @@ import LoginFormContainer from './session/login_form_container.js';
 import SignupFormContainer from './session/signup_form_container.js';
 import BudgetEditContainer from './budget/edit_budget_form_container.js'
 import Footer from "./footer/footer"
+import DashboardContainer from "./dashboard/dashboard_container"
 import DoughnutGraph from './graphs/doughnut_graph_container'
 import PolarGraph from './graphs/polar_graph_container'
+
 
 const App = () => (
   <div>
@@ -19,7 +21,8 @@ const App = () => (
       <AuthRoute exact path="/" component={MainPage} />
       <AuthRoute exact path="/login" component={LoginFormContainer} />
       <AuthRoute exact path="/signup" component={SignupFormContainer} />
-
+  
+      <ProtectedRoute exact path="/dashboard" component={DashboardContainer} />
       <ProtectedRoute exact path="/graph" component={DoughnutGraph}/>
       <ProtectedRoute exact path="/polargraph" component={PolarGraph}/>
       <AuthRoute exact path="/budget/edit" component={BudgetEditContainer} />

@@ -1,0 +1,106 @@
+@import "./colors.scss";
+@import "./fonts.scss";
+
+.transaction-button {
+    width: 145px;
+    height: 43px;
+    font-family: $links;
+    font-size: 15px;
+    background: $dark-green;
+    color: white;
+    border: 1px solid transparent;
+    padding: 8px 10px;
+    text-align: center;
+    transition: all 0.4s ease;
+    border-radius: 5px;
+}
+
+.transaction-button:hover {
+    cursor: pointer;
+    background-color: $light-green;
+    border: 1px solid $dark-green;
+    color: $dark-green;
+    transition: all 0.4s ease
+}
+
+.add-transaction{
+    display: flex;
+    justify-content: space-around;
+}
+
+.transaction-title{
+    font-size: 20px;
+    margin-left: 30px;
+    margin-bottom: 25px;
+    margin-top: 25px;
+    font-family: $title;
+    color: $dark-green;
+    border: 1px solid transparent;
+    width: 180px;
+    // text-align: center;
+    // border-radius: 5px;
+    // background-color: $light-green;
+}
+
+.transactions-table{
+    // width: 80%;
+    justify-content: center;
+    align-items: center;
+    border-spacing: 5px;
+    width: 100%;
+}
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 15px;
+}
+
+th {
+  text-align: left;
+  font-family: $title;
+}
+
+input[type=text], input[type=number], input[type=date], select {
+  color: $dark-gray
+}
+
+.add-transaction > input[type=text] {
+    width: 400px
+}
+
+// input[type=number], input[type=date], select {
+//     width: 200px
+// }
+
+.edit-delete-buttons{
+    padding: 15px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.edit-delete-buttons > i{
+    padding: 7px;
+}
+
+.edit-delete-buttons > button{
+    border: none;
+    background: none;
+    font-size: 20px;
+    color: $dark-gray;
+}
+
+.edit-delete-buttons > button:hover{
+    cursor: pointer;
+}
+
+.table{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px;
+}
