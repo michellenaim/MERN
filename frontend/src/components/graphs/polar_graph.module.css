@@ -1,4 +1,4 @@
-.graphContainer {
+.polarGraphContainer {
     width: 50vw;
     height: 50vh;
     background-color: transparent;
@@ -6,7 +6,7 @@
 }
 
 /* @media only screen and (max-width: 600px) {
-    .graphContainer {
+    .polarGraphContainer {
         width: 80vw;
     }
 } */

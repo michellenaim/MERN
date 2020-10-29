@@ -1,12 +1,12 @@
 import React from 'react'
 import Chart from "chart.js";
-import classes from "./graph.module.css";
+import classes from "./doughnut_graph.module.css";
 import '../../stylesheets/fonts.scss'
 Chart.defaults.global.defaultFontFamily = "'Helvetica', sans-serif;"
 // Chart.defaults.global.legend.display = false; //if we don't want to display the legend
 
 
-class Graph extends React.Component {
+class DoughnutGraph extends React.Component {
   // constructor(props) {
   //   super(props)
   //   // this.currentUser = this.props.currentUser
@@ -68,7 +68,7 @@ class Graph extends React.Component {
   render() {
     return (
       <div className="graphpage">
-        <div className={classes.graphContainer}>
+        <div className={classes.doughnutGraphContainer}>
           <canvas
             id="myChart"
             ref={this.chartRef}
@@ -79,4 +79,4 @@ class Graph extends React.Component {
   }
 }
 
-export default Graph
+export default DoughnutGraph
