@@ -13,7 +13,8 @@ class EditBudget extends React.Component {
             healthAndFitness:  4,
             shopping: 25,
             transportation: 4,
-            entertainment: 5
+            entertainment: 5,
+            income: 0
         };
         this.handleSplit = this.handleSplit.bind(this);
     }
@@ -25,11 +26,11 @@ class EditBudget extends React.Component {
             let previousSliderValue = sliders[currentSlider]
             let currentSliderValue = e.target.value;
             let valueChange = currentSliderValue - previousSliderValue;
-            if (currentSlider !== "savings") {
-                let newSavings = sliders.savings - valueChange;
-                if (newSavings < 0) return null;
+            if (currentSlider !== "income") {
+                let newIncome = sliders.income - valueChange;
+                if (newIncome < 0) return null;
                 this.setState({[currentSlider]: currentSliderValue});
-                this.setState({savings: sliders.savings - valueChange});
+                this.setState({income: sliders.income - valueChange});
             } 
         }
     }
@@ -74,6 +75,17 @@ class EditBudget extends React.Component {
                 <div className="edit-budget-sliders-wrapper">
                     <div className="edit-budget-sliders-title">
                         <p>Breakdown your budget:</p>
+                    </div>
+                    <div className="income-slider">
+                        <label>Income</label>
+                        <input
+                        onChange={this.handleSplit("income")}
+                        type="range"
+                        min="0"
+                        max="100"
+                        step="1"
+                        value={this.state.income}
+                        />
                     </div>
                     <div className="edit-budget-sliders">
                         {sliders}

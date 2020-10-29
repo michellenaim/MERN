@@ -85,15 +85,23 @@
 }
 
 .edit-budget-sliders-title {
+    padding-left: 5%;
     padding-top: 3%;
     padding-bottom: 3%;
+}
+
+.income-slider {
+    padding-left: 5%;
+    padding-right: 10%;
+    padding-bottom: 4%;
+    width: 20%;
 }
 
 .edit-budget-sliders {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    height: 70%;
+    height: 50%;
 }
 .edit-budget-slider {
     padding-right: 10%;
