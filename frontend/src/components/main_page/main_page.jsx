@@ -6,9 +6,11 @@ import "../../stylesheets/main_page.scss";
 import '../../stylesheets/nav_bar.scss';
 
 class MainPage extends React.Component {
+  
   render() {
     return (
       <div className="main-page">
+
         <div className="main-first-section">
           <div className="main-first-left">
             <p>Saving money has never been so easy.</p>
