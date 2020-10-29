@@ -73,20 +73,32 @@ const UserSchema = new Schema(
       default: 1000,
     },
     budgetBreakdown: {
-      type: [     // removing array from the value of type takes away Object Ids
+      type: [
+        // removing array from the value of type takes away Object Ids
         {
-          percent: {
-            type: Number,
-          },
-          category: {
-            type: String,
-          },
-          incomeSplit: {
-            type: Number,
-          }
+          percent: { type: Number },
+          category: { type: String },
+          incomeSplit: { type: Number },
         },
       ],
-    default: defaultBudgetCategories,
+      default: defaultBudgetCategories,
+    },
+    transactions: {
+      type: [
+        {
+          // JavaScript ISO Dates ISO 8601 is the international standard
+          // ISO 8601 format: "2020-10-29"
+          date: { type: Date },
+          // date: { type: Date, required: true },
+          amount: { type: Number },
+          // amount: { type: Number, required: true },
+          description: { type: String },
+          // description: { type: String, required: true },
+          category: { type: String },
+          // category: { type: String, required: true },
+        },
+      ],
+      default: [],
     },
   },
   {
@@ -95,7 +107,6 @@ const UserSchema = new Schema(
 );
 
 module.exports = User = mongoose.model('User', UserSchema)
-
 
 // user schema (working model)
     // {
