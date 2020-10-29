@@ -5,38 +5,47 @@ const defaultBudgetCategories = [
   {
     percent: 0.3,
     category: "Home",
+    incomeSplit: 300,
   },
   {
     percent: 0.1,
     category: "Utilities",
+    incomeSplit: 100,
   },
   {
-    percent: 0.1,
+    percent: 0.2,
     category: "Food",
+    incomeSplit: 200,
   },
   {
     percent: 0.1,
     category: "Transportation",
+    incomeSplit: 100,
   },
   {
     percent: 0.1,
     category: "Health & Fitness",
+    incomeSplit: 100,
   },
   {
-    percent: 0.1,
+    percent: 0,
     category: "Shopping",
+    incomeSplit: 0,
   },
   {
     percent: 0.1,
     category: "Entertainment",
+    incomeSplit: 100,
   },
   {
     percent: 0.1,
     category: "Savings",
+    incomeSplit: 100,
   },
   {
     percent: 0,
     category: "Other",
+    incomeSplit: 0,
   },
 ];
 
@@ -61,11 +70,10 @@ const UserSchema = new Schema(
     },
     income: {
       type: Number,
-      default: 0,
+      default: 1000,
     },
     budgetBreakdown: {
-      type: [        // removing array around type takes away Object Ids
-      // type: 
+      type: [     // removing array from the value of type takes away Object Ids
         {
           percent: {
             type: Number,
@@ -73,16 +81,12 @@ const UserSchema = new Schema(
           category: {
             type: String,
           },
+          incomeSplit: {
+            type: Number,
+          }
         },
       ],
-    //   type: Array,
-    //   percent: {
-    //     type: Number,
-    //   },
-    //   category: {
-    //     type: String,
-    //   },
-      default: defaultBudgetCategories,
+    default: defaultBudgetCategories,
     },
   },
   {
@@ -93,6 +97,7 @@ const UserSchema = new Schema(
 module.exports = User = mongoose.model('User', UserSchema)
 
 
+// user schema (working model)
     // {
     //     _id: ObjectId("5d8d5b50a5b9d4a3c402f571"),
     //     firstname: "i_love_walking",
@@ -109,18 +114,8 @@ module.exports = User = mongoose.model('User', UserSchema)
     //     ]
     // }
 
-    // budgetbreakdown: [
-    //     { percent: .00, category: "" },
-    //     { percent: .00, category: "" },
-    //     { percent: .00, category: "" },
-    //     { percent: .00, category: "" },
-    //     { percent: .00, category: "" },
-    //     { percent: .00, category: "" },
-    //     { percent: .00, category: "" },
-    //     { percent: .00, category: "" },
-    //     { percent: .00, category: "" }
-    // ]
-
+   
+// how child schemas work to be embedded in a parent schema
 // const childSchema = new Schema({ name: 'string' });
 
 // const parentSchema = new Schema({
