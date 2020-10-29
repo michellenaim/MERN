@@ -24,7 +24,6 @@ class DoughnutGraph extends React.Component {
       data: {
         labels: ['Home', 'Utilities', 'Food', 'Transportation', 'Health & Fitness', 'Shopping', 'Entertainment', 'Savings', 'Other'],
         datasets: [{
-          label: '# of Votes',
           data: [10, 10, 10, 10, 10, 10, 10, 10, 10],
           backgroundColor: [
             'rgba(40, 147, 255, 0.3)',

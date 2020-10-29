@@ -5,6 +5,7 @@ import logo from "../../stylesheets/images/logo.png";
 
 class NavBar extends React.Component {
   constructor(props) {
+    debugger
     super(props);
     this.logoutUser = this.logoutUser.bind(this);
     this.getLinks = this.getLinks.bind(this);
@@ -16,14 +17,29 @@ class NavBar extends React.Component {
   }
 
   getLinks() {
+      let buttons
+      
+    if (this.props.location.pathname !== "/login" && this.props.location.pathname !== "/signup") {
+        buttons = (
+          <div>
+            <Link className="login-button" to={"/signup"}>Signup</Link>
+            <Link className="login-button" to={"/login"}>Login</Link>
+          </div>
+        )
+      } else if (this.props.location.pathname !== "/login") {
+        buttons = <Link className="login-button" to={"/login"}>Login</Link>
+      } else if (this.props.location.pathname !== "/signup") {
+        buttons = <Link className="login-button" to={"/signup"}>Signup</Link>
+      } 
+
       if (this.props.loggedIn) {
         return (
           <div className="nav-bar">
-            <div className="logo" >
-              <Link to="/">
+            <div>
+              <Link className="logo" to="/">
                 <img className="logo-img" src={logo} alt="" />
+                <p>Making Cent$</p>
               </Link>
-              <p>Making cents</p>
             </div>
             <button className="login-button" onClick={this.logoutUser}>
               Logout
@@ -33,20 +49,14 @@ class NavBar extends React.Component {
       } else {
         return (
           <div className="nav-bar">
-            <div className="logo" >
-              <Link to="/">
+            <div>
+              <Link className="logo" to="/">
                 <img className="logo-img" src={logo} alt="" />
+                <p>Making Cent$</p>
               </Link>
-              <p>Making Cent$</p>
             </div>
             <div className="nav-right">
-              {this.props.history.location.pathname !== "/login" &&
-                this.props.history.location.pathname !== "/signup" && (
-                  <div>
-                    <Link className="login-button" to={"/signup"}>Signup</Link>
-                    <Link className="login-button" to={"/login"}>Login</Link>
-                  </div>
-                )}
+              {buttons}
             </div>
           </div>
         );
@@ -56,7 +66,7 @@ class NavBar extends React.Component {
   render() {
       return (
         <div>
-            { this.getLinks() }
+          { this.getLinks() }
         </div>
       );
   }

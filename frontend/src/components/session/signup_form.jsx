@@ -17,14 +17,6 @@ class SignupForm extends React.Component {
     this.loginDemoUser = this.loginDemoUser.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.signedIn === true) {
-      this.props.history.push('/login'); //push to our home page when we write that route
-    }
-
-    this.setState({errors: nextProps.errors})
-  }
-
   componentWillMount() {
     this.props.clearErrors()
   }
@@ -37,15 +29,8 @@ class SignupForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    let user = {
-        firstname: this.state.firstname,
-        lastname: this.state.lastname,
-        email: this.state.email,
-        password: this.state.password,
-        password2: this.state.password2
-    };
-
-    this.props.signup(user, this.props.history); 
+ 
+    this.props.signup(this.state)
   }
 
   loginDemoUser(e) {
