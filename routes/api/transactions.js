@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const User = require("../../models/User");
+const validateTransactions = require("../../validation/transaction")
 
 // use asynchronous routes
 
@@ -16,11 +17,11 @@ router.get("/", passport.authenticate('jwt', { session: false }),
 
 router.post("/", passport.authenticate("jwt", { session: false }), 
     async (req, res) => {
-        // const { isValid, errors } = validateTransactions(req.body);
+        const { isValid, errors } = validateTransactions(req.body);
 
-        // if (!isValid) {
-        //     return res.status(400).json(errors);
-        // }
+        if (!isValid) {
+            return res.status(400).json(errors);
+        }
 
         const { date, amount, description, category } = req.body.transaction;
 
@@ -39,7 +40,7 @@ router.post("/", passport.authenticate("jwt", { session: false }),
               ...req.user.transactions,
             ],
           })
-          .save();
+          .save()
 
         console.log(req.user);
 
