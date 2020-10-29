@@ -3,7 +3,7 @@ import Dashboard from './dashboard';
 
 const mapStateToProps = (state) => {
     return {
-        //need current user in our state?
+        //need current user in our state => firstname but there is only email in the state right now
     }
 };
 
