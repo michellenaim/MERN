@@ -1,6 +1,5 @@
 import React from 'react';
 import github_gray from "../../stylesheets/images/github_gray.png";
-import "../../stylesheets/footer.scss"
 
 class Footer extends React.Component {
 

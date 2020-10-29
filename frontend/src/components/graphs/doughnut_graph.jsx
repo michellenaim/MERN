@@ -1,21 +1,22 @@
 import React from 'react'
 import Chart from "chart.js";
-import classes from "./graph.module.css";
-import '../../stylesheets/fonts.scss'
-Chart.defaults.global.defaultFontFamily = "'Helvetica', sans-serif;"
+import classes from "./doughnut_graph.module.css";
 // Chart.defaults.global.legend.display = false; //if we don't want to display the legend
 
 
-class Graph extends React.Component {
-  // constructor(props) {
-  //   super(props)
-  //   // this.currentUser = this.props.currentUser
-  //   // this.currentPercentages = this.props.currentPercentages
-  // }
+class DoughnutGraph extends React.Component {
+  constructor(props) {
+    super(props)
+    // this.currentUser = this.props.currentUser
+    // this.currentPercentages = this.props.currentPercentages
+  }
 
   chartRef = React.createRef();
   
   componentDidMount() {
+    this.props.fetchAllUsers()
+    this.props.fetchCurrentUser()
+
     const myChartRef = this.chartRef.current.getContext("2d");
     // const data = array that contains this.currentPercentages
 
@@ -24,7 +25,6 @@ class Graph extends React.Component {
       data: {
         labels: ['Home', 'Utilities', 'Food', 'Transportation', 'Health & Fitness', 'Shopping', 'Entertainment', 'Savings', 'Other'],
         datasets: [{
-          label: '# of Votes',
           data: [10, 10, 10, 10, 10, 10, 10, 10, 10],
           backgroundColor: [
             'rgba(40, 147, 255, 0.3)',
@@ -61,6 +61,22 @@ class Graph extends React.Component {
           ],
           borderWidth: 0.5
         }]
+      },
+      options: {
+        // legend: {
+        //     position: 'left'
+        // },
+        tooltips: {
+          displayColors: false,
+          callbacks: {
+            title: function (tooltipItem, data) {
+              return data['labels'][tooltipItem[0]['index']] + ":";
+            },
+            label: function (tooltipItem, data) {
+              return data['datasets'][0]['data'][tooltipItem['index']] + "% of income allocated";
+            }
+          }
+        },
       }
     });
 
@@ -68,7 +84,7 @@ class Graph extends React.Component {
   render() {
     return (
       <div className="graphpage">
-        <div className={classes.graphContainer}>
+        <div className={classes.doughnutGraphContainer}>
           <canvas
             id="myChart"
             ref={this.chartRef}
@@ -79,4 +95,4 @@ class Graph extends React.Component {
   }
 }
 
-export default Graph
+export default DoughnutGraph

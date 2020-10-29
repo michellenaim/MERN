@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Graph from './graph';
+import PolarGraph from './polar_graph';
 
 const mapStateToProps = (state) => {
     return {
@@ -10,8 +10,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        
+
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Graph);
+export default connect(mapStateToProps, mapDispatchToProps)(PolarGraph);

@@ -6,6 +6,7 @@ import jwt_decode from 'jwt-decode';
 import { setAuthToken } from './util/session_api_util';
 import { logout } from './actions/session_actions';
 import axios from "axios";
+// import { fetchCurrentUser, fetchAllUsers } from "./actions/users_actions";
 
 import "./stylesheets/_index.scss";
 
@@ -32,5 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('root');
 
   ReactDOM.render(<Root store={store} />, root);
-  window.axios = axios
+  window.axios = axios;
+  window.dispatch = store.dispatch;
+  // window.fetchAllUsers = fetchAllUsers;
+  // window.fetchCurrentUser = fetchCurrentUser;
 });
