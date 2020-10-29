@@ -6,6 +6,7 @@ import ScrollToTop from './ScrollToTop'
 import MainPage from './main_page/main_page.jsx';
 import LoginFormContainer from './session/login_form_container.js';
 import SignupFormContainer from './session/signup_form_container.js';
+import BudgetEditContainer from './budget/edit_budget_form_container.js'
 import Footer from "./footer/footer"
 import DoughnutGraph from './graphs/doughnut_graph'
 import PolarGraph from './graphs/polar_graph'
@@ -21,6 +22,7 @@ const App = () => (
 
       <ProtectedRoute exact path="/graph" component={DoughnutGraph}/>
       <ProtectedRoute exact path="/polargraph" component={PolarGraph}/>
+      <AuthRoute exact path="/budget/edit" component={BudgetEditContainer} />
     </Switch>
 
     <footer>
