@@ -88,6 +88,22 @@ const UserSchema = new Schema(
       ],
     default: defaultBudgetCategories,
     },
+    transactions: {
+      type: [
+        {
+          amount: {
+            type: Number,
+          },
+          description: {
+            type: String,
+          },
+          category: {
+            type: String,
+          }
+        }
+      ],
+      default: []
+    }
   },
   {
     timestamps: true,
@@ -95,7 +111,6 @@ const UserSchema = new Schema(
 );
 
 module.exports = User = mongoose.model('User', UserSchema)
-
 
 // user schema (working model)
     // {

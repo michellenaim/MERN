@@ -2,12 +2,12 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const User = require("../../models/User");
-const db = require("../../config/keys").mongoURI;
 
 // use asynchronous routes
 
 // budgets index
-router.get("/", passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.get("/", passport.authenticate('jwt', { session: false }), 
+  async (req, res) => {
   
     // calculate income splits from user's income
     let userIncome = req.user.income;
@@ -17,42 +17,43 @@ router.get("/", passport.authenticate('jwt', { session: false }), async (req, re
     });
 
     res.status(200).json({
-    income: req.user.income,
-    budgetBreakdown: req.user.budgetBreakdown,
+      income: req.user.income,
+      budgetBreakdown: req.user.budgetBreakdown,
     });
 });
 
 //budgets update 
-router.patch("/update", passport.authenticate('jwt', { session: false }), async (req, res) => {
-  try {
-    // update user income in DB with user's input from frontend
-    req.user.income = req.body.income;
+router.patch("/update", passport.authenticate('jwt', { session: false }), 
+  async (req, res) => {
+    try {
+      // update user income in DB with user's input from frontend
+      req.user.income = req.body.income;
 
-    // update user budget breakdown percentages in DB with user's input
-    req.body.budgetBreakdown.forEach((bodyObj) => {
-      let updatedBudgetCategory = req.user.budgetBreakdown.filter(
-        (originalObj) => bodyObj.category === originalObj.category
-      )[0];
+      // update user budget breakdown percentages in DB with user's input
+      req.body.budgetBreakdown.forEach((bodyObj) => {
+        let updatedBudgetCategory = req.user.budgetBreakdown.filter(
+          (originalObj) => bodyObj.category === originalObj.category
+        )[0];
 
-      updatedBudgetCategory.percent = bodyObj.percent;
-    });
+        updatedBudgetCategory.percent = bodyObj.percent;
+      });
 
-    // calculate income splits from user's income
-    let userIncome = req.user.income;
+      // calculate income splits from user's income
+      let userIncome = req.user.income;
 
-    req.user.budgetBreakdown.forEach((obj) => {
-      obj.incomeSplit = userIncome * obj.percent;
-    });
+      req.user.budgetBreakdown.forEach((obj) => {
+        obj.incomeSplit = userIncome * obj.percent;
+      });
 
-    // return the information from backend
-    res.status(200).json({
-      income: req.user.income,
-      budgetBreakdown: req.user.budgetBreakdown,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-
+      // return the information from backend
+      res.status(200).json({
+        income: req.user.income,
+        budgetBreakdown: req.user.budgetBreakdown,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+    
   // for debugging, to see updated user in server
   // const updatedUser = await req.user.save();   // await => wait until the user saves
   // console.log(updatedUser);
