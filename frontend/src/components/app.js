@@ -8,8 +8,8 @@ import LoginFormContainer from './session/login_form_container.js';
 import SignupFormContainer from './session/signup_form_container.js';
 import BudgetEditContainer from './budget/edit_budget_form_container.js'
 import Footer from "./footer/footer"
-import DoughnutGraph from './graphs/doughnut_graph'
-import PolarGraph from './graphs/polar_graph'
+import DoughnutGraph from './graphs/doughnut_graph_container'
+import PolarGraph from './graphs/polar_graph_container'
 
 const App = () => (
   <div>

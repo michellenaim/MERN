@@ -4,7 +4,6 @@ import logo from "../../stylesheets/images/logo.png";
 
 class NavBar extends React.Component {
   constructor(props) {
-    debugger
     super(props);
     this.logoutUser = this.logoutUser.bind(this);
     this.getLinks = this.getLinks.bind(this);

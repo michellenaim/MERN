@@ -1,21 +1,22 @@
 import React from 'react'
 import Chart from "chart.js";
 import classes from "./doughnut_graph.module.css";
-import '../../stylesheets/fonts.scss'
-Chart.defaults.global.defaultFontFamily = "'Helvetica', sans-serif;"
 // Chart.defaults.global.legend.display = false; //if we don't want to display the legend
 
 
 class DoughnutGraph extends React.Component {
-  // constructor(props) {
-  //   super(props)
-  //   // this.currentUser = this.props.currentUser
-  //   // this.currentPercentages = this.props.currentPercentages
-  // }
+  constructor(props) {
+    super(props)
+    // this.currentUser = this.props.currentUser
+    // this.currentPercentages = this.props.currentPercentages
+  }
 
   chartRef = React.createRef();
   
   componentDidMount() {
+    this.props.fetchAllUsers()
+    this.props.fetchCurrentUser()
+
     const myChartRef = this.chartRef.current.getContext("2d");
     // const data = array that contains this.currentPercentages
 

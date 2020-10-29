@@ -1,14 +1,10 @@
-// import {} from "../actions/user_actions";
+import { RECEIVE_USER } from "../actions/users_actions";
 
 const CurrentUserReducer = (state = {}, action) => {
     Object.freeze(state);
     switch (action.type) {
-        // case RECEIVE_SESSION_ERRORS:
-        //     return action.errors;
-        // case RECEIVE_CURRENT_USER:
-        //     return _nullErrors;
-        // case CLEAR_SESSION_ERRORS:
-        //     return _nullErrors;
+        case RECEIVE_USER:
+            return action.currentUser;
         default:
             return state;
     }

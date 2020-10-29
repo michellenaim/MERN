@@ -11,12 +11,20 @@ const validateLoginInput = require('../../validation/login');
 
 router.get("/test", (req, res) => res.json({ msg: "This is the users route" }));
 
+router.get("/all", (req, res) => {
+  User.find()
+    .sort({ createdAt: -1 })
+    .then(users => res.json(users))
+})
+
 router.get('/current', passport.authenticate('jwt', {session: false}), (req, res) => {
     res.json({
       id: req.user.id,
       firstname: req.user.firstname,
       lastname: req.user.lastname,
-      email: req.user.email
+      email: req.user.email,
+      income: req.user.income,
+      budgetBreakdown: req.user.budgetBreakdown
     });
 })
 
