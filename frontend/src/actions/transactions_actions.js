@@ -48,7 +48,6 @@ export const removeTransactionErrors = () => {
     })
 }
 
-
 export const fetchAllTransactions = () => dispatch => {
     return TransactionApiUtil.fetchAllTransactions()
         .then(transactions => dispatch(receiveAllTransactions(transactions)))
@@ -56,8 +55,13 @@ export const fetchAllTransactions = () => dispatch => {
 
 export const logTransaction = (transaction) => dispatch => {
     return TransactionApiUtil.logTransaction(transaction)
-        .then(transaction => dispatch(createTransaction(transaction)))
-        .catch(err => dispatch(receiveTransactionErrors(err)))
+        .then(
+            transaction => dispatch(createTransaction(transaction)), 
+            (err) => {
+                dispatch(receiveTransactionErrors(err))
+                return(Promise.reject())
+            }
+        )
 }
 
 export const updateTransaction = (transaction) => dispatch => {
@@ -70,10 +74,10 @@ export const deleteTransaction = (transaction) => dispatch => {
         .then(transaction => dispatch(removeTransaction(transaction)))
 }
 
-export const clearTransactionErrors = () => (dispatch) => {
-    return (
-        dispatch(removeTransactionErrors())
-    )
-}
+// export const clearTransactionErrors = () => (dispatch) => {
+//     return (
+//         dispatch(removeTransactionErrors())
+//     )
+// }
 
 
