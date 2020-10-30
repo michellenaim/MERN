@@ -50,8 +50,12 @@ router.patch("/update", passport.authenticate('jwt', { session: false }),
         income: req.user.income,
         budgetBreakdown: req.user.budgetBreakdown,
       });
-    } catch (error) {
-      console.error(error);
+    } catch (errors) {
+      // console.log(errors);
+      // 422 => unprocessable entity
+      return res.status(422).json({ 
+        ...errors
+      });
     }
     
   // for debugging, to see updated user in server
@@ -69,16 +73,15 @@ module.exports = router;
 //     "income": 0,
 //     "budgetBreakdown": [
 //         {
-//             "percent": 0.53,
+//             "percent": 0.4,
 //             "category": "Home"
 //         },
 //         {
-//             "percent": 0.6,
+//             "percent": 0.2,
 //             "category": "Other"
 //         }
 //     ]
 // }
-
 
 // for debugging 
 //   res.status(200).json({
@@ -90,13 +93,3 @@ module.exports = router;
 //     updatedBudget: req.body.budgetBreakdown,
 //   });
 
-//   const updatedUser = await User.findOneAndUpdate(
-//     { _id: req.user._id },
-//     {
-//       $set: {
-//         budgetBreakdown: req.body.budgetBreakdown,   
-        // set updates the object but re-assigns a new object ID each time
-//       },
-//     }
-//     //   options
-//   );

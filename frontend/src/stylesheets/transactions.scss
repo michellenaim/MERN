@@ -1,6 +1,10 @@
 @import "./colors.scss";
 @import "./fonts.scss";
 
+.transactions {
+  margin: 100px 3vw;
+}
+
 .transaction-button {
     width: 145px;
     height: 43px;
@@ -24,13 +28,26 @@
 }
 
 .add-transaction{
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
-.transaction-title{
+.transaction-input{
+  font-family: $body;
+  color: $dark-gray;
+  border: none;
+  border-radius: 5px;
+  border: 1px solid $dark-gray;
+}
+
+.transaction-input::placeholder {
+  font-family: $body;
+  color: $dark-gray;
+}
+
+.transaction-title {
     font-size: 20px;
-    margin-left: 30px;
     margin-bottom: 25px;
     margin-top: 25px;
     font-family: $title;
@@ -38,7 +55,6 @@
     border: 1px solid transparent;
     width: 180px;
     // text-align: center;
-    // border-radius: 5px;
     // background-color: $light-green;
 }
 
@@ -72,10 +88,6 @@ input[type=text], input[type=number], input[type=date], select {
     width: 400px
 }
 
-// input[type=number], input[type=date], select {
-//     width: 200px
-// }
-
 .edit-delete-buttons{
     padding: 15px;
     display: flex;
@@ -102,5 +114,4 @@ input[type=text], input[type=number], input[type=date], select {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 30px;
 }

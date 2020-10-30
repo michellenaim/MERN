@@ -74,7 +74,7 @@ router.patch("/update", [
       if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() })
       }
-
+  
     try {
       // console.log(req.body.transaction)
 
