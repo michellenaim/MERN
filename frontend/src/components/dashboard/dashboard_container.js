@@ -1,5 +1,7 @@
 import { connect } from 'react-redux';
 import Dashboard from './dashboard';
+import { fetchAllTransactions } from '../../actions/transactions_actions'
+
 
 const mapStateToProps = (state) => {
     return {
@@ -10,7 +12,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        
+        fetchAllTransactions: () => dispatch(fetchAllTransactions())
     }
 }
 
