@@ -9,6 +9,7 @@ class EditBudget extends React.Component {
             percentages: {},
             incomeSplits: {},
             income: 0,
+            updatedIncome: null,
             isEdited: false
         }
 
@@ -17,6 +18,7 @@ class EditBudget extends React.Component {
         this.handleSplit = this.handleSplit.bind(this);
         this.loadStateFromProps = this.loadStateFromProps.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleUpdatedIncome = this.handleUpdatedIncome.bind(this);
     }
 
     componentDidMount() {
@@ -27,11 +29,15 @@ class EditBudget extends React.Component {
             });
     }
 
+    handleUpdatedIncome(e) {
+        this.setState({updatedIncome: e.target.value})
+    }
+
     handleSplit(currentSlider) {
         return e => {
             e.preventDefault();
+            let { percentages, incomeSplits, updatedIncome } = {...this.state};
             if (currentSlider !== "Income") {
-                let { percentages, incomeSplits } = {...this.state};
                 let currentPercentages = percentages;
                 let currentIncomeSplits = incomeSplits;
                 let previousSliderValue = percentages[currentSlider]
@@ -39,17 +45,21 @@ class EditBudget extends React.Component {
                 let valueChange = currentSliderValue - previousSliderValue;
                 let newIncome = percentages.Income - valueChange;
                 if (newIncome < 0) return null;
-                currentPercentages[currentSlider] = currentSliderValue;
                 currentPercentages.Income = newIncome;
-                currentIncomeSplits[currentSlider] = Math.floor(this.state.income*currentSliderValue);
-                currentIncomeSplits.Income = Math.floor(newIncome*this.state.income)
+                currentPercentages[currentSlider] = currentSliderValue;
+                currentIncomeSplits[currentSlider] = Math.ceil(this.state.income*currentSliderValue);
+                currentIncomeSplits.Income = Math.ceil(newIncome*this.state.income)
                 this.setState({percentages: currentPercentages});
                 this.setState({incomeSplits: currentIncomeSplits});
+                this.setState({isEdited: true});
             }
-            else if (currentSlider === "Income") {
-                this.setState({income: e.target.value})
+            else if (currentSlider === "Income" && 
+                     updatedIncome !== null &&
+                     updatedIncome.trim().length > 0)
+            {
+                this.setState({income: updatedIncome})
+                this.setState({isEdited: true});
             }
-            this.setState({isEdited: true});
         }
     }
     
@@ -71,7 +81,7 @@ class EditBudget extends React.Component {
             totalPercentage += budgetSplit.percent;
         })
         currentPercentages.Income = 1 - totalPercentage;
-        currentIncomeSplits.Income = Math.floor(currentPercentages.Income*this.props.currentUser.income);
+        currentIncomeSplits.Income = Math.ceil(currentPercentages.Income*this.props.currentUser.income);
         this.setState({isEdited: false});
         this.setState({percentages: currentPercentages});
         this.setState({incomeSplits: currentIncomeSplits})
@@ -84,10 +94,17 @@ class EditBudget extends React.Component {
         let updatedBudgetBreakdown = [];
         this.budgetBreakdown.forEach(budgetType => {
             let updatedBudgetType = {};
-            updatedBudgetType[budgetType.category] = budgetType.category;
-            //updatedBudgetType.incomeSplit = budgetType.
-            //debugger
+            const category = budgetType.category;
+            updatedBudgetType._id = budgetType._id;
+            updatedBudgetType[category] = category;
+            updatedBudgetType.incomeSplit = this.state.incomeSplits[category];
+            updatedBudgetType.percent = this.state.percentages[category];
+            updatedBudgetBreakdown.push(updatedBudgetType);
         })
+        // TODO:
+        // at this point, this.state.income has either updated income or default income
+        // call budgetBreakdown action that updates both income and budgetBreakdown
+        this.setState({isEdited: false});
     }
 
     render() {
@@ -126,7 +143,8 @@ class EditBudget extends React.Component {
                     <div className="edit-budget-income-wrapper">
                         <div className="edit-budget-income">
                             <label>What's your income?</label>
-                            <input onChange={this.handleSplit("Income")} type="text" placeholder="$" value={this.state.Income}/>
+                            <input onChange={this.handleUpdatedIncome} type="text" placeholder="$" value={this.state.updatedIncome}/>
+                            <button onClick={this.handleSplit("Income")}>Apply Income</button>
                         </div>
                         <div className={`edit-budget-income-buttons${this.state.isEdited ? '' : '-disable'}`}>
                             <input type="submit" value="Apply Changes"/>
