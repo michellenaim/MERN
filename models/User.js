@@ -88,14 +88,14 @@ const UserSchema = new Schema(
         {
           // JavaScript ISO Dates ISO 8601 is the international standard
           // ISO 8601 format: "2020-10-29"
-          date: { type: Date },
-          // date: { type: Date, required: true },
-          amount: { type: Number },
-          // amount: { type: Number, required: true },
-          description: { type: String },
-          // description: { type: String, required: true },
-          category: { type: String },
-          // category: { type: String, required: true },
+          // date: { type: Date },
+          date: { type: Date, required: true },
+          // amount: { type: Number },
+          amount: { type: Number, required: true },
+          // description: { type: String },
+          description: { type: String, required: true },
+          // category: { type: String },
+          category: { type: String, required: true },
         },
       ],
       default: [],
