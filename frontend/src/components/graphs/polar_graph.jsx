@@ -24,7 +24,7 @@ class PolarGraph extends React.Component {
             data: {
                 labels: ['Home', 'Utilities', 'Food', 'Transportation', 'Health & Fitness', 'Shopping', 'Entertainment', 'Savings', 'Other'],
                 datasets: [{
-                    data: [120, 100, 80, 50, 60, 110, 90, 115, 70],
+                    data: [90, 80, 85, 50, 60, 95, 90, 47, 70],
                     backgroundColor: [
                         'rgba(40, 147, 255, 0.3)',
                         'rgba(255, 255, 40, 0.4)',
@@ -60,6 +60,31 @@ class PolarGraph extends React.Component {
                     ],
                     borderWidth: 0.5
                 }]
+            }, 
+            options: {
+                scale: {
+                    ticks: {
+                        beginAtZero: true,
+                        min: 0,
+                        max: 100,
+                        stepSize: 20
+                    }
+                },
+                // legend: {
+                //     position: 'left'
+                // },
+                tooltips: {
+                    displayColors: false,
+                    callbacks: {
+                        title: function (tooltipItem, data) {
+                            return data['labels'][tooltipItem[0]['index']] + ":";
+                        },
+                        label: function (tooltipItem, data) {
+                            return data['datasets'][0]['data'][tooltipItem['index']] + "% used so far";
+                        }
+                    },
+                    
+                },
             }
         });
 

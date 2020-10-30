@@ -1,0 +1,148 @@
+@import "./colors.scss";
+@import "./fonts.scss";
+
+.transactions {
+  margin: 100px 3vw;
+}
+
+.transaction-button {
+    width: 145px;
+    height: 43px;
+    font-family: $links;
+    font-size: 15px;
+    background: $dark-green;
+    color: white;
+    border: 1px solid transparent;
+    padding: 8px 10px;
+    text-align: center;
+    transition: all 0.4s ease;
+    border-radius: 5px;
+}
+
+.transaction-button:hover {
+    cursor: pointer;
+    background-color: $light-green;
+    border: 1px solid $dark-green;
+    color: $dark-green;
+    transition: all 0.4s ease
+}
+
+.add-transaction{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.transaction-input{
+  font-family: $body;
+  color: $dark-gray;
+  border: none;
+  border-radius: 5px;
+  border: 1px solid $dark-gray;
+}
+
+.transaction-input::placeholder {
+  font-family: $body;
+  color: $dark-gray;
+}
+
+.transaction-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-family: $title;
+    color: $dark-green;
+    border: 1px solid transparent;
+    width: 180px;
+}
+
+.transactions-table{
+    justify-content: center;
+    align-items: center;
+    border-spacing: 5px;
+    width: 100%;
+}
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+}
+
+th {
+  text-align: left;
+  font-family: $title;
+}
+
+input[type=text], input[type=number], input[type=date], select {
+  color: $dark-gray
+}
+
+.add-transaction > input[type=text] {
+    width: 400px
+}
+
+.edit-delete-buttons{
+    padding: 15px 0px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+.edit-delete-buttons > button{
+    border: none;
+    background: none;
+    font-size: 20px;
+    color: $dark-gray;
+}
+
+.edit-delete-buttons > button:hover{
+    cursor: pointer;
+}
+
+
+.table{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.selected-category {
+  font-family: $links;
+  font-size: 14px;
+  background-color: $dark-green;
+  color: white;
+  border: 1px solid transparent;
+  padding: 8px 8px;
+  transition: all 0.4s ease;
+  border-radius: 5px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+}
+
+.transaction-category-buttons {
+
+  button {
+    font-family: $links;
+    font-size: 14px;
+    background-color: $light-green;
+    color: $dark-green;
+    border: 1px solid $dark-green;
+    padding: 8px 8px;
+    transition: all 0.4s ease;
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+  }
+
+  button:hover {
+    cursor: pointer;
+    background-color: $dark-green;
+    border: 1px solid transparent;
+    color: white;
+    transition: all 0.4s ease
+  }
+}

@@ -1,0 +1,52 @@
+@import "./colors.scss";
+@import "./fonts.scss";
+
+.dashboard{
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    font-family: $body;
+    color: $dark-gray;
+}
+
+.welcome{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 25px;
+    font-family: $title;
+}
+
+.edit-budget-button{
+    width: 160px;
+    height: 43px;
+    font-family: $links;
+    font-size: 15px;
+    background: $dark-green;
+    color: white;
+    border: 1px solid transparent;
+    padding: 8px 10px;
+    text-align: center;
+    margin-right: 20px;
+    transition: all 0.4s ease;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit-budget-buttonarea{
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+.edit-budget-button:hover {
+    cursor: pointer;
+    background-color: $light-green;
+    border: 1px solid $dark-green;
+    color: $dark-green;
+    transition: all 0.4s ease
+}
+
