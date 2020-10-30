@@ -1,4 +1,5 @@
 import React from 'react';
+import DoughnutGraphContainer from "../graphs/doughnut_graph_container"
 
 const CATEGORY_KEYS = ["Home", "Utilities", "Savings", "Food", "Other",
                     "HealthAndFitness", "Shopping", "Transportation",
@@ -17,12 +18,11 @@ class EditBudget extends React.Component {
             isEdited: false
         }
 
-        //this.budgetBreakdown = [];
-
         this.handleSplit = this.handleSplit.bind(this);
         this.loadStateFromProps = this.loadStateFromProps.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleUpdatedIncome = this.handleUpdatedIncome.bind(this);
+        this.handleDiscardChanges = this.handleDiscardChanges.bind(this);
     }
 
     componentDidMount() {
@@ -58,7 +58,8 @@ class EditBudget extends React.Component {
             }
             else if (currentCategory === "Income" && 
                      updatedIncome !== null &&
-                     updatedIncome.trim().length > 0)
+                     updatedIncome.trim().length > 0 &&
+                     updatedIncome >= 0)
             {
                 CATEGORY_KEYS.forEach((categoryKey) => {
                     currentIncomeSplits[categoryKey] = Math.round(currentPercentages[categoryKey]*updatedIncome);
@@ -80,12 +81,12 @@ class EditBudget extends React.Component {
         this.props.currentUser.budgetBreakdown.forEach(budgetSplit => {
             if (budgetSplit.category === "Health & Fitness") {
                 currentPercentages.HealthAndFitness = budgetSplit.percent;
-                currentIncomeSplits.HealthAndFitness = budgetSplit.incomeSplit;
+                currentIncomeSplits.HealthAndFitness = Math.round(budgetSplit.incomeSplit);
             }
             else {
                 this.state.percentages[budgetSplit.category] = budgetSplit.percent;
                 currentPercentages[budgetSplit.category] = budgetSplit.percent;
-                currentIncomeSplits[budgetSplit.category] = budgetSplit.incomeSplit;
+                currentIncomeSplits[budgetSplit.category] = Math.round(budgetSplit.incomeSplit);
             }
             totalPercentage += budgetSplit.percent;
         })
@@ -118,11 +119,20 @@ class EditBudget extends React.Component {
             .then(() => {this.setState({isEdited: false})});
     }
 
+    handleDiscardChanges() {
+        this.props.fetchCurrentUser()
+            .then(() => {
+                this.loadStateFromProps();
+                this.budgetBreakdown = this.props.currentUser.budgetBreakdown;
+            });
+    }
+
+
     render() {
         const sliders = CATEGORY_KEYS.map((slider, idx) => {
             return (
               <div key={idx} className='edit-budget-slider tooltip'>
-                <label>
+                <label className="budget-category-value">
                   {slider === "HealthAndFitness"
                     ? "Health & Fitness"
                     : slider.charAt(0).toUpperCase() + slider.slice(1)}
@@ -146,40 +156,51 @@ class EditBudget extends React.Component {
             <div className="edit-budget">
                 <form className="edit-budget-form" onSubmit={this.handleSubmit} >
                     <div className="edit-budget-title">
-                        <h1>Budget Split</h1>
+                        <h1>Breakdown your Budget</h1>
                     </div>
-                    <div className="edit-budget-income-wrapper">
-                        <div className="edit-budget-income">
-                            <label>What's your income?</label>
-                            <input onChange={this.handleUpdatedIncome} type="text" placeholder="$" value={this.state.updatedIncome}/>
-                            <button onClick={this.handleSplit("Income")}>Apply Income</button>
+                    <div className="input-wrapper">     
+                        
+                        <div className="input-wrapper-left">
+                            <div className="edit-budget-income-wrapper">
+                                <div className="edit-budget-income">
+                                    {/* <label>What's your income?</label> */}
+                                    <input onChange={this.handleUpdatedIncome} type="text" placeholder="$" value={this.state.updatedIncome}/>
+                                    <button className="update-income" onClick={this.handleSplit("Income")}>Update Income</button>
+                                </div>
+
+                            </div>
                         </div>
+                        <div className="input-wrapper-right">
+                            <DoughnutGraphContainer currentPercentages={this.state.percentages} currentUser={this.props.currentUser} />
+                        </div>
+                    </div>
+                    <div className="edit-budget-income-buttons-wrapper">
                         <div className={`edit-budget-income-buttons${this.state.isEdited ? '' : '-disable'}`}>
                             <input type="submit" value="Apply Changes"/>
-                            <button onClick={this.loadStateFromProps}>Discard Changes</button>
+                            <button onClick={this.handleDiscardChanges}>Discard Changes</button>
                         </div>
                     </div>
                     <div className="edit-budget-sliders-wrapper">
                         <div className="edit-budget-sliders-title">
-                            <p>Breakdown your budget:</p>
+                            {/* <p>Breakdown your budget:</p> */}
                         </div>
                         <div className="income-slider">
-                            <label>Income</label>
+                            <label className="remaining-income">Remaining Income</label>
                             <div className="slider-display">
-                                <input
+                                {/*<input
                                 onChange={this.handleSplit("Income")}
                                 type="range"
                                 min="0"
                                 max="1"
                                 step="0.00001"
                                 value={this.state.percentages.Income}
-                                />
-                                <div className="display-value">${this.state.incomeSplits.Income}</div>
+                                />*/}
+                                <div className="remaining-income-value">${this.state.incomeSplits.Income}</div>
                             </div>
                         </div>
-                        <div className="edit-budget-sliders">
-                            {sliders}
-                        </div>
+                    </div>
+                    <div className="edit-budget-sliders">
+                        {sliders}
                     </div>
                 </form>
             </div>
