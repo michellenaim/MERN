@@ -30,6 +30,7 @@ class EditBudget extends React.Component {
     }
 
     handleUpdatedIncome(e) {
+        e.preventDefault();
         this.setState({updatedIncome: e.target.value})
     }
 
@@ -96,15 +97,17 @@ class EditBudget extends React.Component {
             let updatedBudgetType = {};
             const category = budgetType.category;
             updatedBudgetType._id = budgetType._id;
-            updatedBudgetType[category] = category;
+            updatedBudgetType.category = category;
             updatedBudgetType.incomeSplit = this.state.incomeSplits[category];
-            updatedBudgetType.percent = this.state.percentages[category];
+            updatedBudgetType.percent = Number(this.state.percentages[category]);
             updatedBudgetBreakdown.push(updatedBudgetType);
         })
-        // TODO:
-        // at this point, this.state.income has either updated income or default income
-        // call budgetBreakdown action that updates both income and budgetBreakdown
-        this.setState({isEdited: false});
+        const budgetBreakdown = {
+                income: this.state.income,
+                budgetBreakdown: updatedBudgetBreakdown
+        }
+        this.props.updateBudgetBreakdown(budgetBreakdown)
+            .then(() => {this.setState({isEdited: false})});
     }
 
     render() {
