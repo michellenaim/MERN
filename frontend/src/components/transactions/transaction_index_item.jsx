@@ -13,6 +13,10 @@ class TransactionIndexItem extends React.Component {
         // this.props.addTransaction()
     }
 
+    // componentDidUpdate() {
+    //     this.props.clearTransactionErrors()
+    // }
+
     deleteTransaction(e) {
         e.preventDefault()
         // this.props.deleteTransaction()

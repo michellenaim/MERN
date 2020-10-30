@@ -1,21 +1,58 @@
 import React from 'react';
 import TransactionIndexItem from './transaction_index_item'
 
-class TransactionIndex extends React.Component{
+class TransactionIndex extends React.PureComponent{
     constructor(props) {
+        debugger
         super(props)
-        // this.state = { selectedCategory: "All", selectedTransactions: this.props.transactions }
+        this.state = { 
+            selectedCategory: "All", 
+            selectedTransactions: this.props.transactions, 
+            date: "",
+            description: "",
+            category: "",
+        }
         this.handleCategory = this.handleCategory.bind(this)
         this.addTransaction = this.addTransaction.bind(this)
+        this.update = this.update.bind(this)
+        this.renderErrors = this.renderErrors.bind(this)
     }
 
-    // componentDidMount() {
-    //     this.props.fetchAllTransactions()
+    // componentWillReceiveProps(nextProps, prevState) {
+    //     debugger
+    //     if (!nextProps.errors.length) {
+    //         this.setState({
+    //             date: "",
+    //             description: "",
+    //             category: "",
+    //         })
+    //     } 
     // }
+
+
+    update(field) {
+        return e => this.setState({
+            [field]: e.currentTarget.value
+        });
+    }
 
     addTransaction(e) {
         e.preventDefault()
-        // this.props.createTransaction()
+        let newTransaction = {
+            transaction: {
+                date: this.state.date,
+                description: this.state.description,
+                amount: Number(this.state.amount),
+                category: this.state.category,
+            }
+        }
+        this.props.createTransaction(newTransaction)
+        // this.setState({
+        //     date: "",
+        //     description: "",
+        //     category: "",
+        // })
+        // reset the placeholders
     }
 
     handleCategory(type) {
@@ -25,8 +62,21 @@ class TransactionIndex extends React.Component{
         }
     }
 
+    renderErrors() {
+        if (!this.props.errors[2]) {
+            return null
+        } else {
+            return (
+                <ul className="transaction-errors">
+                    {this.props.errors[2].data.errors.map((error, idx) => {
+                        return <li key={idx}>{error.msg}</li>
+                    })}
+                </ul>
+            )
+        }
+    }
+
     render() {
-        debugger
         if (!this.props.transactions.data) {
             return null
         }
@@ -35,10 +85,10 @@ class TransactionIndex extends React.Component{
             <div className="transactions">
                 <p className="transaction-title">Add a Transaction</p>
                 <div className="add-transaction">
-                    <input className="transaction-input" type="date" name="" required/>
-                    <input className="transaction-input" type="text" placeholder="Description" required/>
-                    <input className="transaction-input" type="number" placeholder="$ Amount" required/>
-                    <select className="transaction-input" name="Budgets">
+                    <input onChange={this.update('date')} className="transaction-input" type="date" name="" required/>
+                    <input onChange={this.update('description')} className="transaction-input" type="text" placeholder="Description" required/>
+                    <input onChange={this.update('amount')} className="transaction-input" type="number" placeholder="$ Amount" required/>
+                    <select onChange={this.update('category')} className="transaction-input" name="Budgets">
                         <option value="Select Budget Category" disabled selected required>Select Budget Category</option>
                         <option value="Home">Home</option>
                         <option value="Utilities">Utilities</option>
@@ -52,6 +102,8 @@ class TransactionIndex extends React.Component{
                     </select>
                     <button onClick={this.addTransaction} className="transaction-button">Add Transaction</button>
                 </div>
+
+                <div>{this.renderErrors()}</div>
 
                 <p className="transaction-title">Transactions</p>
                 <div className="transaction-category-buttons">
@@ -78,7 +130,7 @@ class TransactionIndex extends React.Component{
                         </tr>
 
                         {this.props.transactions.data.transactions.map(transaction => {
-                            return <TransactionIndexItem key={transaction._id} transaction={transaction} editTransaction={this.props.editTransaction} deleteTransaction={this.props.deleteTransaction} />
+                            return <TransactionIndexItem key={transaction._id} transaction={transaction} clearTransactionErrors={this.props.clearTransactionErrors} editTransaction={this.props.editTransaction} deleteTransaction={this.props.deleteTransaction} />
                         })}
 
                     </table>

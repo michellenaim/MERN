@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import DoughnutGraph from './doughnut_graph';
-import { fetchAllUsers, fetchCurrentUser} from '../../actions/users_actions'
 
 const mapStateToProps = (state) => {
     return {
@@ -11,8 +10,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchAllUsers: () => dispatch(fetchAllUsers()),
-        fetchCurrentUser: () => dispatch(fetchCurrentUser())
+
     }
 }
 

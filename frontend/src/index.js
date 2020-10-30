@@ -7,10 +7,8 @@ import { setAuthToken } from './util/session_api_util';
 import { logout } from './actions/session_actions';
 import axios from "axios";
 import { 
-  fetchAllTransactions,
-  logTransaction,
   updateTransaction,
-  deleteTransaction
+  deleteTransaction,
 } from "./actions/transactions_actions";
 import { 
   fetchBudgetBreakdown, 
@@ -49,8 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // window.fetchCurrentUser = fetchCurrentUser;
   window.fetchBudgetBreakdown = fetchBudgetBreakdown;
   window.updateBudgetBreakdown = updateBudgetBreakdown;
-  window.fetchAllTransactions = fetchAllTransactions;
-  window.logTransaction = logTransaction;
+ 
   window.updateTransaction = updateTransaction;
   window.deleteTransaction = deleteTransaction;
+
 });

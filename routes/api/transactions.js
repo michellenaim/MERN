@@ -15,7 +15,6 @@ router.get("/", passport.authenticate('jwt', { session: false }),
     });
 });
 
-
 // create a transaction
 router.post("/", [
   check('transaction.description').not().isEmpty().withMessage("Description cannot be empty"),

@@ -4,7 +4,8 @@ export const RECEIVE_All_TRANSACTIONS = "RECEIVE_All_TRANSACTIONS";
 export const CREATE_TRANSACTION = "CREATE_TRANSACTION";
 export const EDIT_TRANSACTION = "EDIT_TRANSACTION";
 export const REMOVE_TRANSACTION = "REMOVE_TRANSACTION";
-// actions to display create/edit errors since we want to render errors to user? 
+export const RECEIVE_TRANSACTION_ERRORS = "RECEIVE_TRANSACTION_ERRORS";
+export const CLEAR_TRANSACTION_ERRORS = "CLEAR_TRANSACTION_ERRORS";
 
 export const receiveAllTransactions = (transactions) => {
     return ({
@@ -34,6 +35,19 @@ export const removeTransaction = (transaction) => {
     })
 }
 
+export const receiveTransactionErrors = (errors) => {
+    return({
+        type: RECEIVE_TRANSACTION_ERRORS,
+        errors
+    })
+}
+
+export const removeTransactionErrors = () => {
+    return ({
+        type: CLEAR_TRANSACTION_ERRORS
+    })
+}
+
 
 export const fetchAllTransactions = () => dispatch => {
     return TransactionApiUtil.fetchAllTransactions()
@@ -43,6 +57,7 @@ export const fetchAllTransactions = () => dispatch => {
 export const logTransaction = (transaction) => dispatch => {
     return TransactionApiUtil.logTransaction(transaction)
         .then(transaction => dispatch(createTransaction(transaction)))
+        .catch(err => dispatch(receiveTransactionErrors(err)))
 }
 
 export const updateTransaction = (transaction) => dispatch => {
@@ -54,3 +69,11 @@ export const deleteTransaction = (transaction) => dispatch => {
     return TransactionApiUtil.deleteTransaction(transaction)
         .then(transaction => dispatch(removeTransaction(transaction)))
 }
+
+export const clearTransactionErrors = () => (dispatch) => {
+    return (
+        dispatch(removeTransactionErrors())
+    )
+}
+
+

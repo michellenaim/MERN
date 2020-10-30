@@ -146,3 +146,13 @@ input[type=text], input[type=number], input[type=date], select {
     transition: all 0.4s ease
   }
 }
+
+.transaction-errors {
+  font-size: 15px;
+  color: red;
+  margin-bottom: 25px;
+  
+  li {
+    margin-bottom: 3px;
+  }
+}
