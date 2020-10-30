@@ -17,20 +17,6 @@ class TransactionIndex extends React.PureComponent{
         this.renderErrors = this.renderErrors.bind(this)
     }
 
-    // componentWillReceiveProps(nextProps, prevState) {
-    //     if (!nextProps.errors.length) {
-    //         this.setState({
-    //             date: "",
-    //             description: "",
-    //             category: "",
-    //         })
-    //     } 
-    // }
-
-    // componentDidMount(){
-    //     this.props.clearTransactionErrors();
-    // }
-
     update(field) {
         return e => this.setState({
             [field]: e.currentTarget.value
@@ -49,17 +35,21 @@ class TransactionIndex extends React.PureComponent{
             }
         }
         this.props.createTransaction(newTransaction)
+        .then(() => this.props.clearTransactionErrors())
+        .then(() => {
+            this.setState({
+                date: "",
+                description: "",
+                category: "", //not working
+                amount: "empty"
+            })
+            document.querySelector('.transaction-input4').value = 'Select Budget Category';
+        })
+        
         //resetting placeholders:
-        document.querySelector('.transaction-input1').value = '';
-        document.querySelector('.transaction-input2').value = '';
-        document.querySelector('.transaction-input3').value = '';
-        document.querySelector('.transaction-input4').value = 'Select Budget Category';
-        // this.props.clearTransactionErrors();
-        // this.setState({
-        //     date: "",
-        //     description: "",
-        //     category: "",
-        // })
+        // document.querySelector('.transaction-input1').value = '';
+        // document.querySelector('.transaction-input2').value = '';
+        // document.querySelector('.transaction-input3').value = '';
     }
 
     handleCategory(type) {
@@ -106,9 +96,9 @@ class TransactionIndex extends React.PureComponent{
             <div className="transactions">
                 <p className="transaction-title">Add a Transaction</p>
                 <div className="add-transaction">
-                    <input onChange={this.update('date')} className="transaction-input1" type="date" name="" required/>
-                    <input onChange={this.update('description')} className="transaction-input2" type="text" placeholder="Description" required/>
-                    <input onChange={this.update('amount')} className="transaction-input3" type="number" placeholder="$ Amount" required/>
+                    <input onChange={this.update('date')} className="transaction-input1" type="date" name="" value={this.state.date} required/>
+                    <input onChange={this.update('description')} className="transaction-input2" type="text" placeholder="Description" value={this.state.description} required/>
+                    <input onChange={this.update('amount')} className="transaction-input3" type="number" placeholder="$ Amount" value={this.state.amount} required/>
                     <select onChange={this.update('category')} className="transaction-input4" name="Budgets">
                         <option value="Select Budget Category" disabled selected required>Select Budget Category</option>
                         <option value="Home">Home</option>
