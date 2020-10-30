@@ -1,6 +1,6 @@
 import React from 'react';
 import DoughnutGraphContainer from "../graphs/doughnut_graph_container"
-import TransactionsContainer from "../transactions/transactions_container"
+import TransactionIndexContainer from "../transactions/transaction_index_container"
 
 class Dashboard extends React.Component{
     // constructor(props) {
@@ -15,7 +15,7 @@ class Dashboard extends React.Component{
                     <button className="edit-budget-button">Edit Budget Split</button>
                 </div>
                 <DoughnutGraphContainer />
-                <TransactionsContainer />
+                <TransactionIndexContainer />
             </div>
         )
     }
