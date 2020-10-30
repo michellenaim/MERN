@@ -24,7 +24,8 @@ router.get('/current', passport.authenticate('jwt', {session: false}), (req, res
       lastname: req.user.lastname,
       email: req.user.email,
       income: req.user.income,
-      budgetBreakdown: req.user.budgetBreakdown
+      budgetBreakdown: req.user.budgetBreakdown,
+      transactions: req.user.transactions
     });
 })
 

@@ -6,7 +6,7 @@ import jwt_decode from 'jwt-decode';
 import { setAuthToken } from './util/session_api_util';
 import { logout } from './actions/session_actions';
 import axios from "axios";
-// import { fetchCurrentUser, fetchAllUsers } from "./actions/users_actions";
+import { fetchAllTransactions} from "./actions/transactions_actions";
 
 import "./stylesheets/_index.scss";
 
@@ -37,4 +37,5 @@ document.addEventListener('DOMContentLoaded', () => {
   window.dispatch = store.dispatch;
   // window.fetchAllUsers = fetchAllUsers;
   // window.fetchCurrentUser = fetchCurrentUser;
+  window.fetchAllTransactions = fetchAllTransactions
 });

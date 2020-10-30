@@ -1,5 +1,4 @@
 import React from 'react';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import TransactionIndexItem from './transaction_index_item'
 
 class TransactionIndex extends React.Component{
@@ -7,7 +6,14 @@ class TransactionIndex extends React.Component{
         super(props)
     }
 
+    componentDidMount() {
+        debugger
+        this.props.fetchAllTransactions()
+        debugger
+    }
+
     render() {
+        debugger
         return (
             <div className="transactions">
                 <p className="transaction-title">Add a transaction</p>
