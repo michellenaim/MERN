@@ -4,6 +4,6 @@ export const fetchBudgetBreakdown = () => {
   return axios.get("/api/budgets/");
 };
 
-export const updateBudgetBreakdown = () => {
-  return axios.get("/api/budgets/update");
+export const updateBudgetBreakdown = (budgetBreakdown) => {
+  return axios.patch("/api/budgets/update");
 }
