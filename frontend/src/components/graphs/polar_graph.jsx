@@ -93,8 +93,8 @@ class PolarGraph extends React.Component {
         return (
             <div className="graphpage">
                 <div className={classes.polarGraphContainer}>
-                    <h1>Amount Left: $500</h1>
-                    <h1>Spending Per Category</h1>
+                    <h1>Total Amount Left for the Month: $500</h1>
+                    <h2>Spending Per Category</h2>
                     <canvas
                         id="myChart"
                         ref={this.chartRef}

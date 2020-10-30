@@ -14,9 +14,6 @@ class DoughnutGraph extends React.Component {
   chartRef = React.createRef();
   
   componentDidMount() {
-    this.props.fetchAllUsers()
-    this.props.fetchCurrentUser()
-
     const myChartRef = this.chartRef.current.getContext("2d");
     // const data = array that contains this.currentPercentages
 

@@ -1,21 +1,65 @@
 import React from 'react';
 import TransactionIndexItem from './transaction_index_item'
 
-class TransactionIndex extends React.Component{
-    constructor(props) {
+class TransactionIndex extends React.PureComponent{
+    constructor(props) {      
         super(props)
-        // this.state = { selectedCategory: "All", selectedTransactions: this.props.transactions }
+        this.state = { 
+            selectedCategory: "All", 
+            selectedTransactions: this.props.transactions, 
+            date: "",
+            description: "",
+            category: "",
+        }
         this.handleCategory = this.handleCategory.bind(this)
         this.addTransaction = this.addTransaction.bind(this)
+        this.update = this.update.bind(this)
+        this.renderErrors = this.renderErrors.bind(this)
     }
 
-    // componentDidMount() {
-    //     this.props.fetchAllTransactions()
+    // componentWillReceiveProps(nextProps, prevState) {
+    //     if (!nextProps.errors.length) {
+    //         this.setState({
+    //             date: "",
+    //             description: "",
+    //             category: "",
+    //         })
+    //     } 
     // }
+
+    // componentDidMount(){
+    //     this.props.clearTransactionErrors();
+    // }
+
+    update(field) {
+        return e => this.setState({
+            [field]: e.currentTarget.value
+        });
+    }
 
     addTransaction(e) {
         e.preventDefault()
-        // this.props.createTransaction()
+
+        let newTransaction = {
+            transaction: {
+                date: this.state.date,
+                description: this.state.description,
+                amount: Number(this.state.amount),
+                category: this.state.category,
+            }
+        }
+        this.props.createTransaction(newTransaction)
+        //resetting placeholders:
+        document.querySelector('.transaction-input1').value = '';
+        document.querySelector('.transaction-input2').value = '';
+        document.querySelector('.transaction-input3').value = '';
+        document.querySelector('.transaction-input4').value = 'Select Budget Category';
+        // this.props.clearTransactionErrors();
+        // this.setState({
+        //     date: "",
+        //     description: "",
+        //     category: "",
+        // })
     }
 
     handleCategory(type) {
@@ -25,20 +69,47 @@ class TransactionIndex extends React.Component{
         }
     }
 
+    renderErrors() {
+        if (!this.props.errors[2]) {
+            return null
+        } else {
+            return (
+                <ul className="transaction-errors">
+                    {this.props.errors[2].data.errors.map((error, idx) => {
+                        return <li key={idx}>{error.msg}</li>
+                    })}
+                </ul>
+            )
+        }
+    }
+
     render() {
-        debugger
         if (!this.props.transactions.data) {
             return null
+        }
+
+        let transactionsData
+
+        if (!this.props.transactions.data.transactions.length) {
+            transactionsData = (
+                <tr className="no-transactions">
+                    <td colspan="5">No transactions yet!</td>
+                </tr>
+            )
+        } else {
+            transactionsData = this.props.transactions.data.transactions.map(transaction => {
+                return <TransactionIndexItem key={transaction._id} transaction={transaction} editTransaction={this.props.editTransaction} deleteTransaction={this.props.deleteTransaction} />
+            })
         }
 
         return (
             <div className="transactions">
                 <p className="transaction-title">Add a Transaction</p>
                 <div className="add-transaction">
-                    <input className="transaction-input" type="date" name="" required/>
-                    <input className="transaction-input" type="text" placeholder="Description" required/>
-                    <input className="transaction-input" type="number" placeholder="$ Amount" required/>
-                    <select className="transaction-input" name="Budgets">
+                    <input onChange={this.update('date')} className="transaction-input1" type="date" name="" required/>
+                    <input onChange={this.update('description')} className="transaction-input2" type="text" placeholder="Description" required/>
+                    <input onChange={this.update('amount')} className="transaction-input3" type="number" placeholder="$ Amount" required/>
+                    <select onChange={this.update('category')} className="transaction-input4" name="Budgets">
                         <option value="Select Budget Category" disabled selected required>Select Budget Category</option>
                         <option value="Home">Home</option>
                         <option value="Utilities">Utilities</option>
@@ -53,9 +124,11 @@ class TransactionIndex extends React.Component{
                     <button onClick={this.addTransaction} className="transaction-button">Add Transaction</button>
                 </div>
 
+                <div>{this.renderErrors()}</div>
+
                 <p className="transaction-title">Transactions</p>
                 <div className="transaction-category-buttons">
-                    <button onClick={this.handleCategory("All")}>All</button>
+                    <button onClick={this.handleCategory("All")} className="selected">All</button>
                     <button onClick={this.handleCategory("Home")}>Home</button>
                     <button onClick={this.handleCategory("Utilities")}>Utilities</button>
                     <button onClick={this.handleCategory("Food")}>Food</button>
@@ -76,10 +149,8 @@ class TransactionIndex extends React.Component{
                             <th>Budget Category</th>
                             <th>Edit or Delete</th>
                         </tr>
-
-                        {this.props.transactions.data.transactions.map(transaction => {
-                            return <TransactionIndexItem key={transaction._id} transaction={transaction} editTransaction={this.props.editTransaction} deleteTransaction={this.props.deleteTransaction} />
-                        })}
+                        
+                        {transactionsData}
 
                     </table>
                 </div>

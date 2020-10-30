@@ -10,12 +10,13 @@ class TransactionIndexItem extends React.Component {
 
     editTransaction(e) {
         e.preventDefault()
-        // this.props.addTransaction()
+        // this.props.editTransaction()
     }
 
     deleteTransaction(e) {
-        e.preventDefault()
-        // this.props.deleteTransaction()
+        e.preventDefault()      
+    
+        this.props.deleteTransaction(this.props.transaction)       
     }
 
     render() {

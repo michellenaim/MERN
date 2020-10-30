@@ -1,22 +1,23 @@
 import { connect } from 'react-redux';
 import TransactionIndex from './transaction_index';
-import { fetchAllTransactions } from '../../actions/transactions_actions'
+import { fetchAllTransactions, logTransaction, clearTransactionErrors, deleteTransaction } from '../../actions/transactions_actions'
 import selectTransactionsByCategory from './selector'
 
 const mapStateToProps = (state) => {
-    debugger
     return {
         // transactions: selectTransactionsByCategory(state.entities.transactions, "Home")
-        transactions: state.entities.transactions
+        transactions: state.entities.transactions,
+        errors: Object.values(state.errors.transaction)
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchAllTransactions: () => dispatch(fetchAllTransactions()),
-        // createTransaction: ,
-        // deleteTransaction: ,
+        createTransaction: (transaction) => dispatch(logTransaction(transaction)),
+        deleteTransaction: (transaction) => dispatch(deleteTransaction(transaction)),
         // updateTransaction: ,
+        clearTransactionErrors: () => dispatch(clearTransactionErrors())
     }
 }
 
