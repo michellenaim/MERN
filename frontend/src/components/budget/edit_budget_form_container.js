@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import EditBudgetForm from './edit_budget_form';
 import { fetchCurrentUser } from '../../actions/users_actions';
+import { updateBudgetBreakdown } from '../../actions/budget_actions';
 
 const mapStateToProps = state => {
     return ({
@@ -10,8 +11,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return ({
-        // TODO: dispatch updated user ( including their updated budget) to user's reducer
-        // updateUsersBudget: (param) => dispatch(updateUsersBudget(param))
+        updateBudgetBreakdown: (budgetBreakdown) => dispatch(updateBudgetBreakdown(budgetBreakdown)),
         fetchCurrentUser: () => dispatch(fetchCurrentUser())
     });
 };

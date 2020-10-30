@@ -56,7 +56,7 @@ passport.authenticate('jwt', { session: false }),
       req.user.budgetBreakdown.forEach((obj) => {
         obj.incomeSplit = userIncome * obj.percent;
       });
-
+      await req.user.save();
       // return the information from backend
       res.status(200).json({
         income: req.user.income,
