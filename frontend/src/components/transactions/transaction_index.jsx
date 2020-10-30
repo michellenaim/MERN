@@ -2,8 +2,7 @@ import React from 'react';
 import TransactionIndexItem from './transaction_index_item'
 
 class TransactionIndex extends React.PureComponent{
-    constructor(props) {
-        debugger
+    constructor(props) {      
         super(props)
         this.state = { 
             selectedCategory: "All", 
@@ -19,7 +18,6 @@ class TransactionIndex extends React.PureComponent{
     }
 
     // componentWillReceiveProps(nextProps, prevState) {
-    //     debugger
     //     if (!nextProps.errors.length) {
     //         this.setState({
     //             date: "",
@@ -29,6 +27,9 @@ class TransactionIndex extends React.PureComponent{
     //     } 
     // }
 
+    // componentDidMount(){
+    //     this.props.clearTransactionErrors();
+    // }
 
     update(field) {
         return e => this.setState({
@@ -38,6 +39,7 @@ class TransactionIndex extends React.PureComponent{
 
     addTransaction(e) {
         e.preventDefault()
+
         let newTransaction = {
             transaction: {
                 date: this.state.date,
@@ -47,12 +49,17 @@ class TransactionIndex extends React.PureComponent{
             }
         }
         this.props.createTransaction(newTransaction)
+        //resetting placeholders:
+        document.querySelector('.transaction-input1').value = '';
+        document.querySelector('.transaction-input2').value = '';
+        document.querySelector('.transaction-input3').value = '';
+        document.querySelector('.transaction-input4').value = 'Select Budget Category';
+        // this.props.clearTransactionErrors();
         // this.setState({
         //     date: "",
         //     description: "",
         //     category: "",
         // })
-        // reset the placeholders
     }
 
     handleCategory(type) {
@@ -81,14 +88,28 @@ class TransactionIndex extends React.PureComponent{
             return null
         }
 
+        let transactionsData
+
+        if (!this.props.transactions.data.transactions.length) {
+            transactionsData = (
+                <tr className="no-transactions">
+                    <td colspan="5">No transactions yet!</td>
+                </tr>
+            )
+        } else {
+            transactionsData = this.props.transactions.data.transactions.map(transaction => {
+                return <TransactionIndexItem key={transaction._id} transaction={transaction} editTransaction={this.props.editTransaction} deleteTransaction={this.props.deleteTransaction} />
+            })
+        }
+
         return (
             <div className="transactions">
                 <p className="transaction-title">Add a Transaction</p>
                 <div className="add-transaction">
-                    <input onChange={this.update('date')} className="transaction-input" type="date" name="" required/>
-                    <input onChange={this.update('description')} className="transaction-input" type="text" placeholder="Description" required/>
-                    <input onChange={this.update('amount')} className="transaction-input" type="number" placeholder="$ Amount" required/>
-                    <select onChange={this.update('category')} className="transaction-input" name="Budgets">
+                    <input onChange={this.update('date')} className="transaction-input1" type="date" name="" required/>
+                    <input onChange={this.update('description')} className="transaction-input2" type="text" placeholder="Description" required/>
+                    <input onChange={this.update('amount')} className="transaction-input3" type="number" placeholder="$ Amount" required/>
+                    <select onChange={this.update('category')} className="transaction-input4" name="Budgets">
                         <option value="Select Budget Category" disabled selected required>Select Budget Category</option>
                         <option value="Home">Home</option>
                         <option value="Utilities">Utilities</option>
@@ -107,7 +128,7 @@ class TransactionIndex extends React.PureComponent{
 
                 <p className="transaction-title">Transactions</p>
                 <div className="transaction-category-buttons">
-                    <button onClick={this.handleCategory("All")}>All</button>
+                    <button onClick={this.handleCategory("All")} className="selected">All</button>
                     <button onClick={this.handleCategory("Home")}>Home</button>
                     <button onClick={this.handleCategory("Utilities")}>Utilities</button>
                     <button onClick={this.handleCategory("Food")}>Food</button>
@@ -128,10 +149,8 @@ class TransactionIndex extends React.PureComponent{
                             <th>Budget Category</th>
                             <th>Edit or Delete</th>
                         </tr>
-
-                        {this.props.transactions.data.transactions.map(transaction => {
-                            return <TransactionIndexItem key={transaction._id} transaction={transaction} clearTransactionErrors={this.props.clearTransactionErrors} editTransaction={this.props.editTransaction} deleteTransaction={this.props.deleteTransaction} />
-                        })}
+                        
+                        {transactionsData}
 
                     </table>
                 </div>

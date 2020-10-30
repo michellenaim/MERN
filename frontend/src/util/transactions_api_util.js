@@ -13,5 +13,5 @@ export const updateTransaction = (transaction) => {
 }
 
 export const deleteTransaction = (transaction) => {
-    return axios.delete('/api/transactions/delete', transaction)
+    return axios.delete(`/api/transactions/delete/${transaction._id}`)
 }

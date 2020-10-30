@@ -33,7 +33,7 @@
   margin-bottom: 30px;
 }
 
-.transaction-input{
+.transaction-input1, .transaction-input2, .transaction-input3, .transaction-input4{
   font-family: $body;
   color: $dark-gray;
   border: none;
@@ -41,7 +41,22 @@
   border: 1px solid $dark-gray;
 }
 
-.transaction-input::placeholder {
+.transaction-input1::placeholder {
+  font-family: $body;
+  color: $dark-gray;
+}
+
+.transaction-input2::placeholder {
+  font-family: $body;
+  color: $dark-gray;
+}
+
+.transaction-input3::placeholder {
+  font-family: $body;
+  color: $dark-gray;
+}
+
+.transaction-input4::placeholder {
   font-family: $body;
   color: $dark-gray;
 }
@@ -104,26 +119,25 @@ input[type=text], input[type=number], input[type=date], select {
 }
 
 
-.table{
+.table {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.selected-category {
-  font-family: $links;
-  font-size: 14px;
-  background-color: $dark-green;
-  color: white;
-  border: 1px solid transparent;
-  padding: 8px 8px;
-  transition: all 0.4s ease;
-  border-radius: 5px;
-  margin-right: 10px;
-  margin-bottom: 20px;
-}
-
 .transaction-category-buttons {
+  .selected {
+    font-family: $links;
+    font-size: 14px;
+    background-color: $dark-green;
+    color: white;
+    border: 1px solid transparent;
+    padding: 8px 8px;
+    transition: all 0.4s ease;
+    border-radius: 5px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+  }
 
   button {
     font-family: $links;
@@ -154,5 +168,15 @@ input[type=text], input[type=number], input[type=date], select {
   
   li {
     margin-bottom: 3px;
+  }
+}
+
+.no-transactions {
+  text-align: center;
+  font-style: italic;
+  font-size: 18px;
+
+  td {
+    height: 35px;
   }
 }

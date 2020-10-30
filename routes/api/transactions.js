@@ -25,15 +25,12 @@ router.post("/", [
 ],
   passport.authenticate("jwt", { session: false }), 
     async (req, res) => {
-
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
           return res.status(422).json({ errors: errors.array() })
         }
 
         const { date, amount, description, category } = req.body.transaction;
-
-        // console.log(req.body)
 
         // adds new transaction to start of array and combines with rest of transactions
         await req.user
@@ -49,8 +46,6 @@ router.post("/", [
             ],
           })
           .save();
-
-        // console.log(req.user);
 
         res.status(200).json({
             transactions: req.user.transactions
@@ -106,34 +101,22 @@ router.patch("/update", [
 
 
 // delete a transaction
-router.delete("/delete", passport.authenticate('jwt', { session: false }), 
+
+router.delete("/delete/:transactionId", passport.authenticate('jwt', { session: false }), 
     async (req, res) => {
 
-    // how data should come in from frontend. lines 71-74 optional
-    // {
-    //     "transaction": 
-    //         {
-    //             "_id": "5f9b15d556a2a02df13585c0",
-    //             "date": "2020-10-30T00:00:00.000Z",
-    //             "amount": 750,
-    //             "description": "rent",
-    //             "category": "Home"
-    //         }
-    // }
-    
     // select only the transactions that have object ids !== object id from body 
     // need to ensure types are same 
+
     const updatedTransactions = req.user.transactions.filter((t) => {
-        return t._id.toString() !== req.body.transaction._id
+      return t._id.toString() !== req.params.transactionId
     });
     
-    // console.log(updatedTransactions.length);
-
     req.user.set({
       transactions: updatedTransactions,
     });
 
-    await req.user.save();      // update user sans transaction in DB
+    await req.user.save();  // update user sans transaction in DB
 
     // return remaining transactions, or omit if needed 
     res.json({
