@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const User = require("../../models/User");
-const validateTransactions = require("../../validation/transaction")
+const {check, validationResult} = require('express-validator');
 
 // use asynchronous routes
 
@@ -15,19 +15,28 @@ router.get("/", passport.authenticate('jwt', { session: false }),
     });
 });
 
-router.post("/", passport.authenticate("jwt", { session: false }), 
-    async (req, res) => {
-        const { isValid, errors } = validateTransactions(req.body);
 
-        if (!isValid) {
-            return res.status(400).json(errors);
+// create a transaction
+router.post("/", [
+  check('transaction.description').not().isEmpty().withMessage("Description cannot be empty"),
+  check('transaction.amount').isNumeric().withMessage("Amount should be a number"),
+  check('transaction.amount').not().isEmpty().withMessage("Amount cannot be empty"),
+  check('transaction.date').not().isEmpty().withMessage("Date cannot be empty"),
+  check('transaction.category').not().isEmpty().withMessage("Category cannot be empty"),
+],
+  passport.authenticate("jwt", { session: false }), 
+    async (req, res) => {
+
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+          return res.status(422).json({ errors: errors.array() })
         }
 
         const { date, amount, description, category } = req.body.transaction;
 
-        console.log(req.body)
+        // console.log(req.body)
 
-
+        // adds new transaction to start of array and combines with rest of transactions
         await req.user
           .set({
             transactions: [
@@ -40,24 +49,64 @@ router.post("/", passport.authenticate("jwt", { session: false }),
               ...req.user.transactions,
             ],
           })
-          .save()
+          .save();
 
-        console.log(req.user);
+        // console.log(req.user);
 
         res.status(200).json({
             transactions: req.user.transactions
         });
 });
 
-// transactions update 
-router.patch("/update", passport.authenticate('jwt', { session: false }), 
+
+// update a transaction 
+router.patch("/update", [
+  check('transaction.description').not().isEmpty().withMessage("Description cannot be empty"),
+  check('transaction.amount').isNumeric().withMessage("Amount should be a number"),
+  check('transaction.amount').not().isEmpty().withMessage("Amount cannot be empty"),
+  check('transaction.date').not().isEmpty().withMessage("Date cannot be empty"),
+  check('transaction.category').not().isEmpty().withMessage("Category cannot be empty"),
+  ],
+  passport.authenticate('jwt', { session: false }), 
     async (req, res) => {
     
+    const errors = validationResult(req)
+      if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() })
+      }
+
+    try {
+      // console.log(req.body.transaction)
+
+      const { date, amount, description, category } = req.body.transaction;
+
+      req.user.transactions.forEach(originalT => {
+        if (originalT._id.toString() === req.body.transaction._id) {
+          originalT.date = date;
+          originalT.amount = amount;
+          originalT.description = description;
+          originalT.category = category;
+        }
+      })
+
+      await req.user.save();
+
+      // return the information from backend
+      res.status(200).json({
+        transactions: req.user.transactions,
+      });
+    } catch (errors) {
+      // console.log(errors);
+      // 422 => unprocessable entity
+      return res.status(422).json({
+        ...errors,
+      });
+    }
     
 });
 
 
-// delete one transaction
+// delete a transaction
 router.delete("/delete", passport.authenticate('jwt', { session: false }), 
     async (req, res) => {
 
@@ -109,7 +158,7 @@ module.exports = router;
 //     }
 // }
 
-// to delete a transaction, select specific _id
+// to update or delete a transaction, include specific _id
 // {
 //     "transaction": 
 //         {
