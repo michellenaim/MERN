@@ -14,6 +14,8 @@ router.get("/", passport.authenticate('jwt', { session: false }),
     });
 });
 
+
+// create a transaction
 router.post("/", passport.authenticate("jwt", { session: false }), 
     async (req, res) => {
         // const { isValid, errors } = validateTransactions(req.body);
@@ -24,9 +26,9 @@ router.post("/", passport.authenticate("jwt", { session: false }),
 
         const { date, amount, description, category } = req.body.transaction;
 
-        console.log(req.body)
+        // console.log(req.body)
 
-
+        // adds new transaction to start of array and combines with rest of transactions
         await req.user
           .set({
             transactions: [
@@ -41,22 +43,50 @@ router.post("/", passport.authenticate("jwt", { session: false }),
           })
           .save();
 
-        console.log(req.user);
+        // console.log(req.user);
 
         res.status(200).json({
             transactions: req.user.transactions
         });
 });
 
-// transactions update 
+
+// update a transaction 
 router.patch("/update", passport.authenticate('jwt', { session: false }), 
     async (req, res) => {
     
+    try {
+      // console.log(req.body.transaction)
+
+      const { date, amount, description, category } = req.body.transaction;
+
+      req.user.transactions.forEach(originalT => {
+        if (originalT._id.toString() === req.body.transaction._id) {
+          originalT.date = date;
+          originalT.amount = amount;
+          originalT.description = description;
+          originalT.category = category;
+        }
+      })
+
+      await req.user.save();
+
+      // return the information from backend
+      res.status(200).json({
+        transactions: req.user.transactions,
+      });
+    } catch (errors) {
+      // console.log(errors);
+      // 422 => unprocessable entity
+      return res.status(422).json({
+        ...errors,
+      });
+    }
     
 });
 
 
-// delete one transaction
+// delete a transaction
 router.delete("/delete", passport.authenticate('jwt', { session: false }), 
     async (req, res) => {
 
@@ -108,7 +138,7 @@ module.exports = router;
 //     }
 // }
 
-// to delete a transaction, select specific _id
+// to update or delete a transaction, include specific _id
 // {
 //     "transaction": 
 //         {
