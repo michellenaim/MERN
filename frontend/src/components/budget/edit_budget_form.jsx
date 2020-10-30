@@ -1,5 +1,9 @@
 import React from 'react';
 
+const CATEGORY_KEYS = ["Home", "Utilities", "Savings", "Food", "Other",
+                    "HealthAndFitness", "Shopping", "Transportation",
+                    "Entertainment"];
+
 class EditBudget extends React.Component {
 
     constructor (props) {
@@ -13,7 +17,7 @@ class EditBudget extends React.Component {
             isEdited: false
         }
 
-        this.budgetBreakdown = [];
+        //this.budgetBreakdown = [];
 
         this.handleSplit = this.handleSplit.bind(this);
         this.loadStateFromProps = this.loadStateFromProps.bind(this);
@@ -34,33 +38,37 @@ class EditBudget extends React.Component {
         this.setState({updatedIncome: e.target.value})
     }
 
-    handleSplit(currentSlider) {
+    handleSplit(currentCategory) {
         return e => {
             e.preventDefault();
             let { percentages, incomeSplits, updatedIncome } = {...this.state};
-            if (currentSlider !== "Income") {
-                let currentPercentages = percentages;
-                let currentIncomeSplits = incomeSplits;
-                let previousSliderValue = percentages[currentSlider]
+            let currentPercentages = percentages;
+            let currentIncomeSplits = incomeSplits;
+            if (currentCategory !== "Income") {
+                let previousSliderValue = percentages[currentCategory]
                 let currentSliderValue = e.target.value;
                 let valueChange = currentSliderValue - previousSliderValue;
-                let newIncome = percentages.Income - valueChange;
-                if (newIncome < 0) return null;
-                currentPercentages.Income = newIncome;
-                currentPercentages[currentSlider] = currentSliderValue;
-                currentIncomeSplits[currentSlider] = Math.ceil(this.state.income*currentSliderValue);
-                currentIncomeSplits.Income = Math.ceil(newIncome*this.state.income)
-                this.setState({percentages: currentPercentages});
-                this.setState({incomeSplits: currentIncomeSplits});
+                let newIncomePercentage = percentages.Income - valueChange;
+                if (newIncomePercentage < 0) return null;
+                currentPercentages.Income = newIncomePercentage;
+                currentPercentages[currentCategory] = currentSliderValue;
+                currentIncomeSplits[currentCategory] = Math.round(this.state.income*currentSliderValue);
+                currentIncomeSplits.Income = Math.round(newIncomePercentage*this.state.income)
                 this.setState({isEdited: true});
             }
-            else if (currentSlider === "Income" && 
+            else if (currentCategory === "Income" && 
                      updatedIncome !== null &&
                      updatedIncome.trim().length > 0)
             {
+                CATEGORY_KEYS.forEach((categoryKey) => {
+                    currentIncomeSplits[categoryKey] = Math.round(currentPercentages[categoryKey]*updatedIncome);
+                });
+                currentIncomeSplits.Income = Math.round(updatedIncome*currentPercentages.Income);
                 this.setState({income: updatedIncome})
                 this.setState({isEdited: true});
             }
+            this.setState({percentages: currentPercentages});
+            this.setState({incomeSplits: currentIncomeSplits});
         }
     }
     
@@ -82,7 +90,7 @@ class EditBudget extends React.Component {
             totalPercentage += budgetSplit.percent;
         })
         currentPercentages.Income = 1 - totalPercentage;
-        currentIncomeSplits.Income = Math.ceil(currentPercentages.Income*this.props.currentUser.income);
+        currentIncomeSplits.Income = Math.round(currentPercentages.Income*this.props.currentUser.income);
         this.setState({isEdited: false});
         this.setState({percentages: currentPercentages});
         this.setState({incomeSplits: currentIncomeSplits})
@@ -111,10 +119,7 @@ class EditBudget extends React.Component {
     }
 
     render() {
-        const sliderArray = ["Home", "Utilities", "Savings", "Food", "Other",
-                             "HealthAndFitness", "Shopping", "Transportation",
-                             "Entertainment"];
-        const sliders = sliderArray.map((slider, idx) => {
+        const sliders = CATEGORY_KEYS.map((slider, idx) => {
             return (
               <div key={idx} className='edit-budget-slider tooltip'>
                 <label>
