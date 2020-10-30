@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const User = require("../../models/User");
+const {check, validationResult} = require('express-validator');
 
 // use asynchronous routes
 
@@ -23,8 +24,19 @@ router.get("/", passport.authenticate('jwt', { session: false }),
 });
 
 //budgets update 
-router.patch("/update", passport.authenticate('jwt', { session: false }), 
+router.patch("/update", 
+[
+  check('income').not().isEmpty().withMessage("Income cannot be empty"),
+  check('income').isNumeric().withMessage("Income should be a number"),
+],
+passport.authenticate('jwt', { session: false }), 
   async (req, res) => {
+
+    const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+          return res.status(422).json({ errors: errors.array() })
+        }
+        
     try {
       // update user income in DB with user's input from frontend
       req.user.income = req.body.income;
