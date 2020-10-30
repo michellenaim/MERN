@@ -26,7 +26,6 @@ class TransactionIndex extends React.Component{
     }
 
     render() {
-        debugger
         if (!this.props.transactions.data) {
             return null
         }

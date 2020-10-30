@@ -4,7 +4,6 @@ import { fetchAllTransactions } from '../../actions/transactions_actions'
 import selectTransactionsByCategory from './selector'
 
 const mapStateToProps = (state) => {
-    debugger
     return {
         // transactions: selectTransactionsByCategory(state.entities.transactions, "Home")
         transactions: state.entities.transactions

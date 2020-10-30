@@ -7,8 +7,8 @@ import classes from "./doughnut_graph.module.css";
 class DoughnutGraph extends React.Component {
   constructor(props) {
     super(props)
-    // this.currentUser = this.props.currentUser
-    // this.currentPercentages = this.props.currentPercentages
+    this.currentUser = this.props.currentUser
+    this.currentPercentages = this.props.currentPercentages
   }
 
   chartRef = React.createRef();
@@ -26,6 +26,8 @@ class DoughnutGraph extends React.Component {
         labels: ['Home', 'Utilities', 'Food', 'Transportation', 'Health & Fitness', 'Shopping', 'Entertainment', 'Savings', 'Other'],
         datasets: [{
           data: [10, 10, 10, 10, 10, 10, 10, 10, 10],
+          // data: Object.values(this.props.currentPercentages * 100),
+          //data: Object.values(this.props.currentPercentages).map((value) => {return value*100}),
           backgroundColor: [
             'rgba(40, 147, 255, 0.3)',
             'rgba(255, 255, 40, 0.4)',
