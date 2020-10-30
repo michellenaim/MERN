@@ -23,6 +23,7 @@ class EditBudget extends React.Component {
         this.loadStateFromProps = this.loadStateFromProps.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleUpdatedIncome = this.handleUpdatedIncome.bind(this);
+        this.handleDiscardChanges = this.handleDiscardChanges.bind(this);
     }
 
     componentDidMount() {
@@ -80,12 +81,12 @@ class EditBudget extends React.Component {
         this.props.currentUser.budgetBreakdown.forEach(budgetSplit => {
             if (budgetSplit.category === "Health & Fitness") {
                 currentPercentages.HealthAndFitness = budgetSplit.percent;
-                currentIncomeSplits.HealthAndFitness = budgetSplit.incomeSplit;
+                currentIncomeSplits.HealthAndFitness = Math.round(budgetSplit.incomeSplit);
             }
             else {
                 this.state.percentages[budgetSplit.category] = budgetSplit.percent;
                 currentPercentages[budgetSplit.category] = budgetSplit.percent;
-                currentIncomeSplits[budgetSplit.category] = budgetSplit.incomeSplit;
+                currentIncomeSplits[budgetSplit.category] = Math.round(budgetSplit.incomeSplit);
             }
             totalPercentage += budgetSplit.percent;
         })
@@ -117,6 +118,15 @@ class EditBudget extends React.Component {
         this.props.updateBudgetBreakdown(budgetBreakdown)
             .then(() => {this.setState({isEdited: false})});
     }
+
+    handleDiscardChanges() {
+        this.props.fetchCurrentUser()
+            .then(() => {
+                this.loadStateFromProps();
+                this.budgetBreakdown = this.props.currentUser.budgetBreakdown;
+            });
+    }
+
 
     render() {
         const sliders = CATEGORY_KEYS.map((slider, idx) => {
@@ -156,7 +166,7 @@ class EditBudget extends React.Component {
                         </div>
                         <div className={`edit-budget-income-buttons${this.state.isEdited ? '' : '-disable'}`}>
                             <input type="submit" value="Apply Changes"/>
-                            <button onClick={this.loadStateFromProps}>Discard Changes</button>
+                            <button onClick={this.handleDiscardChanges}>Discard Changes</button>
                         </div>
                     </div>
                     <div className="edit-budget-sliders-wrapper">
@@ -164,16 +174,16 @@ class EditBudget extends React.Component {
                             <p>Breakdown your budget:</p>
                         </div>
                         <div className="income-slider">
-                            <label>Income</label>
+                            <label>Money left to use</label>
                             <div className="slider-display">
-                                <input
+                                {/*<input
                                 onChange={this.handleSplit("Income")}
                                 type="range"
                                 min="0"
                                 max="1"
                                 step="0.00001"
                                 value={this.state.percentages.Income}
-                                />
+                                />*/}
                                 <div className="display-value">${this.state.incomeSplits.Income}</div>
                             </div>
                         </div>

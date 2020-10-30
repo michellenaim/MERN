@@ -123,15 +123,21 @@
 }
 
 .income-slider {
-    padding-left: 5%;
-    padding-right: 10%;
+    // padding-left: 5%;
+    // padding-right: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding-bottom: 4%;
+    margin-right: auto;
+    margin-left: auto;
     width: 20%;
 }
 
 .edit-budget-sliders {
     display: flex;
     justify-content: center;
+    margin-left: 180px;
     flex-wrap: wrap;
     height: 50%;
 }
@@ -149,7 +155,7 @@
     margin: 10px;
     border-radius: 10px;
     border: none;
-    border: 1px solid $dark-gray;
+    // border: 1px solid $dark-gray;
     outline: none;
     width: 20%;
     display: flex;
