@@ -3,7 +3,7 @@
 
 .edit-budget {
     margin-top: 80px;
-    height: 700px;
+    height: 850px;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -17,14 +17,14 @@
     padding-bottom: 3%;
 }
 
-.edit-budget-income-form label{
+.edit-budget-income label{
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding-left: 5%;
 }
 
-.edit-budget-income-form {
+.edit-budget-income {
     width: 100%;
     display: flex;
 }
@@ -46,13 +46,37 @@
     justify-content: center;
 }
 
-.edit-budget-income-submit-button {
+.edit-budget-income-buttons,
+.edit-budget-income-buttons-disable {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
+    width: 25%;
+    margin-left: 40%;
 }
 
-.edit-budget-income-submit-button input[type=submit] {
+.edit-budget-income-buttons-disable input,
+.edit-budget-income-buttons-disable button {
+    font-family: $links;
+    font-size: 12px;
+    height: 30px;
+    background-color: $light-green;
+    color: white;
+    padding: 8px 10px; 
+    text-align: center;
+    vertical-align: center;
+    transition: all 0.4s ease;
+    border-radius: 5px;
+    text-decoration: none;
+    border: none;
+}
+
+.edit-budget-income-buttons-disable input[type=submit]:focus {
+    outline: none;
+}
+
+.edit-budget-income-buttons input[type=submit],
+.edit-budget-income-buttons button,
+.edit-budget-income button {
     font-family: $links;
     font-size: 12px;
     height: 30px;
@@ -67,14 +91,22 @@
     text-decoration: none;
 }
 
-.edit-budget-income-submit-button input[type=submit]:hover {
+.edit-budget-income button {
+    margin-top: 1%;
+}
+
+.edit-budget-income-buttons input[type=submit]:hover,
+.edit-budget-income-buttons button:hover,
+.edit-budget-income button:hover {
     cursor: pointer;
     background-color: $light-green;
     border: 1px solid $dark-green;
     color: $dark-green;
     transition: all 0.4s ease
 }
-.edit-budget-income-submit-button input[type=submit]:focus {
+.edit-budget-income-buttons input[type=submit]:focus,
+.edit-budget-income-buttons button:focus,
+.edit-budget-income button:focus {
     outline: none;
 }
 

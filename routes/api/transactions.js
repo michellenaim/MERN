@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const passport = require("passport");
 const User = require("../../models/User");
+const {check, validationResult} = require('express-validator');
 
 // use asynchronous routes
 
@@ -16,13 +17,20 @@ router.get("/", passport.authenticate('jwt', { session: false }),
 
 
 // create a transaction
-router.post("/", passport.authenticate("jwt", { session: false }), 
+router.post("/", [
+  check('transaction.description').not().isEmpty().withMessage("Description cannot be empty"),
+  check('transaction.amount').isNumeric().withMessage("Amount should be a number"),
+  check('transaction.amount').not().isEmpty().withMessage("Amount cannot be empty"),
+  check('transaction.date').not().isEmpty().withMessage("Date cannot be empty"),
+  check('transaction.category').not().isEmpty().withMessage("Category cannot be empty"),
+],
+  passport.authenticate("jwt", { session: false }), 
     async (req, res) => {
-        // const { isValid, errors } = validateTransactions(req.body);
 
-        // if (!isValid) {
-        //     return res.status(400).json(errors);
-        // }
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+          return res.status(422).json({ errors: errors.array() })
+        }
 
         const { date, amount, description, category } = req.body.transaction;
 
@@ -52,9 +60,21 @@ router.post("/", passport.authenticate("jwt", { session: false }),
 
 
 // update a transaction 
-router.patch("/update", passport.authenticate('jwt', { session: false }), 
+router.patch("/update", [
+  check('transaction.description').not().isEmpty().withMessage("Description cannot be empty"),
+  check('transaction.amount').isNumeric().withMessage("Amount should be a number"),
+  check('transaction.amount').not().isEmpty().withMessage("Amount cannot be empty"),
+  check('transaction.date').not().isEmpty().withMessage("Date cannot be empty"),
+  check('transaction.category').not().isEmpty().withMessage("Category cannot be empty"),
+  ],
+  passport.authenticate('jwt', { session: false }), 
     async (req, res) => {
     
+    const errors = validationResult(req)
+      if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() })
+      }
+  
     try {
       // console.log(req.body.transaction)
 
