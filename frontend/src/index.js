@@ -7,6 +7,10 @@ import { setAuthToken } from './util/session_api_util';
 import { logout } from './actions/session_actions';
 import axios from "axios";
 import { fetchAllTransactions} from "./actions/transactions_actions";
+import { 
+  fetchBudgetBreakdown, 
+  updateBudgetBreakdown
+} from "./actions/budget_actions";
 
 import "./stylesheets/_index.scss";
 
@@ -37,5 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.dispatch = store.dispatch;
   // window.fetchAllUsers = fetchAllUsers;
   // window.fetchCurrentUser = fetchCurrentUser;
-  window.fetchAllTransactions = fetchAllTransactions
+  // window.fetchAllTransactions = fetchAllTransactions;
+  // window.fetchBudgetBreakdown = fetchBudgetBreakdown;
+  // window.updateBudgetBreakdown = updateBudgetBreakdown;
 });
