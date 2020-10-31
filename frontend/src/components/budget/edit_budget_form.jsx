@@ -85,6 +85,7 @@ class EditBudget extends React.Component {
             if (budgetSplit.category === "Health & Fitness") {
                 currentPercentages.HealthAndFitness = budgetSplit.percent;
                 currentIncomeSplits.HealthAndFitness = Math.round(budgetSplit.incomeSplit);
+                debugger
             }
             else {
                 currentPercentages[budgetSplit.category] = budgetSplit.percent;
@@ -108,8 +109,14 @@ class EditBudget extends React.Component {
             const category = budgetType.category;
             updatedBudgetType._id = budgetType._id;
             updatedBudgetType.category = category;
-            updatedBudgetType.incomeSplit = this.state.incomeSplits[category];
-            updatedBudgetType.percent = Number(this.state.percentages[category]);
+            if (category === 'Health & Fitness') {
+                updatedBudgetType.incomeSplit = this.state.incomeSplits.HealthAndFitness;
+                updatedBudgetType.percent = Number(this.state.percentages.HealthAndFitness);
+            }
+            else {
+                updatedBudgetType.incomeSplit = this.state.incomeSplits[category];
+                updatedBudgetType.percent = Number(this.state.percentages[category]);
+            }
             updatedBudgetBreakdown.push(updatedBudgetType);
         })
         return {
