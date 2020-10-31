@@ -124,9 +124,35 @@ router.delete("/delete/:transactionId", passport.authenticate('jwt', { session: 
     });
 });
 
+// filter transactions by category type
+router.get("/:category", passport.authenticate('jwt', { session: false }), 
+    async (req, res) => {    
+
+       const filteredTransactions = req.user.transactions.filter(t => {
+        if (req.params.category === t.category) {
+          return t
+        }
+      })
+
+      const errors = {};
+      
+      if (filteredTransactions.length !== 0) {
+        res.status(200).json({
+          transactions: filteredTransactions
+        });
+      } else {
+        errors.message = "There are no transactions in this category"
+        return res.json(errors)
+      }
+
+});
+
 
 module.exports = router;
 
+// const CATEGORY_KEYS = ["Home", "Utilities", "Savings", "Food", "Other",
+//                     "HealthAndFitness", "Shopping", "Transportation",
+//                     "Entertainment"];
 
 // POSTMAN TESTING:
 
