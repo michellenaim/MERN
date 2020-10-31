@@ -103,6 +103,7 @@ class TransactionIndex extends React.PureComponent{
         // debugger
         let transactionsData
         let noTransactionsInCategory
+        // let sortedData
 
         if (!this.props.transactions.data.transactions.length) {
             transactionsData = (
@@ -111,6 +112,9 @@ class TransactionIndex extends React.PureComponent{
                 </tr>
             )
         } else if (this.props.transactions.data.transactions.map !== undefined){
+            debugger
+            // sortedData = this.props.transactions.data.transactions.sort((a, b) => { return debugger
+            //     (a.date > b.date)})
             transactionsData = this.props.transactions.data.transactions.map(transaction => {
                 return <TransactionIndexItem key={transaction._id} errors={this.props.updateErrors} transaction={transaction} editTransaction={this.props.editTransaction} deleteTransaction={this.props.deleteTransaction} clearUpdatedTransactionErrors={this.props.clearUpdatedTransactionErrors} />
             })
