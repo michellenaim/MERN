@@ -162,7 +162,6 @@ class EditBudget extends React.Component {
                         <div className="input-wrapper-left">
                             <div className="edit-budget-income-wrapper">
                                 <div className="edit-budget-income">
-                                    {/* <label>What's your income?</label> */}
                                     <input onChange={this.handleUpdatedIncome} type="text" placeholder="$" value={this.state.updatedIncome}/>
                                     <button className="update-income" onClick={this.handleSplit("Income")}>Update Income</button>
                                 </div>
@@ -175,8 +174,8 @@ class EditBudget extends React.Component {
                     </div>
                     <div className="edit-budget-income-buttons-wrapper">
                         <div className={`edit-budget-income-buttons${this.state.isEdited ? '' : '-disable'}`}>
-                            <input type="submit" value="Apply Changes"/>
-                            <button onClick={this.handleDiscardChanges}>Discard Changes</button>
+                            <input disabled={!this.state.isEdited} type="submit" value="Apply Changes"/>
+                            <button disabled={!this.state.isEdited} onClick={this.handleDiscardChanges}>Discard Changes</button>
                         </div>
                     </div>
                     <div className="edit-budget-sliders-wrapper">
