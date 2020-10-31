@@ -20,6 +20,7 @@ class EditBudget extends React.Component {
 
         this.handleSplit = this.handleSplit.bind(this);
         this.loadStateFromProps = this.loadStateFromProps.bind(this);
+        this.getCurrentBudgetBreakdown = this.getCurrentBudgetBreakdown.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleUpdatedIncome = this.handleUpdatedIncome.bind(this);
         this.handleDiscardChanges = this.handleDiscardChanges.bind(this);
@@ -66,7 +67,9 @@ class EditBudget extends React.Component {
                 });
                 currentIncomeSplits.Income = Math.round(updatedIncome*currentPercentages.Income);
                 this.setState({income: updatedIncome})
-                this.setState({isEdited: true});
+                const budgetBreakdown = {income: updatedIncome,
+                                         budgetBreakdown: this.budgetBreakdown};
+                this.props.updateBudgetBreakdown(budgetBreakdown);
             }
             this.setState({percentages: currentPercentages});
             this.setState({incomeSplits: currentIncomeSplits});
@@ -98,8 +101,7 @@ class EditBudget extends React.Component {
         this.setState({budgetBreakdown: this.props.currentUser.budgetBreakdown})
     }
 
-    handleSubmit(e) {
-        e.preventDefault();
+    getCurrentBudgetBreakdown() {
         let updatedBudgetBreakdown = [];
         this.budgetBreakdown.forEach(budgetType => {
             let updatedBudgetType = {};
@@ -110,11 +112,15 @@ class EditBudget extends React.Component {
             updatedBudgetType.percent = Number(this.state.percentages[category]);
             updatedBudgetBreakdown.push(updatedBudgetType);
         })
-        const budgetBreakdown = {
+        return {
                 income: this.state.income,
                 budgetBreakdown: updatedBudgetBreakdown
-        }
-        this.props.updateBudgetBreakdown(budgetBreakdown)
+        };
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        this.props.updateBudgetBreakdown(this.getCurrentBudgetBreakdown())
             .then(() => {this.setState({isEdited: false})});
     }
 
