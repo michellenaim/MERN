@@ -5,9 +5,10 @@ import {
     fetchFilteredTransactions,
     logTransaction, 
     receiveTransactionErrors, 
-    deleteTransaction 
+    deleteTransaction,
+    updateTransaction,
+    receiveUpdatedTransactionErrors
 } from '../../actions/transactions_actions'
-import { fetchAllTransactions, logTransaction, receiveTransactionErrors, deleteTransaction, updateTransaction, receiveUpdatedTransactionErrors } from '../../actions/transactions_actions'
 import selectTransactionsByCategory from './selector'
 
 const mapStateToProps = (state) => {
