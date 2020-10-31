@@ -8,7 +8,9 @@ class TransactionIndexItem extends React.Component {
             date: this.props.transaction.date,
             description: this.props.transaction.description,
             category: this.props.transaction.category,
-            amount: this.props.transaction.amount
+            amount: this.props.transaction.amount,
+
+            editable: false
         }
         
         this.editTransaction = this.editTransaction.bind(this)
@@ -16,32 +18,15 @@ class TransactionIndexItem extends React.Component {
         this.update = this.update.bind(this)
         this.showUpdateRow = this.showUpdateRow.bind(this)
         this.renderTransErrors = this.renderTransErrors.bind(this)
+        this.isEditable = this.isEditable.bind(this)
     }
-
-    showUpdateRow() {
-
-    }
-
-    renderTransErrors() {
-        if (!this.props.errors[2]) {
-            return null
-        } else {
-            return (
-                <ul className="update-transaction-errors">
-                    {this.props.errors[2].data.errors.map((error, idx) => {
-                        return <li key={idx}>{error.msg}</li>
-                    })}
-                </ul>
-            )
-        }
-    }
-
+    
     update(field) {
         return e => this.setState({
             [field]: e.currentTarget.value
         });
     }
-
+    
     editTransaction(e) {
         e.preventDefault()
         let updatedTransaction = {
@@ -54,39 +39,46 @@ class TransactionIndexItem extends React.Component {
         
         this.props.editTransaction(updatedTransaction)
         .then(() => this.props.clearUpdatedTransactionErrors())
-        // .then(() => {
-        //     this.setState({
-        //         date: "",
-        //         description: "",
-        //         category: "", //not working
-        //         amount: "empty"
-        //     })
-        // })
+        .then(() => {
+            this.setState({
+                editable: false
+            })
+        })
     }
-
+            
     deleteTransaction(e) {
         e.preventDefault()      
-   
+        
         this.props.deleteTransaction(this.props.transaction)       
     }
+            
+    renderTransErrors() {
+        if (!this.props.errors[2]) {
+            return null
+        } else if (!this.state.editable) {
+            return null
+        } else {
+            return (
+                <td colspan="5" className="update-transaction-errors" >
+                    <ul>
+                        {this.props.errors[2].data.errors.map((error, idx) => {
+                            return <li key={idx}>{error.msg}</li>
+                        })}
+                    </ul>               
+                </td>
+            )
+        }
+    }
 
-    render() {
-        const transaction = this.props.transaction
+    showUpdateRow(e) {
+        e.preventDefault()
 
-    
-        return(
-            <React.Fragment>
-                <tr>
-                    <td>{transaction.date.toString().slice(0, 10)}</td>
-                    <td>{transaction.description}</td>               
-                    <td>${transaction.amount}</td>
-                    <td>{transaction.category}</td>
-                    <div className="edit-delete-buttons">
-                        <button onClick={this.showUpdateRow} ><i className="fas fa-edit"></i></button>
-                        <button onClick={this.deleteTransaction} ><i className="far fa-trash-alt"></i></button>
-                    </div>
-                </tr> 
+        this.setState({editable: true})
+    }
 
+    isEditable() {
+        if (this.state.editable) {
+            return (
                 <tr className="edit-transaction-border">
                     <td><input onChange={this.update('date')} type="date" name="" value={this.state.date.toString().slice(0, 10)} required /></td>
                     <td><input onChange={this.update('description')} type="text" placeholder="Description" value={this.state.description} /></td>
@@ -103,8 +95,33 @@ class TransactionIndexItem extends React.Component {
                         <option value="Other">Other</option>
                     </select></td>
                     <td><button onClick={this.editTransaction} className="edit-transaction-button">Update Transaction</button></td>
-                </tr>
-                <div colspan="5">{this.renderTransErrors()}</div>
+                </tr>               
+            )
+        } else {
+            return null
+        }
+    }
+
+    render() {
+
+        const transaction = this.props.transaction
+
+        return(
+            <React.Fragment>
+                <tr>
+                    <td>{transaction.date.toString().slice(0, 10)}</td>
+                    <td>{transaction.description}</td>               
+                    <td>${transaction.amount}</td>
+                    <td>{transaction.category}</td>
+                    <div className="edit-delete-buttons">
+                        <button onClick={this.showUpdateRow} ><i className="fas fa-edit"></i></button>
+                        <button onClick={this.deleteTransaction} ><i className="far fa-trash-alt"></i></button>
+                    </div>
+                </tr> 
+                
+                {this.isEditable()}
+
+                {this.renderTransErrors()}
 
             </React.Fragment>
         )

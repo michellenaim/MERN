@@ -125,13 +125,6 @@ input[type=text], input[type=number], input[type=date], select {
     cursor: pointer;
 }
 
-
-.table {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .transaction-category-buttons {
   .selected {
     font-family: $links;
@@ -179,10 +172,11 @@ input[type=text], input[type=number], input[type=date], select {
 }
 
 .update-transaction-errors {
+  border: 1px solid black;
+  border-top: 1px solid transparent;
+  width: 100%;
   font-size: 15px;
   color: rgb(206, 27, 27); 
-
-  border-left: none;
   padding: 10px;
      
   li {
@@ -224,7 +218,6 @@ input[type=text], input[type=number], input[type=date], select {
 
 .edit-transaction-border{
   border: 1px solid black;
-  border-bottom: none;
 
   td {
     border: none;

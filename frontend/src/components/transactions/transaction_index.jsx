@@ -130,20 +130,19 @@ class TransactionIndex extends React.PureComponent{
                     <button onClick={this.handleCategory("Other")}>Other</button>
                 </div>
 
-                <div className="table">
-                    <table className="transactions-table">
-                        <tr>
-                            <th>Date</th>
-                            <th>Description</th>
-                            <th>Amount</th>
-                            <th>Budget Category</th>
-                            <th>Edit or Delete</th>
-                        </tr>
-                        
-                        {transactionsData}
+                <table className="transactions-table">
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Budget Category</th>
+                        <th>Edit or Delete</th>
+                    </tr>
+                    
+                    {transactionsData}
 
-                    </table>
-                </div>
+                </table>
+
             </div>
         )
     }
