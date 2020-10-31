@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import TransactionIndex from './transaction_index';
-import { fetchAllTransactions, logTransaction, receiveTransactionErrors, deleteTransaction } from '../../actions/transactions_actions'
+import { fetchAllTransactions, logTransaction, receiveTransactionErrors, deleteTransaction, updateTransaction } from '../../actions/transactions_actions'
 import selectTransactionsByCategory from './selector'
 
 const mapStateToProps = (state) => {
@@ -16,7 +16,7 @@ const mapDispatchToProps = (dispatch) => {
         fetchAllTransactions: () => dispatch(fetchAllTransactions()),
         createTransaction: (transaction) => dispatch(logTransaction(transaction)),
         deleteTransaction: (transaction) => dispatch(deleteTransaction(transaction)),
-        // updateTransaction: ,
+        editTransaction: (transaction) => dispatch(updateTransaction(transaction)),
         clearTransactionErrors: () => dispatch(receiveTransactionErrors([]))
     }
 }
