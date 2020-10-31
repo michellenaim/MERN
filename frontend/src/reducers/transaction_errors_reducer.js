@@ -14,5 +14,4 @@ const TransactionErrorsReducer = (state = _nullErrors, action) => {
     }
 }
 
-
 export default TransactionErrorsReducer

@@ -55,27 +55,26 @@ router.post("/", [
 
 // update a transaction 
 router.patch("/update", [
-  check('transaction.description').not().isEmpty().withMessage("Description cannot be empty"),
-  check('transaction.amount').isNumeric().withMessage("Amount should be a number"),
-  check('transaction.amount').not().isEmpty().withMessage("Amount cannot be empty"),
-  check('transaction.date').not().isEmpty().withMessage("Date cannot be empty"),
-  check('transaction.category').not().isEmpty().withMessage("Category cannot be empty"),
+  check('description').not().isEmpty().withMessage("Description cannot be empty"),
+  check('amount').isNumeric().withMessage("Amount should be a number"),
+  check('amount').not().isEmpty().withMessage("Amount cannot be empty"),
+  check('date').not().isEmpty().withMessage("Date cannot be empty"),
+  check('category').not().isEmpty().withMessage("Category cannot be empty"),
   ],
   passport.authenticate('jwt', { session: false }), 
     async (req, res) => {
     
     const errors = validationResult(req)
-      if (!errors.isEmpty()) {
-        return res.status(422).json({ errors: errors.array() })
-      }
-  
-    try {
-      // console.log(req.body.transaction)
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() })
+    }
 
-      const { date, amount, description, category } = req.body.transaction;
+    try {
+
+      const { date, amount, description, category } = req.body;
 
       req.user.transactions.forEach(originalT => {
-        if (originalT._id.toString() === req.body.transaction._id) {
+        if (originalT._id.toString() === req.body._id) {
           originalT.date = date;
           originalT.amount = amount;
           originalT.description = description;
@@ -90,8 +89,7 @@ router.patch("/update", [
         transactions: req.user.transactions,
       });
     } catch (errors) {
-      // console.log(errors);
-      // 422 => unprocessable entity
+      
       return res.status(422).json({
         ...errors,
       });
@@ -166,7 +164,7 @@ module.exports = router;
 //     }
 // }
 
-// to update or delete a transaction, include specific _id
+// to delete a transaction, include specific _id
 // {
 //     "transaction": 
 //         {
@@ -176,4 +174,13 @@ module.exports = router;
 //             "description": "rent",
 //             "category": "Home"
 //         }
+// }
+
+// to update transaction (no transaction key):
+// {
+//      "_id": "5f9b3339e66bd953e6adf3f6",
+//      "date": "2020-10-30T00:00:00.000Z",
+//      "amount": 750,
+//      "description": "rent",
+//      "category": "Home"
 // }
