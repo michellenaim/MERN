@@ -88,7 +88,7 @@ class TransactionIndex extends React.PureComponent{
             )
         } else {
             transactionsData = this.props.transactions.data.transactions.map(transaction => {
-                return <TransactionIndexItem key={transaction._id} transaction={transaction} editTransaction={this.props.editTransaction} deleteTransaction={this.props.deleteTransaction} />
+                return <TransactionIndexItem key={transaction._id} errors={this.props.updateErrors} transaction={transaction} editTransaction={this.props.editTransaction} deleteTransaction={this.props.deleteTransaction} clearUpdatedTransactionErrors={this.props.clearUpdatedTransactionErrors} />
             })
         }
 

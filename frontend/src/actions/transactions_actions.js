@@ -5,6 +5,7 @@ export const CREATE_TRANSACTION = "CREATE_TRANSACTION";
 export const EDIT_TRANSACTION = "EDIT_TRANSACTION";
 export const REMOVE_TRANSACTION = "REMOVE_TRANSACTION";
 export const RECEIVE_TRANSACTION_ERRORS = "RECEIVE_TRANSACTION_ERRORS";
+export const RECEIVE_UPDATED_TRANSACTION_ERRORS = "RECEIVE_UPDATED_TRANSACTION_ERRORS";
 export const CLEAR_TRANSACTION_ERRORS = "CLEAR_TRANSACTION_ERRORS";
 
 export const receiveAllTransactions = (transactions) => {
@@ -42,6 +43,13 @@ export const receiveTransactionErrors = (errors) => {
     })
 }
 
+export const receiveUpdatedTransactionErrors = (errors) => {
+    return ({
+        type: RECEIVE_UPDATED_TRANSACTION_ERRORS,
+        errors
+    })
+}
+
 export const removeTransactionErrors = () => {
     return ({
         type: CLEAR_TRANSACTION_ERRORS
@@ -66,7 +74,13 @@ export const logTransaction = (transaction) => dispatch => {
 
 export const updateTransaction = (transaction) => dispatch => {
     return TransactionApiUtil.updateTransaction(transaction)
-        .then(transaction => dispatch(editTransaction(transaction)))
+        .then(
+            transaction => dispatch(editTransaction(transaction)),
+            (err) => {
+                dispatch(receiveUpdatedTransactionErrors(err))
+                return (Promise.reject())
+            }       
+        )
 }
 
 export const deleteTransaction = (transaction) => dispatch => {
@@ -74,10 +88,5 @@ export const deleteTransaction = (transaction) => dispatch => {
         .then(transaction => dispatch(removeTransaction(transaction)))
 }
 
-// export const clearTransactionErrors = () => (dispatch) => {
-//     return (
-//         dispatch(removeTransactionErrors())
-//     )
-// }
 
 
