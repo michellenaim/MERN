@@ -9,7 +9,6 @@ import {
     updateTransaction,
     receiveUpdatedTransactionErrors
 } from '../../actions/transactions_actions'
-import selectTransactionsByCategory from './selector'
 
 const mapStateToProps = (state) => {
     return {
