@@ -85,7 +85,6 @@ class EditBudget extends React.Component {
             if (budgetSplit.category === "Health & Fitness") {
                 currentPercentages.HealthAndFitness = budgetSplit.percent;
                 currentIncomeSplits.HealthAndFitness = Math.round(budgetSplit.incomeSplit);
-                debugger
             }
             else {
                 currentPercentages[budgetSplit.category] = budgetSplit.percent;
@@ -188,7 +187,6 @@ class EditBudget extends React.Component {
                     <div className="edit-budget-income-buttons-wrapper">
                         <div className={`edit-budget-income-buttons${this.state.isEdited ? '' : '-disable'}`}>
                             <input disabled={!this.state.isEdited} type="submit" value="Apply Changes"/>
-                            <button disabled={!this.state.isEdited} onClick={this.handleDiscardChanges}>Discard Changes</button>
                         </div>
                     </div>
                     <div className="edit-budget-sliders-wrapper">
@@ -213,7 +211,8 @@ class EditBudget extends React.Component {
                     <div className="edit-budget-sliders">
                         {sliders}
                     </div>
-                </form>
+               </form>
+               <button disabled={!this.state.isEdited} onClick={this.handleDiscardChanges}>Discard Changes</button>
             </div>
         );
     }
