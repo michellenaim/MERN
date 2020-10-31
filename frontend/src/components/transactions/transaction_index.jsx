@@ -57,6 +57,28 @@ class TransactionIndex extends React.PureComponent{
             e.preventDefault()
             // this.setState({ selectedCategory: type})
             this.props.fetchFilteredTransactions(type)
+
+            const CATEGORY_KEYS = ["Home", "Utilities", "Savings", "Food", "Other",
+                    "Health & Fitness", "Shopping", "Transportation",
+                    "Entertainment"];
+            CATEGORY_KEYS.forEach((category) => {
+                if (type === category) {
+                    this.setState({
+                        [type]: "selected"
+                    })
+                } else{
+                    this.setState({
+                        [category]: '',
+                        All : ''
+                    })
+                }
+            }) 
+
+            if (type === "/") {
+                this.setState({
+                    All: "selected"
+                })
+            }
         }
     }
 
@@ -126,16 +148,16 @@ class TransactionIndex extends React.PureComponent{
 
                 <p className="transaction-title">Transactions</p>
                 <div className="transaction-category-buttons">
-                    <button onClick={this.handleCategory("/")} className="selected">All</button>
-                    <button onClick={this.handleCategory("Home")}>Home</button>
-                    <button onClick={this.handleCategory("Utilities")}>Utilities</button>
-                    <button onClick={this.handleCategory("Food")}>Food</button>
-                    <button onClick={this.handleCategory("Transportation")}>Transportation</button>
-                    <button onClick={this.handleCategory("Health & Fitness")}>Health & Fitness</button>
-                    <button onClick={this.handleCategory("Shopping")}>Shopping</button>
-                    <button onClick={this.handleCategory("Entertainment")}>Entertainment</button>
-                    <button onClick={this.handleCategory("Savings")}>Savings</button>
-                    <button onClick={this.handleCategory("Other")}>Other</button>
+                    <button onClick={this.handleCategory("/")} className={this.state.All}>All</button>
+                    <button onClick={this.handleCategory("Home")} className={this.state.Home}>Home</button>
+                    <button onClick={this.handleCategory("Utilities")} className={this.state.Utilities}>Utilities</button>
+                    <button onClick={this.handleCategory("Food")} className={this.state.Food}>Food</button>
+                    <button onClick={this.handleCategory("Transportation")} className={this.state.Transportation}>Transportation</button>
+                    <button onClick={this.handleCategory("Health & Fitness")} className={this.state["Health & Fitness"]}>Health & Fitness</button>
+                    <button onClick={this.handleCategory("Shopping")} className={this.state.Shopping}>Shopping</button>
+                    <button onClick={this.handleCategory("Entertainment")} className={this.state.Entertainment}>Entertainment</button>
+                    <button onClick={this.handleCategory("Savings")} className={this.state.Savings}>Savings</button>
+                    <button onClick={this.handleCategory("Other")} className={this.state.Other}>Other</button>
                 </div>
 
                 <div className="table">
