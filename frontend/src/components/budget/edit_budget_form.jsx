@@ -1,5 +1,5 @@
 import React from 'react';
-import DoughnutGraphContainer from "../graphs/doughnut_graph_container"
+import DoughnutGraph from "../graphs/doughnut_graph"
 
 const CATEGORY_KEYS = ["Home", "Utilities", "Savings", "Food", "Other",
                     "HealthAndFitness", "Shopping", "Transportation",
@@ -84,7 +84,6 @@ class EditBudget extends React.Component {
                 currentIncomeSplits.HealthAndFitness = Math.round(budgetSplit.incomeSplit);
             }
             else {
-                this.state.percentages[budgetSplit.category] = budgetSplit.percent;
                 currentPercentages[budgetSplit.category] = budgetSplit.percent;
                 currentIncomeSplits[budgetSplit.category] = Math.round(budgetSplit.incomeSplit);
             }
@@ -171,7 +170,7 @@ class EditBudget extends React.Component {
                             </div>
                         </div>
                         <div className="input-wrapper-right">
-                            <DoughnutGraphContainer currentPercentages={this.state.percentages} currentUser={this.props.currentUser} />
+                            <DoughnutGraph currentPercentages={this.state.percentages} currentUser={this.props.currentUser} />
                         </div>
                     </div>
                     <div className="edit-budget-income-buttons-wrapper">
