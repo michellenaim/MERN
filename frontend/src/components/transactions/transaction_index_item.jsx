@@ -73,17 +73,21 @@ class TransactionIndexItem extends React.Component {
     showUpdateRow(e) {
         e.preventDefault()
 
-        this.setState({editable: true})
+        if (!this.state.editable) {
+            this.setState({editable: true})
+        } else {
+            this.setState({editable: false})
+        }
     }
 
     isEditable() {
         if (this.state.editable) {
             return (
                 <tr className="edit-transaction-border">
-                    <td><input onChange={this.update('date')} type="date" name="" value={this.state.date.toString().slice(0, 10)} required /></td>
-                    <td><input onChange={this.update('description')} type="text" placeholder="Description" value={this.state.description} /></td>
-                    <td><input onChange={this.update('amount')} type="number" placeholder="$ Amount" value={this.state.amount} required /></td>
-                    <td><select onChange={this.update('category')} name="Budgets" value={this.state.category}>
+                    <td className="date-column"><input className="transaction-input1" onChange={this.update('date')} type="date" name="" value={this.state.date.toString().slice(0, 10)} required /></td>
+                    <td className="description-column"><input className="transaction-input2" onChange={this.update('description')} type="text" placeholder="Description" value={this.state.description} /></td>
+                    <td className="amount-column"><input className="transaction-input3" onChange={this.update('amount')} type="number" placeholder="$ Amount" value={this.state.amount} required /></td>
+                    <td className="budget-column"><select className="transaction-input4" onChange={this.update('category')} name="Budgets" value={this.state.category}>
                         <option value="Home">Home</option>
                         <option value="Utilities">Utilities</option>
                         <option value="Food">Food</option>
@@ -94,7 +98,7 @@ class TransactionIndexItem extends React.Component {
                         <option value="Savings">Savings</option>
                         <option value="Other">Other</option>
                     </select></td>
-                    <td><button onClick={this.editTransaction} className="edit-transaction-button">Update Transaction</button></td>
+                    <td className="edit-column"><button onClick={this.editTransaction} className="edit-transaction-button">Update Transaction</button></td>
                 </tr>               
             )
         } else {
@@ -109,11 +113,11 @@ class TransactionIndexItem extends React.Component {
         return(
             <React.Fragment>
                 <tr>
-                    <td>{transaction.date.toString().slice(0, 10)}</td>
-                    <td>{transaction.description}</td>               
-                    <td>${transaction.amount}</td>
-                    <td>{transaction.category}</td>
-                    <div className="edit-delete-buttons">
+                    <td className="date-column" >{transaction.date.toString().slice(0, 10)}</td>
+                    <td className="description-column">{transaction.description}</td>               
+                    <td className="amount-column">${transaction.amount}</td>
+                    <td className="budget-column">{transaction.category}</td>
+                    <div className="edit column edit-delete-buttons">
                         <button onClick={this.showUpdateRow} ><i className="fas fa-edit"></i></button>
                         <button onClick={this.deleteTransaction} ><i className="far fa-trash-alt"></i></button>
                     </div>

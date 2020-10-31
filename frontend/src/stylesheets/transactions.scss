@@ -1,6 +1,10 @@
 @import "./colors.scss";
 @import "./fonts.scss";
 
+table {
+  // table-layout: fixed;
+}
+
 .transactions {
   margin: 100px 3vw;
 }
@@ -96,6 +100,26 @@ td{
 th {
   text-align: left;
   font-family: $title;
+}
+
+.date-column {
+  width: 15%;
+}
+
+.description-column {
+  width: 35%;
+}
+
+.amount-column {
+  width: 15%;
+}
+
+.budget-column {
+  width: 15%;
+}
+
+.edit-column {
+  width: 20%;
 }
 
 input[type=text], input[type=number], input[type=date], select {
