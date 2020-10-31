@@ -78,7 +78,7 @@ class TransactionIndex extends React.PureComponent{
         if (!this.props.transactions.data) {
             return null
         }
-        // debugger
+        
         let transactionsData
         let noTransactionsInCategory
 
@@ -140,11 +140,11 @@ class TransactionIndex extends React.PureComponent{
 
                 <table className="transactions-table">
                     <tr>
-                        <th>Date</th>
-                        <th>Description</th>
-                        <th>Amount</th>
-                        <th>Budget Category</th>
-                        <th>Edit or Delete</th>
+                        <th className="date-column">Date</th>
+                        <th className="description-column">Description</th>
+                        <th className="amount-column">Amount</th>
+                        <th className="budget-column">Budget Category</th>
+                        <th className="edit-column">Edit or Delete</th>
                     </tr>
                     
                     {transactionsData}
