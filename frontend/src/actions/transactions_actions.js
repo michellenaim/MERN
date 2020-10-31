@@ -6,10 +6,18 @@ export const EDIT_TRANSACTION = "EDIT_TRANSACTION";
 export const REMOVE_TRANSACTION = "REMOVE_TRANSACTION";
 export const RECEIVE_TRANSACTION_ERRORS = "RECEIVE_TRANSACTION_ERRORS";
 export const CLEAR_TRANSACTION_ERRORS = "CLEAR_TRANSACTION_ERRORS";
+export const RECEIVE_FILTERED_TRANSACTIONS = "RECEIVE_FILTERED_TRANSACTIONS";
 
 export const receiveAllTransactions = (transactions) => {
     return ({
         type: RECEIVE_All_TRANSACTIONS,
+        transactions
+    })
+}
+
+export const receiveFilteredTransactions = (transactions) => {
+    return ({
+        type: RECEIVE_FILTERED_TRANSACTIONS,
         transactions
     })
 }
@@ -52,6 +60,13 @@ export const fetchAllTransactions = () => dispatch => {
     return TransactionApiUtil.fetchAllTransactions()
         .then(transactions => dispatch(receiveAllTransactions(transactions)))
 }
+
+export const fetchFilteredTransactions = (category) => dispatch => {
+    return TransactionApiUtil.fetchFilteredTransactions(category)
+        .then(transactions => dispatch(receiveFilteredTransactions(transactions)))
+}
+
+
 
 export const logTransaction = (transaction) => dispatch => {
     return TransactionApiUtil.logTransaction(transaction)

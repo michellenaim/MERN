@@ -4,6 +4,10 @@ export const fetchAllTransactions = () => {
     return axios.get('/api/transactions/')
 }
 
+export const fetchFilteredTransactions = (category) => {
+    return axios.get(`/api/transactions/${category}`)
+}
+
 export const logTransaction = (transaction) => {
     return axios.post('/api/transactions/', transaction)
 }

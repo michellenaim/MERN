@@ -141,7 +141,7 @@ router.get("/:category", passport.authenticate('jwt', { session: false }),
           transactions: filteredTransactions
         });
       } else {
-        errors.message = "There are no transactions in this category"
+        errors.transactions = "There are no transactions in this category"
         return res.json(errors)
       }
 
