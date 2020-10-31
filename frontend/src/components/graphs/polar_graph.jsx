@@ -15,11 +15,16 @@ class PolarGraph extends React.Component {
 
     chartRef = React.createRef();
 
+    componentDidUpdate() {
+        this.chart.data.datasets[0].data = Object.values(this.props.transactionPercentages).map((value) => {return value});
+        this.chart.update();
+    }
+  
     componentDidMount() {
         const myChartRef = this.chartRef.current.getContext("2d");
         // const data = array that contains this.currentPercentages
 
-        new Chart(myChartRef, {
+        this.chart = new Chart(myChartRef, {
             type: 'polarArea',
             data: {
                 labels: ['Home', 'Utilities', 'Food', 'Transportation', 'Health & Fitness', 'Shopping', 'Entertainment', 'Savings', 'Other'],
