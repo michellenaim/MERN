@@ -55,7 +55,8 @@ class TransactionIndex extends React.PureComponent{
     handleCategory(type) {
         return (e) => {
             e.preventDefault()
-            this.setState({ selectedCategory: type})
+            // this.setState({ selectedCategory: type})
+            this.props.fetchFilteredTransactions(type)
         }
     }
 
@@ -77,8 +78,9 @@ class TransactionIndex extends React.PureComponent{
         if (!this.props.transactions.data) {
             return null
         }
-
+        // debugger
         let transactionsData
+        let noTransactionsInCategory
 
         if (!this.props.transactions.data.transactions.length) {
             transactionsData = (
@@ -86,10 +88,16 @@ class TransactionIndex extends React.PureComponent{
                     <td colspan="5">No transactions yet!</td>
                 </tr>
             )
-        } else {
+        } else if (this.props.transactions.data.transactions.map !== undefined){
             transactionsData = this.props.transactions.data.transactions.map(transaction => {
                 return <TransactionIndexItem key={transaction._id} transaction={transaction} editTransaction={this.props.editTransaction} deleteTransaction={this.props.deleteTransaction} />
             })
+        } else {
+            noTransactionsInCategory = (
+                <tr className="no-transactions">
+                    <td colspan="5">There are no transactions in this category</td>
+                </tr>
+            )
         }
 
         return (
@@ -118,7 +126,7 @@ class TransactionIndex extends React.PureComponent{
 
                 <p className="transaction-title">Transactions</p>
                 <div className="transaction-category-buttons">
-                    <button onClick={this.handleCategory("All")} className="selected">All</button>
+                    <button onClick={this.handleCategory("/")} className="selected">All</button>
                     <button onClick={this.handleCategory("Home")}>Home</button>
                     <button onClick={this.handleCategory("Utilities")}>Utilities</button>
                     <button onClick={this.handleCategory("Food")}>Food</button>
@@ -141,7 +149,7 @@ class TransactionIndex extends React.PureComponent{
                         </tr>
                         
                         {transactionsData}
-
+                        {noTransactionsInCategory}
                     </table>
                 </div>
             </div>

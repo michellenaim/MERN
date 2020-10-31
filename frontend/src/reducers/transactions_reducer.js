@@ -1,5 +1,6 @@
 import { 
     RECEIVE_All_TRANSACTIONS,
+    RECEIVE_FILTERED_TRANSACTIONS,
     CREATE_TRANSACTION,
     EDIT_TRANSACTION,
     REMOVE_TRANSACTION
@@ -16,6 +17,8 @@ const TransactionsReducer = (state = {}, action) => {
             return action.transaction
         case REMOVE_TRANSACTION:
             return action.transaction
+        case RECEIVE_FILTERED_TRANSACTIONS:
+            return action.transactions
         default:
             return state;
     }
