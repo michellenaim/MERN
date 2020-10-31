@@ -12,19 +12,21 @@ class DoughnutGraph extends React.Component {
   }
 
   chartRef = React.createRef();
+
+  componentDidUpdate() {
+    this.chart.data.datasets[0].data = Object.values(this.props.currentPercentages).map((value) => {return Math.round(value*100)});
+    this.chart.update();
+  }
   
   componentDidMount() {
     const myChartRef = this.chartRef.current.getContext("2d");
-    // const data = array that contains this.currentPercentages
 
-    new Chart(myChartRef, {
+    this.chart = new Chart(myChartRef, {
       type: 'doughnut',
       data: {
-        labels: ['Home', 'Utilities', 'Food', 'Transportation', 'Health & Fitness', 'Shopping', 'Entertainment', 'Savings', 'Other'],
+        labels: ['Home', 'Utilities', 'Food', 'Transportation', 'Health & Fitness', 'Shopping', 'Entertainment', 'Savings', 'Other', 'Income'],
         datasets: [{
           data: [10, 10, 10, 10, 10, 10, 10, 10, 10],
-          // data: Object.values(this.props.currentPercentages * 100),
-          //data: Object.values(this.props.currentPercentages).map((value) => {return value*100}),
           backgroundColor: [
             'rgba(40, 147, 255, 0.3)',
             'rgba(255, 255, 40, 0.4)',

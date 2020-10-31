@@ -112,7 +112,7 @@ class TransactionIndex extends React.PureComponent{
             )
         } else if (this.props.transactions.data.transactions.map !== undefined){
             transactionsData = this.props.transactions.data.transactions.map(transaction => {
-                return <TransactionIndexItem key={transaction._id} transaction={transaction} editTransaction={this.props.editTransaction} deleteTransaction={this.props.deleteTransaction} />
+                return <TransactionIndexItem key={transaction._id} errors={this.props.updateErrors} transaction={transaction} editTransaction={this.props.editTransaction} deleteTransaction={this.props.deleteTransaction} clearUpdatedTransactionErrors={this.props.clearUpdatedTransactionErrors} />
             })
         } else {
             noTransactionsInCategory = (
@@ -160,20 +160,20 @@ class TransactionIndex extends React.PureComponent{
                     <button onClick={this.handleCategory("Other")} className={this.state.Other}>Other</button>
                 </div>
 
-                <div className="table">
-                    <table className="transactions-table">
-                        <tr>
-                            <th>Date</th>
-                            <th>Description</th>
-                            <th>Amount</th>
-                            <th>Budget Category</th>
-                            <th>Edit or Delete</th>
-                        </tr>
-                        
-                        {transactionsData}
-                        {noTransactionsInCategory}
-                    </table>
-                </div>
+                <table className="transactions-table">
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Budget Category</th>
+                        <th>Edit or Delete</th>
+                    </tr>
+                    
+                    {transactionsData}
+                    {noTransactionsInCategory}
+
+                </table>
+
             </div>
         )
     }

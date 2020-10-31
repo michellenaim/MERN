@@ -1,5 +1,5 @@
 import React from 'react';
-import DoughnutGraphContainer from "../graphs/doughnut_graph_container"
+import DoughnutGraph from "../graphs/doughnut_graph"
 
 const CATEGORY_KEYS = ["Home", "Utilities", "Savings", "Food", "Other",
                     "HealthAndFitness", "Shopping", "Transportation",
@@ -20,6 +20,7 @@ class EditBudget extends React.Component {
 
         this.handleSplit = this.handleSplit.bind(this);
         this.loadStateFromProps = this.loadStateFromProps.bind(this);
+        this.getCurrentBudgetBreakdown = this.getCurrentBudgetBreakdown.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleUpdatedIncome = this.handleUpdatedIncome.bind(this);
         this.handleDiscardChanges = this.handleDiscardChanges.bind(this);
@@ -66,7 +67,9 @@ class EditBudget extends React.Component {
                 });
                 currentIncomeSplits.Income = Math.round(updatedIncome*currentPercentages.Income);
                 this.setState({income: updatedIncome})
-                this.setState({isEdited: true});
+                const budgetBreakdown = {income: updatedIncome,
+                                         budgetBreakdown: this.budgetBreakdown};
+                this.props.updateBudgetBreakdown(budgetBreakdown);
             }
             this.setState({percentages: currentPercentages});
             this.setState({incomeSplits: currentIncomeSplits});
@@ -84,7 +87,6 @@ class EditBudget extends React.Component {
                 currentIncomeSplits.HealthAndFitness = Math.round(budgetSplit.incomeSplit);
             }
             else {
-                this.state.percentages[budgetSplit.category] = budgetSplit.percent;
                 currentPercentages[budgetSplit.category] = budgetSplit.percent;
                 currentIncomeSplits[budgetSplit.category] = Math.round(budgetSplit.incomeSplit);
             }
@@ -99,23 +101,32 @@ class EditBudget extends React.Component {
         this.setState({budgetBreakdown: this.props.currentUser.budgetBreakdown})
     }
 
-    handleSubmit(e) {
-        e.preventDefault();
+    getCurrentBudgetBreakdown() {
         let updatedBudgetBreakdown = [];
         this.budgetBreakdown.forEach(budgetType => {
             let updatedBudgetType = {};
             const category = budgetType.category;
             updatedBudgetType._id = budgetType._id;
             updatedBudgetType.category = category;
-            updatedBudgetType.incomeSplit = this.state.incomeSplits[category];
-            updatedBudgetType.percent = Number(this.state.percentages[category]);
+            if (category === 'Health & Fitness') {
+                updatedBudgetType.incomeSplit = this.state.incomeSplits.HealthAndFitness;
+                updatedBudgetType.percent = Number(this.state.percentages.HealthAndFitness);
+            }
+            else {
+                updatedBudgetType.incomeSplit = this.state.incomeSplits[category];
+                updatedBudgetType.percent = Number(this.state.percentages[category]);
+            }
             updatedBudgetBreakdown.push(updatedBudgetType);
         })
-        const budgetBreakdown = {
+        return {
                 income: this.state.income,
                 budgetBreakdown: updatedBudgetBreakdown
-        }
-        this.props.updateBudgetBreakdown(budgetBreakdown)
+        };
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        this.props.updateBudgetBreakdown(this.getCurrentBudgetBreakdown())
             .then(() => {this.setState({isEdited: false})});
     }
 
@@ -163,7 +174,6 @@ class EditBudget extends React.Component {
                         <div className="input-wrapper-left">
                             <div className="edit-budget-income-wrapper">
                                 <div className="edit-budget-income">
-                                    {/* <label>What's your income?</label> */}
                                     <input onChange={this.handleUpdatedIncome} type="text" placeholder="$" value={this.state.updatedIncome}/>
                                     <button className="update-income" onClick={this.handleSplit("Income")}>Update Income</button>
                                 </div>
@@ -171,13 +181,12 @@ class EditBudget extends React.Component {
                             </div>
                         </div>
                         <div className="input-wrapper-right">
-                            <DoughnutGraphContainer currentPercentages={this.state.percentages} currentUser={this.props.currentUser} />
+                            <DoughnutGraph currentPercentages={this.state.percentages} currentUser={this.props.currentUser} />
                         </div>
                     </div>
                     <div className="edit-budget-income-buttons-wrapper">
                         <div className={`edit-budget-income-buttons${this.state.isEdited ? '' : '-disable'}`}>
-                            <input type="submit" value="Apply Changes"/>
-                            <button onClick={this.handleDiscardChanges}>Discard Changes</button>
+                            <input disabled={!this.state.isEdited} type="submit" value="Apply Changes"/>
                         </div>
                     </div>
                     <div className="edit-budget-sliders-wrapper">
@@ -202,7 +211,8 @@ class EditBudget extends React.Component {
                     <div className="edit-budget-sliders">
                         {sliders}
                     </div>
-                </form>
+               </form>
+               <button disabled={!this.state.isEdited} onClick={this.handleDiscardChanges}>Discard Changes</button>
             </div>
         );
     }
