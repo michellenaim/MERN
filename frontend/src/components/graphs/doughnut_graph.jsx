@@ -24,7 +24,7 @@ class DoughnutGraph extends React.Component {
     this.chart = new Chart(myChartRef, {
       type: 'doughnut',
       data: {
-        labels: ['Home', 'Utilities', 'Food', 'Transportation', 'Health & Fitness', 'Shopping', 'Entertainment', 'Savings', 'Other'],
+        labels: ['Home', 'Utilities', 'Food', 'Transportation', 'Health & Fitness', 'Shopping', 'Entertainment', 'Savings', 'Other', 'Income'],
         datasets: [{
           data: [10, 10, 10, 10, 10, 10, 10, 10, 10],
           backgroundColor: [
