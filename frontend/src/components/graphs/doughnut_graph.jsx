@@ -14,8 +14,11 @@ class DoughnutGraph extends React.Component {
   chartRef = React.createRef();
 
   componentDidUpdate() {
-    this.chart.data.datasets[0].data = Object.values(this.props.currentPercentages).map((value) => {return Math.round(value*100)});
-    this.chart.update();
+    // update chart only if currentPercentages props are passed in
+    if (this.props.currentPercentages) {
+      this.chart.data.datasets[0].data = Object.values(this.props.currentPercentages).map((value) => {return Math.round(value*100)});
+      this.chart.update();
+    }
   }
   
   componentDidMount() {

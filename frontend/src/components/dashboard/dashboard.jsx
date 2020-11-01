@@ -37,7 +37,6 @@ class Dashboard extends React.Component{
               <div className="graph-text-wrapper">
                 <div className="graph-left-wrapper">
                   <div className="graph-left">
-                    <PolarGraphContainer />
                     <PolarGraphContainer fetchAllTransactions={this.props.fetchAllTransactions} transactions={this.props.transactions} />
                   </div>
                 </div>
