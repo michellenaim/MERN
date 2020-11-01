@@ -40,24 +40,17 @@ class TransactionIndex extends React.PureComponent{
             this.setState({
                 date: "",
                 description: "",
-                category: "", //not working
+                category: "",
                 amount: "empty"
             })
             document.querySelector('.transaction-input4').value = 'Select Budget Category';
         })
-
-        // this.props.calculatePercentages();
-        
-        //resetting placeholders:
-        // document.querySelector('.transaction-input1').value = '';
-        // document.querySelector('.transaction-input2').value = '';
-        // document.querySelector('.transaction-input3').value = '';
     }
 
     handleCategory(type) {
         return (e) => {
             e.preventDefault()
-            // this.setState({ selectedCategory: type})
+
             this.props.fetchFilteredTransactions(type)
 
             const CATEGORY_KEYS = ["Home", "Utilities", "Savings", "Food", "Other",
@@ -114,7 +107,6 @@ class TransactionIndex extends React.PureComponent{
                 </tr>
             )
         } else if (this.props.transactions.data.transactions.map !== undefined){
-            // debugger
             sortedData = this.props.transactions.data.transactions.sort((a, b) => (a.date < b.date) ? 1 : (a.date === b.date) ? ((a.amount < b.amount) ? 1 : -1) : -1 )
             transactionsData = sortedData.map(transaction => {
                 return <TransactionIndexItem key={transaction._id} errors={this.props.updateErrors} transaction={transaction} editTransaction={this.props.editTransaction} deleteTransaction={this.props.deleteTransaction} clearUpdatedTransactionErrors={this.props.clearUpdatedTransactionErrors} />

@@ -78,7 +78,8 @@ class PolarGraph extends React.Component {
                     }
                 },
                 legend: {
-                    position: 'left'
+                    position: 'left',
+                    align: 'center'
                 },
                 tooltips: {
                     displayColors: false,
