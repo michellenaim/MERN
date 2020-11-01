@@ -1,8 +1,24 @@
 @import "./colors.scss";
 @import "./fonts.scss";
 
-.transactions {
+.transactions-wrapper {
   margin: 100px 3vw;
+}
+
+.transactions {
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: $box-shadow;
+}
+
+.transaction-header {
+  text-align: center;
+  color: $dark-gray;
+  font-size: 26px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  
 }
 
 .transaction-button {

@@ -70,9 +70,9 @@ class PolarGraph extends React.Component {
                         stepSize: 20
                     }
                 },
-                // legend: {
-                //     position: 'left'
-                // },
+                legend: {
+                    position: 'left'
+                },
                 tooltips: {
                     displayColors: false,
                     callbacks: {

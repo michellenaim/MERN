@@ -9,25 +9,53 @@
     color: $dark-gray;
 }
 
+
+.top-dashboard-wrapper {
+    background-color: $background-gray;
+    padding-bottom: 2%;
+}
+
 .welcome{
-    margin-top: 20px;
+    margin-top: 38px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 25px;
+    font-size: 32px;
     font-family: $title;
+}
+
+.dougnut-card-wrapper {
+    margin: auto;
+    border-radius: 8px;
+    box-shadow: $box-shadow;
+}
+
+.doughnut-card-text-wrapper {
+    padding-top: 20px;
+    display: flex;
+}
+
+.doughnut-header-text {
+    font-size: 24px;
+    width: 100%;
+    background-color: white;
+    margin: auto;
+    text-align: center;
+    display: flex;
+    margin-left: 34%;
+    margin-bottom: 20px;
 }
 
 .edit-budget-button{
     height: 23px;
     font-family: $links;
-    font-size: 15px;
+    font-size: 14px;
     background: $dark-green;
     color: white;
     border: 1px solid transparent;
     padding: 8px 10px;
     text-align: center;
-    margin-right: 20px;
+    margin: auto;
     transition: all 0.4s ease;
     border-radius: 5px;
     display: flex;
@@ -35,9 +63,14 @@
     align-items: center;
 }
 
-.edit-budget-buttonarea{
-    display: flex;
+.edit-budget-buttonarea {
     justify-content: flex-end;
+    vertical-align: center;
+    display: flex;
+    flex: 1;
+    background-color: white;
+    margin: 10px;
+    margin-right: 50px;
 }
 
 
@@ -49,3 +82,88 @@
     transition: all 0.4s ease
 }
 
+.graph-text-wrapper {
+    display: flex;
+    margin-top: 8%;
+}
+
+.graph-left-wrapper {
+    display: flex;
+    width: 70%;
+    margin-left: 197px;
+    height: 620px;
+    background-color: $background-gray;
+}
+
+.graph-left {
+    border-radius: 8px;
+    box-shadow: $box-shadow;
+    background-color: white;
+}
+
+.text-right {
+    display: flex;
+    width: 40%;
+    flex-direction: column;
+}
+
+.dashboard-blurb-wrapper {
+    height: 100%;
+    background-color: white;
+    padding: 15px;
+    margin-right: 180px;
+    border-radius: 8px;
+    box-shadow: $box-shadow;
+}
+
+.dashboard-text {
+    text-align: center;
+    width: 100%;
+    padding-top: 40px;
+    height: 240px;
+    margin-right: 80px;
+    position: relative;
+}
+
+.dashboard-text p {
+    line-height: 40px;
+}
+
+.text-header {
+    font-size: 26px;
+    color: $dark-green;
+    padding-bottom: 25px;
+}
+
+.text-body {
+    font-size: 22px;
+}
+
+.dashboard-image {
+    display: flex;
+    justify-content: center;
+    margin-top: 10%;
+}
+
+.dashboard-doughnut-graph-wrapper {
+    margin-top: 60px;
+    border-radius: 8px;
+    background-color: white;
+    width: 65%;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: $box-shadow;
+
+}
+
+.dashboard-doughnut-graph {
+    background-color: white;
+    width: 100%;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    padding-bottom: 30px;
+}
+
+.dashboard-transactions-wrapper {
+      background-color: $background-gray;
+}

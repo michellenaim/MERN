@@ -15,7 +15,7 @@
 .polarGraphContainer > h2 {
     display: flex;
     justify-content: center;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
     font-size: 20px;
 }
 /* @media only screen and (max-width: 600px) {

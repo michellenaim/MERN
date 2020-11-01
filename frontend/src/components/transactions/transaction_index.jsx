@@ -101,59 +101,115 @@ class TransactionIndex extends React.PureComponent{
         }
 
         return (
+          <div className="transactions-wrapper">
             <div className="transactions">
-                <p className="transaction-title">Add a Transaction</p>
-                <div className="add-transaction">
-                    <input onChange={this.update('date')} className="transaction-input1" type="date" name="" value={this.state.date} required/>
-                    <input onChange={this.update('description')} className="transaction-input2" type="text" placeholder="Description" value={this.state.description} required/>
-                    <input onChange={this.update('amount')} className="transaction-input3" type="number" placeholder="$ Amount" value={this.state.amount} required/>
-                    <select onChange={this.update('category')} className="transaction-input4" name="Budgets">
-                        <option value="Select Budget Category" disabled selected required>Select Budget Category</option>
-                        <option value="Home">Home</option>
-                        <option value="Utilities">Utilities</option>
-                        <option value="Food">Food</option>
-                        <option value="Transportation">Transportation</option>
-                        <option value="Health & Fitness">Health & Fitness</option>
-                        <option value="Shopping">Shopping</option>
-                        <option value="Entertainment">Entertainment</option>
-                        <option value="Savings">Savings</option>
-                        <option value="Other">Other</option>
-                    </select>
-                    <button onClick={this.addTransaction} className="transaction-button">Add Transaction</button>
+                <div className="transaction-header">
+                    <p>Expenditures</p>
                 </div>
+              <p className="transaction-title">Add a Transaction</p>
+              <div className="add-transaction">
+                <input
+                  onChange={this.update("date")}
+                  className="transaction-input1"
+                  type="date"
+                  name=""
+                  value={this.state.date}
+                  required
+                />
+                <input
+                  onChange={this.update("description")}
+                  className="transaction-input2"
+                  type="text"
+                  placeholder="Description"
+                  value={this.state.description}
+                  required
+                />
+                <input
+                  onChange={this.update("amount")}
+                  className="transaction-input3"
+                  type="number"
+                  placeholder="$ Amount"
+                  value={this.state.amount}
+                  required
+                />
+                <select
+                  onChange={this.update("category")}
+                  className="transaction-input4"
+                  name="Budgets"
+                >
+                  <option
+                    value="Select Budget Category"
+                    disabled
+                    selected
+                    required
+                  >
+                    Select Budget Category
+                  </option>
+                  <option value="Home">Home</option>
+                  <option value="Utilities">Utilities</option>
+                  <option value="Food">Food</option>
+                  <option value="Transportation">Transportation</option>
+                  <option value="Health & Fitness">Health & Fitness</option>
+                  <option value="Shopping">Shopping</option>
+                  <option value="Entertainment">Entertainment</option>
+                  <option value="Savings">Savings</option>
+                  <option value="Other">Other</option>
+                </select>
+                <button
+                  onClick={this.addTransaction}
+                  className="transaction-button"
+                >
+                  Add Transaction
+                </button>
+              </div>
 
-                <div>{this.renderErrors()}</div>
+              <div>{this.renderErrors()}</div>
 
-                <p className="transaction-title">Transactions</p>
-                <div className="transaction-category-buttons">
-                    <button onClick={this.handleCategory("/")} className="selected">All</button>
-                    <button onClick={this.handleCategory("Home")}>Home</button>
-                    <button onClick={this.handleCategory("Utilities")}>Utilities</button>
-                    <button onClick={this.handleCategory("Food")}>Food</button>
-                    <button onClick={this.handleCategory("Transportation")}>Transportation</button>
-                    <button onClick={this.handleCategory("Health & Fitness")}>Health & Fitness</button>
-                    <button onClick={this.handleCategory("Shopping")}>Shopping</button>
-                    <button onClick={this.handleCategory("Entertainment")}>Entertainment</button>
-                    <button onClick={this.handleCategory("Savings")}>Savings</button>
-                    <button onClick={this.handleCategory("Other")}>Other</button>
-                </div>
+              <p className="transaction-title">Transactions</p>
+              <div className="transaction-category-buttons">
+                <button onClick={this.handleCategory("/")} className="selected">
+                  All
+                </button>
+                <button onClick={this.handleCategory("Home")}>Home</button>
+                <button onClick={this.handleCategory("Utilities")}>
+                  Utilities
+                </button>
+                <button onClick={this.handleCategory("Food")}>Food</button>
+                <button onClick={this.handleCategory("Transportation")}>
+                  Transportation
+                </button>
+                <button onClick={this.handleCategory("Health & Fitness")}>
+                  Health & Fitness
+                </button>
+                <button onClick={this.handleCategory("Shopping")}>
+                  Shopping
+                </button>
+                <button onClick={this.handleCategory("Entertainment")}>
+                  Entertainment
+                </button>
+                <button onClick={this.handleCategory("Savings")}>
+                  Savings
+                </button>
+                <button onClick={this.handleCategory("Other")}>Other</button>
+              </div>
 
-                <div className="table">
-                    <table className="transactions-table">
-                        <tr>
-                            <th>Date</th>
-                            <th>Description</th>
-                            <th>Amount</th>
-                            <th>Budget Category</th>
-                            <th>Edit or Delete</th>
-                        </tr>
-                        
-                        {transactionsData}
-                        {noTransactionsInCategory}
-                    </table>
-                </div>
+              <div className="table">
+                <table className="transactions-table">
+                  <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Budget Category</th>
+                    <th>Edit or Delete</th>
+                  </tr>
+
+                  {transactionsData}
+                  {noTransactionsInCategory}
+                </table>
+              </div>
             </div>
-        )
+          </div>
+        );
     }
 }
 
