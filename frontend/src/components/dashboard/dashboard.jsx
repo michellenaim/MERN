@@ -9,7 +9,7 @@ class Dashboard extends React.Component{
         super(props);
     }       
 
-    componentDidMount() {
+    componentDidMount() {     
         this.props.fetchAllTransactions()
     }
 
@@ -38,6 +38,7 @@ class Dashboard extends React.Component{
                 <div className="graph-left-wrapper">
                   <div className="graph-left">
                     <PolarGraphContainer />
+                    <PolarGraphContainer fetchAllTransactions={this.props.fetchAllTransactions} transactions={this.props.transactions} />
                   </div>
                 </div>
                 <div className="text-right">

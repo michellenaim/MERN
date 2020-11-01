@@ -45,6 +45,8 @@ class TransactionIndex extends React.PureComponent{
             })
             document.querySelector('.transaction-input4').value = 'Select Budget Category';
         })
+
+        // this.props.calculatePercentages();
         
         //resetting placeholders:
         // document.querySelector('.transaction-input1').value = '';

@@ -7,24 +7,31 @@ Chart.defaults.global.defaultFontFamily = "'Helvetica', sans-serif;"
 
 
 class PolarGraph extends React.Component {
-    // constructor(props) {
-    //   super(props)
-    //   // this.currentPercentages = this.props.currentPercentages
-    //   // this.totalIncome = this.props.totalIncome
-    // }
+    constructor(props) {
+        
+        super(props)
+
+        this.transactionPercentages = [];
+        this.incomeLeft = 0;
+        this.state = {incomeLeft: 0};
+    }
 
     chartRef = React.createRef();
-
+  
     componentDidMount() {
+        
+        this.props.fetchCurrentUser()
+            .then(() => this.props.fetchAllTransactions())
+            .then(() => this.calculatePercentages())
+            
         const myChartRef = this.chartRef.current.getContext("2d");
-        // const data = array that contains this.currentPercentages
 
-        new Chart(myChartRef, {
+        this.chart = new Chart(myChartRef, {
             type: 'polarArea',
             data: {
                 labels: ['Home', 'Utilities', 'Food', 'Transportation', 'Health & Fitness', 'Shopping', 'Entertainment', 'Savings', 'Other'],
                 datasets: [{
-                    data: [90, 80, 85, 50, 60, 95, 90, 47, 70],
+                    data: [100, 100, 100, 100, 100, 100, 100, 100, 100],
                     backgroundColor: [
                         'rgba(40, 147, 255, 0.3)',
                         'rgba(255, 255, 40, 0.4)',
@@ -87,13 +94,64 @@ class PolarGraph extends React.Component {
                 },
             }
         });
-
     }
+
+    componentDidUpdate() {
+        // only calculate when transactions and currentUser are loaded
+        if (this.props.transactions && this.props.currentUser) { 
+            this.calculatePercentages();
+        }
+
+        this.chart.data.datasets[0].data = Object.values(this.transactionPercentages);
+        this.chart.update();
+        // force a re-render to update incomeLeft after updating the graph
+        if (this.state.incomeLeft !== this.incomeLeft) {
+            this.setState({incomeLeft: this.incomeLeft});
+        }
+    }
+
+    calculatePercentages() {
+        let transactionTotals = {
+            'Home': 0,
+            'Utilities': 0,
+            'Food': 0,
+            'Transportation': 0,
+            'Health & Fitness': 0,
+            'Shopping': 0,
+            'Entertainment': 0,
+            'Savings': 0,
+            'Other': 0
+        }
+        let transactionTotal = 0;
+        this.props.transactions.transactions.forEach(transaction => {
+            transactionTotals[transaction.category] += transaction.amount;
+            transactionTotal += transaction.amount;
+        })
+        this.incomeLeft = this.props.currentUser.income - transactionTotal;
+        let transactionPercentages = [];
+        this.props.currentUser.budgetBreakdown.forEach(breakdown => {
+            let transactionTotal = transactionTotals[breakdown.category];
+            let incomeSplit = breakdown.incomeSplit;
+            // set transaction percentage to 100% if transactionTotal exceeds income split
+            if (transactionTotal > incomeSplit) {
+                incomeSplit = transactionTotal;
+            }
+            // avoid divide by zero error 
+            if (incomeSplit === 0) {
+                incomeSplit = 1;
+                transactionTotal = 1;
+            }
+            let transactionPercentage = Math.round((transactionTotal / incomeSplit) * 100);
+            transactionPercentages.push(transactionPercentage);
+        })
+        this.transactionPercentages = transactionPercentages;
+    }
+
     render() {
         return (
             <div className="graphpage">
                 <div className={classes.polarGraphContainer}>
-                    <h1>Total Amount Left for the Month: $500</h1>
+                    <h1>{`Total Amount Left for the Month: $${this.state.incomeLeft}`}</h1>
                     <h2>Spending Per Category</h2>
                     <canvas
                         id="myChart"
