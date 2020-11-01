@@ -181,7 +181,7 @@ class EditBudget extends React.Component {
                             </div>
                         </div>
                         <div className="input-wrapper-right">
-                            <DoughnutGraph currentPercentages={this.state.percentages} currentUser={this.props.currentUser} />
+                            <DoughnutGraph currentPercentages={this.state.percentages} />
                         </div>
                     </div>
                     <div className="edit-budget-income-buttons-wrapper">

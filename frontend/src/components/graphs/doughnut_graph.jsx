@@ -7,8 +7,6 @@ import classes from "./doughnut_graph.module.css";
 class DoughnutGraph extends React.Component {
   constructor(props) {
     super(props)
-    this.currentUser = this.props.currentUser
-    this.currentPercentages = this.props.currentPercentages
   }
 
   chartRef = React.createRef();

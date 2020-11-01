@@ -7,10 +7,37 @@ import DoughnutGraph from '../graphs/doughnut_graph';
 class Dashboard extends React.Component{
     constructor(props) {
         super(props);
+        this.state = {
+          budgetPercentages: {
+            "Home": 0,
+            "Utilities": 0,
+            "Food": 0,
+            "Transportation": 0,
+            "Health & Fitness": 0,
+            "Shopping": 0,
+            "Entertainment": 0,
+            "Savings": 0,
+            "Other": 0,
+            "Income": 0
+          }
+        };
     }       
 
     componentDidMount() {     
-        this.props.fetchAllTransactions()
+        this.props.fetchAllTransactions();
+        this.props.fetchCurrentUser()
+          .then(() => this.setBudgetPercentages())
+    }
+
+    setBudgetPercentages() {
+      let { budgetPercentages } = this.state;
+      let incomePercentage = 1;
+      this.props.currentUser.budgetBreakdown.forEach(budget => {
+        budgetPercentages[budget.category] = budget.percent;
+        incomePercentage -= budget.percent;
+      })
+      budgetPercentages.Income = incomePercentage;
+      this.setState({budgetPercentages})
     }
 
     render () {
@@ -29,7 +56,7 @@ class Dashboard extends React.Component{
                         </div>
                     </div>
                     <div className="dashboard-doughnut-graph">
-                    <DoughnutGraph />
+                    <DoughnutGraph currentPercentages={this.state.budgetPercentages} />
                     </div>
                 </div>
               </div>
