@@ -1,5 +1,5 @@
 import React from 'react';
-import PolarGraph from "../graphs/polar_graph"
+import PolarGraphContainer from "../graphs/polar_graph_container"
 import TransactionIndexContainer from "../transactions/transaction_index_container"
 import { Link } from "react-router-dom";
 
@@ -10,8 +10,6 @@ class Dashboard extends React.Component{
 
     componentDidMount() {     
         this.props.fetchAllTransactions()
-        .then(() => this.props.fetchBudgetBreakdown())
-  
     }
 
     render () {
@@ -21,8 +19,8 @@ class Dashboard extends React.Component{
                 <div className="edit-budget-buttonarea">
                     <Link className="edit-budget-button" to={`/budget/edit`}>Edit Budget Split</Link>
                 </div>
-                <PolarGraph fetchAllTransactions={this.props.fetchAllTransactions} fetchBudgetBreakdown={this.props.fetchBudgetBreakdown} transactions={this.props.transactions} budgetBreakdown={this.props.budgetBreakdown} />
-                <TransactionIndexContainer calculatePercentages={this.calculatePercentages}/>
+                <PolarGraphContainer fetchAllTransactions={this.props.fetchAllTransactions} transactions={this.props.transactions} />
+                <TransactionIndexContainer />
             </div>
         )
     }

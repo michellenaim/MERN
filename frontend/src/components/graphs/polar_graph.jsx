@@ -10,26 +10,21 @@ class PolarGraph extends React.Component {
     constructor(props) {
         
         super(props)
-        this.state = {
-            incomeLeft: 0,
-            transactionPercentages: []
-        }
-        
 
-        this.calculatePercentages = this.calculatePercentages.bind(this);
+        this.transactionPercentages = [];
+        this.incomeLeft = 0;
+        this.state = {incomeLeft: 0};
     }
 
     chartRef = React.createRef();
   
     componentDidMount() {
         
-        this.props.fetchAllTransactions()
-        this.props.fetchBudgetBreakdown()
-        // .then(() => this.calculatePercentages())
+        this.props.fetchCurrentUser()
+            .then(() => this.props.fetchAllTransactions())
+            .then(() => this.calculatePercentages())
             
         const myChartRef = this.chartRef.current.getContext("2d");
-        // const data = array that contains this.currentPercentages
-        const data = Object.values(this.state.transactionPercentages)
 
         this.chart = new Chart(myChartRef, {
             type: 'polarArea',
@@ -102,13 +97,17 @@ class PolarGraph extends React.Component {
     }
 
     componentDidUpdate() {
-        // debugger
-        // this.props.fetchAllTransactions()
-        // this.props.fetchBudgetBreakdown()
-        // .then(() => this.calculatePercentages())
+        // only calculate when transactions and currentUser are loaded
+        if (this.props.transactions && this.props.currentUser) { 
+            this.calculatePercentages();
+        }
 
-        // this.chart.data.datasets[0].data = Object.values(this.state.transactionPercentages);
-        // this.chart.update();
+        this.chart.data.datasets[0].data = Object.values(this.transactionPercentages);
+        this.chart.update();
+        // force a re-render to update incomeLeft after updating the graph
+        if (this.state.incomeLeft !== this.incomeLeft) {
+            this.setState({incomeLeft: this.incomeLeft});
+        }
     }
 
     calculatePercentages() {
@@ -123,11 +122,14 @@ class PolarGraph extends React.Component {
             'Savings': 0,
             'Other': 0
         }
-        this.props.transactions.transactions.map(transaction => {
+        let transactionTotal = 0;
+        this.props.transactions.transactions.forEach(transaction => {
             transactionTotals[transaction.category] += transaction.amount;
+            transactionTotal += transaction.amount;
         })
+        this.incomeLeft = this.props.currentUser.income - transactionTotal;
         let transactionPercentages = [];
-        this.props.budgetBreakdown.budgetBreakdown.map(breakdown => {
+        this.props.currentUser.budgetBreakdown.forEach(breakdown => {
             let transactionTotal = transactionTotals[breakdown.category];
             let incomeSplit = breakdown.incomeSplit;
             // set transaction percentage to 100% if transactionTotal exceeds income split
@@ -142,14 +144,14 @@ class PolarGraph extends React.Component {
             let transactionPercentage = Math.round((transactionTotal / incomeSplit) * 100);
             transactionPercentages.push(transactionPercentage);
         })
-        this.setState({ transactionPercentages });
+        this.transactionPercentages = transactionPercentages;
     }
 
     render() {
         return (
             <div className="graphpage">
                 <div className={classes.polarGraphContainer}>
-                    <h1>Total Amount Left for the Month: $500</h1>
+                    <h1>{`Total Amount Left for the Month: $${this.state.incomeLeft}`}</h1>
                     <h2>Spending Per Category</h2>
                     <canvas
                         id="myChart"
