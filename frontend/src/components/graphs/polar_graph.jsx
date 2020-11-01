@@ -7,29 +7,36 @@ Chart.defaults.global.defaultFontFamily = "'Helvetica', sans-serif;"
 
 
 class PolarGraph extends React.Component {
-    // constructor(props) {
-    //   super(props)
-    //   // this.currentPercentages = this.props.currentPercentages
-    //   // this.totalIncome = this.props.totalIncome
-    // }
+    constructor(props) {
+        
+        super(props)
+        this.state = {
+            incomeLeft: 0,
+            transactionPercentages: []
+        }
+        
+
+        this.calculatePercentages = this.calculatePercentages.bind(this);
+    }
 
     chartRef = React.createRef();
-
-    componentDidUpdate() {
-        this.chart.data.datasets[0].data = Object.values(this.props.transactionPercentages).map((value) => {return value});
-        this.chart.update();
-    }
   
     componentDidMount() {
+        
+        this.props.fetchAllTransactions()
+        this.props.fetchBudgetBreakdown()
+        // .then(() => this.calculatePercentages())
+            
         const myChartRef = this.chartRef.current.getContext("2d");
         // const data = array that contains this.currentPercentages
+        const data = Object.values(this.state.transactionPercentages)
 
         this.chart = new Chart(myChartRef, {
             type: 'polarArea',
             data: {
                 labels: ['Home', 'Utilities', 'Food', 'Transportation', 'Health & Fitness', 'Shopping', 'Entertainment', 'Savings', 'Other'],
                 datasets: [{
-                    data: [90, 80, 85, 50, 60, 95, 90, 47, 70],
+                    data: [100, 100, 100, 100, 100, 100, 100, 100, 100],
                     backgroundColor: [
                         'rgba(40, 147, 255, 0.3)',
                         'rgba(255, 255, 40, 0.4)',
@@ -92,8 +99,52 @@ class PolarGraph extends React.Component {
                 },
             }
         });
-
     }
+
+    componentDidUpdate() {
+        // debugger
+        // this.props.fetchAllTransactions()
+        // this.props.fetchBudgetBreakdown()
+        // .then(() => this.calculatePercentages())
+
+        // this.chart.data.datasets[0].data = Object.values(this.state.transactionPercentages);
+        // this.chart.update();
+    }
+
+    calculatePercentages() {
+        let transactionTotals = {
+            'Home': 0,
+            'Utilities': 0,
+            'Food': 0,
+            'Transportation': 0,
+            'Health & Fitness': 0,
+            'Shopping': 0,
+            'Entertainment': 0,
+            'Savings': 0,
+            'Other': 0
+        }
+        this.props.transactions.transactions.map(transaction => {
+            transactionTotals[transaction.category] += transaction.amount;
+        })
+        let transactionPercentages = [];
+        this.props.budgetBreakdown.budgetBreakdown.map(breakdown => {
+            let transactionTotal = transactionTotals[breakdown.category];
+            let incomeSplit = breakdown.incomeSplit;
+            // set transaction percentage to 100% if transactionTotal exceeds income split
+            if (transactionTotal > incomeSplit) {
+                incomeSplit = transactionTotal;
+            }
+            // avoid divide by zero error 
+            if (incomeSplit === 0) {
+                incomeSplit = 1;
+                transactionTotal = 1;
+            }
+            let transactionPercentage = Math.round((transactionTotal / incomeSplit) * 100);
+            transactionPercentages.push(transactionPercentage);
+        })
+        this.setState({ transactionPercentages });
+    }
+
     render() {
         return (
             <div className="graphpage">
