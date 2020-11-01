@@ -98,7 +98,9 @@ class PolarGraph extends React.Component {
 
     componentDidUpdate() {
         // only calculate when transactions and currentUser are loaded
-        if (this.props.transactions && this.props.currentUser) { 
+        if (this.props.transactions && 
+            typeof this.props.transactions.transactions !== "string" &&
+            this.props.currentUser) {
             this.calculatePercentages();
         }
 
