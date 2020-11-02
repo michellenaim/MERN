@@ -2,6 +2,7 @@
     width: 50vw;
     height: 50vh;
     background-color: transparent;
+    padding-bottom: 20px;
 }
 
 .polarGraphContainer > h1 {
