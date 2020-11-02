@@ -140,6 +140,7 @@ class EditBudget extends React.Component {
   }
 
   handleSubmit(e) {
+    debugger
     e.preventDefault();
     this.props
       .updateBudgetBreakdown(this.getCurrentBudgetBreakdown())
@@ -266,7 +267,7 @@ class EditBudget extends React.Component {
                     className="discard-changes-btn"
                     disabled={!this.state.isEdited}
                     onClick={this.handleDiscardChanges}
-                    type="submit"
+                    type="button"
                     value="Discard Changes"
                   />
                 </div>
