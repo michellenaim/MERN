@@ -56,7 +56,7 @@ class Dashboard extends React.Component{
                         </div>
                     </div>
                     <div className="dashboard-doughnut-graph">
-                    <DoughnutGraph currentPercentages={this.state.budgetPercentages} />
+                      <DoughnutGraph currentPercentages={this.state.budgetPercentages} />
                     </div>
                 </div>
               </div>
@@ -67,6 +67,7 @@ class Dashboard extends React.Component{
                     <PolarGraphContainer fetchAllTransactions={this.props.fetchAllTransactions} transactions={this.props.transactions} />
                   </div>
                 </div>
+
                 <div className="text-right">
                   <div className="dashboard-blurb-wrapper">
                     <div className="dashboard-text">

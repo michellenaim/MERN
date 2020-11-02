@@ -2,7 +2,7 @@
 @import "./fonts.scss";
 
 .transactions-wrapper {
-  margin: 100px 3vw;
+  margin: 50px 6vw 100px 6vw;
 }
 
 .transactions {
@@ -80,7 +80,7 @@
 .transaction-title {
     font-size: 20px;
     margin-bottom: 10px;
-    font-family: $title;
+    font-family: $body;
     color: $dark-green;
     border: 1px solid transparent;
     width: 180px;
@@ -115,15 +115,15 @@ th {
 }
 
 .date-column {
-  width: 15%;
+  width: 17%;
 }
 
 .description-column {
-  width: 35%;
+  width: 31%;
 }
 
 .amount-column {
-  width: 15%;
+  width: 17%;
 }
 
 .budget-column {

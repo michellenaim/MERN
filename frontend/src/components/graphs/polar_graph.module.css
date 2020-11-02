@@ -2,22 +2,28 @@
     width: 50vw;
     height: 50vh;
     background-color: transparent;
-    padding-bottom: 20px;
 }
 
 .polarGraphContainer > h1 {
     display: flex;
     justify-content: center;
-    margin-bottom: 30px;
-    font-size: 24px;
+    margin-top: 5px;
+    margin-bottom: 37px;
+    font-size: 26px;
+    color: #6C9D83;
 }
 
 .polarGraphContainer > h2 {
     display: flex;
     justify-content: center;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
     font-size: 20px;
 }
+
+.polarGraphContainer > canvas {
+    margin-left: 40px;
+}
+
 /* @media only screen and (max-width: 600px) {
     .polarGraphContainer {
         width: 80vw;

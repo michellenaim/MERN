@@ -21,7 +21,8 @@
     flex-direction: column;
     align-items: center;
     font-size: 32px;
-    font-family: $title;
+    font-family: $logo;
+    color: $dark-green;
 }
 
 .dougnut-card-wrapper {
@@ -33,17 +34,17 @@
 .doughnut-card-text-wrapper {
     padding-top: 20px;
     display: flex;
+    position: relative;
+    height: 50px;
 }
 
 .doughnut-header-text {
     font-size: 24px;
-    width: 100%;
     background-color: white;
-    margin: auto;
-    text-align: center;
-    display: flex;
-    margin-left: 34%;
-    margin-bottom: 20px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 50%;
 }
 
 .edit-budget-button{
@@ -64,13 +65,10 @@
 }
 
 .edit-budget-buttonarea {
-    justify-content: flex-end;
-    vertical-align: center;
-    display: flex;
-    flex: 1;
     background-color: white;
-    margin: 10px;
-    margin-right: 50px;
+    position: absolute;
+    right: 3%;
+    top: 25%;
 }
 
 
@@ -84,14 +82,12 @@
 
 .graph-text-wrapper {
     display: flex;
-    margin-top: 8%;
+    margin: 8% 6vw 0px 6vw;
 }
 
 .graph-left-wrapper {
     display: flex;
     width: 70%;
-    margin-left: 197px;
-    height: 620px;
     background-color: $background-gray;
 }
 
@@ -111,7 +107,6 @@
     height: 100%;
     background-color: white;
     padding: 15px;
-    margin-right: 180px;
     border-radius: 8px;
     box-shadow: $box-shadow;
 }
@@ -119,10 +114,9 @@
 .dashboard-text {
     text-align: center;
     width: 100%;
-    padding-top: 40px;
+    padding-top: 20px;
     height: 240px;
     margin-right: 80px;
-    position: relative;
 }
 
 .dashboard-text p {
@@ -136,7 +130,8 @@
 }
 
 .text-body {
-    font-size: 22px;
+    font-size: 20px;
+    margin: 0px 20px;
 }
 
 .dashboard-image {
@@ -146,24 +141,19 @@
 }
 
 .dashboard-doughnut-graph-wrapper {
-    margin-top: 60px;
+    margin: 60px 15vw 0px 15vw;
     border-radius: 8px;
     background-color: white;
-    width: 65%;
-    margin-left: auto;
-    margin-right: auto;
     box-shadow: $box-shadow;
-
 }
 
 .dashboard-doughnut-graph {
     background-color: white;
-    width: 100%;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
-    padding-bottom: 30px;
+    padding-bottom: 40px;
 }
 
 .dashboard-transactions-wrapper {
-      background-color: $background-gray;
+    background-color: $background-gray;
 }
