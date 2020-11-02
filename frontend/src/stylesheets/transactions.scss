@@ -135,11 +135,13 @@ th {
 }
 
 input[type=text], input[type=number], input[type=date], select {
-  color: $dark-gray
+  color: $dark-gray;
+  padding-left: 10px;
 }
 
 .add-transaction > input[type=text] {
-    width: 400px
+    width: 400px;
+    padding-left: 10px;
 }
 
 .edit-delete-buttons{
