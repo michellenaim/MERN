@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import NotificationSystem from 'react-notification-system';
 
 class TransactionIndexItem extends React.Component {
     constructor(props) {
@@ -19,12 +20,50 @@ class TransactionIndexItem extends React.Component {
         this.showUpdateRow = this.showUpdateRow.bind(this)
         this.renderTransErrors = this.renderTransErrors.bind(this)
         this.isEditable = this.isEditable.bind(this)
+        this.amountUsedAllocated = this.amountUsedAllocated.bind(this)
     }
     
     update(field) {
         return e => this.setState({
             [field]: e.currentTarget.value
         });
+    }
+
+    notificationSystem = React.createRef();
+
+    addNotification = () => {
+    //   event.preventDefault();
+      const notification = this.props.notification.current;
+      notification.addNotification({
+        title: 'Warning!',
+        message: 'You have exceeded your budget set for this category',
+        level: 'error',
+      });
+    };
+
+    amountUsedAllocated(category) {
+        let transactionTotals = {
+            'Home': 0,
+            'Utilities': 0,
+            'Food': 0,
+            'Transportation': 0,
+            'Health & Fitness': 0,
+            'Shopping': 0,
+            'Entertainment': 0,
+            'Savings': 0,
+            'Other': 0
+        }
+        this.props.transactions.forEach(transaction => {
+            transactionTotals[transaction.category] += transaction.amount;
+        })
+        let res = false
+        
+        this.props.currentUser.budgetBreakdown.forEach(breakdown => {
+            if( transactionTotals[breakdown.category] > breakdown.incomeSplit && breakdown.category === category) {
+                res = true
+            }
+        })
+        return res
     }
     
     editTransaction(e) {
@@ -43,6 +82,11 @@ class TransactionIndexItem extends React.Component {
             this.setState({
                 editable: false
             })
+        })
+        .then(() => {
+            if (this.amountUsedAllocated(updatedTransaction.category) === true) {
+                this.addNotification()
+            }
         })
     }
             
@@ -84,6 +128,9 @@ class TransactionIndexItem extends React.Component {
         if (this.state.editable) {
             return (
                 <tr className="edit-transaction-border">
+                    <div>
+                        <NotificationSystem ref={this.notificationSystem} />
+                    </div>
                     <td className="date-column"><input className="transaction-input1" onChange={this.update('date')} type="date" name="" value={this.state.date.toString().slice(0, 10)} required /></td>
                     <td className="description-column"><input className="transaction-input2" onChange={this.update('description')} type="text" placeholder="Description" value={this.state.description} /></td>
                     <td className="amount-column"><input className="transaction-input3" onChange={this.update('amount')} type="number" placeholder="$ Amount" value={this.state.amount} required /></td>

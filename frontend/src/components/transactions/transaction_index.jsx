@@ -1,5 +1,7 @@
 import React from 'react';
 import TransactionIndexItem from './transaction_index_item'
+import NotificationSystem from 'react-notification-system';
+import thunk from 'redux-thunk';
 
 class TransactionIndex extends React.PureComponent{
     constructor(props) {      
@@ -15,12 +17,53 @@ class TransactionIndex extends React.PureComponent{
         this.addTransaction = this.addTransaction.bind(this)
         this.update = this.update.bind(this)
         this.renderErrors = this.renderErrors.bind(this)
+        this.addNotification = this.addNotification.bind(this)
+        this.amountUsedAllocated = this.amountUsedAllocated.bind(this)
+        // debugger
     }
 
     update(field) {
         return e => this.setState({
             [field]: e.currentTarget.value
         });
+    }
+
+    notificationSystem = React.createRef();
+
+    addNotification = () => {
+    //   event.preventDefault();
+      const notification = this.notificationSystem.current;
+      notification.addNotification({
+        title: 'Warning!',
+        message: 'You have exceeded your budget set for this category',
+        level: 'error',
+      });
+    };
+
+
+     amountUsedAllocated(category) {
+        let transactionTotals = {
+            'Home': 0,
+            'Utilities': 0,
+            'Food': 0,
+            'Transportation': 0,
+            'Health & Fitness': 0,
+            'Shopping': 0,
+            'Entertainment': 0,
+            'Savings': 0,
+            'Other': 0
+        }
+        this.props.transactions.data.transactions.forEach(transaction => {
+            transactionTotals[transaction.category] += transaction.amount;
+        })
+
+        let res = false
+        this.props.currentUser.budgetBreakdown.forEach(breakdown => {
+            if( transactionTotals[breakdown.category] > breakdown.incomeSplit && breakdown.category === category) {
+                res = true
+            }
+        })
+        return res
     }
 
     addTransaction(e) {
@@ -42,9 +85,18 @@ class TransactionIndex extends React.PureComponent{
                 description: "",
                 category: "",
                 amount: "empty"
-            })
+            })            
             document.querySelector('.transaction-input4').value = 'Select Budget Category';
         })
+        .then( () => {
+            if (this.amountUsedAllocated(newTransaction.transaction.category) === true) {
+                this.addNotification()
+            }
+        })        
+        //resetting placeholders:
+        // document.querySelector('.transaction-input1').value = '';
+        // document.querySelector('.transaction-input2').value = '';
+        // document.querySelector('.transaction-input3').value = '';
     }
 
     handleCategory(type) {
@@ -109,7 +161,7 @@ class TransactionIndex extends React.PureComponent{
         } else if (this.props.transactions.data.transactions.map !== undefined){
             sortedData = this.props.transactions.data.transactions.sort((a, b) => (a.date < b.date) ? 1 : (a.date === b.date) ? ((a.amount < b.amount) ? 1 : -1) : -1 )
             transactionsData = sortedData.map(transaction => {
-                return <TransactionIndexItem key={transaction._id} errors={this.props.updateErrors} transaction={transaction} editTransaction={this.props.editTransaction} deleteTransaction={this.props.deleteTransaction} clearUpdatedTransactionErrors={this.props.clearUpdatedTransactionErrors} />
+                return <TransactionIndexItem key={transaction._id} errors={this.props.updateErrors} transactions = {this.props.transactions.data.transactions} currentUser = {this.props.currentUser} notification = {this.notificationSystem} transaction={transaction} editTransaction={this.props.editTransaction} deleteTransaction={this.props.deleteTransaction} clearUpdatedTransactionErrors={this.props.clearUpdatedTransactionErrors} />
             })
         } else {
             noTransactionsInCategory = (
@@ -124,6 +176,9 @@ class TransactionIndex extends React.PureComponent{
             <div className="transactions">
                 <div className="transaction-header">
                     <p>Expenditures</p>
+                </div>
+                <div>
+                    <NotificationSystem ref={this.notificationSystem} />
                 </div>
               <p className="transaction-title">Add a Transaction</p>
               <div className="add-transaction">
