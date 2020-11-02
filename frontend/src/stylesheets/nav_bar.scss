@@ -63,3 +63,28 @@
     color: $dark-green;
     transition: all 0.4s ease
 }
+
+.dashboard-button {
+    width: 100px;
+    height: 38px;
+    font-family: $links;
+    font-size: 15px;
+    background: $dark-green;
+    color: white;
+    border: 1px solid transparent;
+    padding: 8px 15px;
+    text-align: center;
+    vertical-align: center;
+    margin-right: 20px;
+    transition: all 0.4s ease;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.dashboard-button:hover {
+    cursor: pointer;
+    background-color: $light-green;
+    border: 1px solid $dark-green;
+    color: $dark-green;
+    transition: all 0.4s ease
+}

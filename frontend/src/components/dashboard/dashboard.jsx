@@ -1,8 +1,8 @@
 import React from 'react';
 import PolarGraphContainer from "../graphs/polar_graph_container"
 import TransactionIndexContainer from "../transactions/transaction_index_container"
-import { Link } from "react-router-dom";
 import DoughnutGraph from '../graphs/doughnut_graph';
+import { Link } from "react-router-dom";
 
 class Dashboard extends React.Component{
     constructor(props) {
@@ -49,8 +49,8 @@ class Dashboard extends React.Component{
                 <div className="doughnut-card-wrapper">
                     <div className="doughnut-card-text-wrapper">
                         <p className="doughnut-header-text">How You've Split Up Your Income</p>
-                        <div className="edit-budget-buttonarea">
-                            <Link className="edit-budget-button" to={`/budget/edit`}>
+                        <div className="edit-budget-buttonarea" >
+                            <Link className="edit-budget-button" to={`/budget/edit`} >
                             Update
                             </Link>
                         </div>

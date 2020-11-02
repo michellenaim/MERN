@@ -39,9 +39,12 @@ class NavBar extends React.Component {
                 <p>Making Cent$</p>
               </Link>
             </div>
-            <button className="login-button" onClick={this.logoutUser}>
-              Logout
-            </button>
+            <div>
+              <Link className="dashboard-button" to="/dashboard">Dashboard</Link>
+              <button className="login-button" onClick={this.logoutUser}>
+                Logout
+              </button>
+            </div>
           </div>
         );
       } else {
