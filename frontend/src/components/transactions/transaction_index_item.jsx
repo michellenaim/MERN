@@ -88,6 +88,7 @@ class TransactionIndexItem extends React.Component {
                 this.addNotification()
             }
         })
+
     }
             
     deleteTransaction(e) {
@@ -127,10 +128,7 @@ class TransactionIndexItem extends React.Component {
     isEditable() {
         if (this.state.editable) {
             return (
-                <tr className="edit-transaction-border">
-                    <div>
-                        <NotificationSystem ref={this.notificationSystem} />
-                    </div>
+                <tr className="edit-transaction-border">                   
                     <td className="date-column"><input className="transaction-input1" onChange={this.update('date')} type="date" name="" value={this.state.date.toString().slice(0, 10)} required /></td>
                     <td className="description-column"><input className="transaction-input2" onChange={this.update('description')} type="text" placeholder="Description" value={this.state.description} /></td>
                     <td className="amount-column"><input className="transaction-input3" onChange={this.update('amount')} type="number" placeholder="$ Amount" value={this.state.amount} required /></td>
@@ -173,6 +171,8 @@ class TransactionIndexItem extends React.Component {
                 {this.isEditable()}
 
                 {this.renderTransErrors()}
+
+                <NotificationSystem ref={this.notificationSystem} />
 
             </React.Fragment>
         )
