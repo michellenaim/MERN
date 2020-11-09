@@ -104,13 +104,13 @@ class TransactionIndexItem extends React.Component {
             return null
         } else {
             return (
-                <td colspan="5" className="update-transaction-errors" >
-                    <ul>
+                <tr className="update-transaction-errors">
+                    <td className="indiv-update-errors" colspan="5">
                         {this.props.errors[2].data.errors.map((error, idx) => {
-                            return <li key={idx}>{error.msg}</li>
+                            return <p key={idx}>{error.msg}</p>
                         })}
-                    </ul>               
-                </td>
+                    </td>
+                </tr>
             )
         }
     }
@@ -162,10 +162,10 @@ class TransactionIndexItem extends React.Component {
                     <td className="description-column">{transaction.description}</td>               
                     <td className="amount-column">${transaction.amount}</td>
                     <td className="budget-column">{transaction.category}</td>
-                    <div className="edit column edit-delete-buttons">
+                    <td className="edit-column edit-delete-buttons">
                         <button onClick={this.showUpdateRow} ><i className="fas fa-edit"></i></button>
                         <button onClick={this.deleteTransaction} ><i className="far fa-trash-alt"></i></button>
-                    </div>
+                    </td>
                 </tr> 
                 
                 {this.isEditable()}

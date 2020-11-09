@@ -7,12 +7,47 @@ class Footer extends React.Component {
     return (
       <div className="footer">
         <div className="footer-about-us">
-          <a className="footer-github" href="https://github.com/michellenaim/MERN">
-            <img src={github_gray} alt=""/>
+          <a
+            className="footer-github"
+            href="https://github.com/michellenaim/MERN"
+          >
+            <img src={github_gray} alt="" />
           </a>
-          <div className="footer-names">by Aishwarya Nair, Lili Gevorkian, Michelle Naim, Michael Castanieto</div>
+          <div className="footer-names">
+            by&nbsp;
+            <a
+              class="linkedin"
+              href="https://www.linkedin.com/in/aishwarya-nair22/"
+              target="_blank"
+            >
+              Aishwarya Nair
+            </a>
+            ,&nbsp;
+            <a
+              class="linkedin"
+              href="https://www.linkedin.com/in/liligevorkian/"
+              target="_blank"
+            >
+              Lili Gevorkian
+            </a>
+            ,&nbsp;
+            <a
+              class="linkedin"
+              href="https://www.linkedin.com/in/michellenaim/"
+              target="_blank"
+            >
+              Michelle Naim
+            </a>
+            ,&nbsp;
+            <a
+              class="linkedin"
+              href="https://www.linkedin.com/in/mcastanieto/"
+              target="_blank"
+            >
+              Michael Castanieto
+            </a>
+          </div>
         </div>
-
 
         <div className="footer-logo">
           <h1>Making Cent$</h1>

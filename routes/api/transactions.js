@@ -17,10 +17,10 @@ router.get("/", passport.authenticate('jwt', { session: false }),
 
 // create a transaction
 router.post("/", [
+  check('transaction.date').not().isEmpty().withMessage("Date cannot be empty"),
   check('transaction.description').not().isEmpty().withMessage("Description cannot be empty"),
   check('transaction.amount').isNumeric().withMessage("Amount should be a number"),
   check('transaction.amount').not().isEmpty().withMessage("Amount cannot be empty"),
-  check('transaction.date').not().isEmpty().withMessage("Date cannot be empty"),
   check('transaction.category').not().isEmpty().withMessage("Category cannot be empty"),
 ],
   passport.authenticate("jwt", { session: false }), 
@@ -55,10 +55,10 @@ router.post("/", [
 
 // update a transaction 
 router.patch("/update", [
+  check('date').not().isEmpty().withMessage("Date cannot be empty"),
   check('description').not().isEmpty().withMessage("Description cannot be empty"),
   check('amount').isNumeric().withMessage("Amount should be a number"),
   check('amount').not().isEmpty().withMessage("Amount cannot be empty"),
-  check('date').not().isEmpty().withMessage("Date cannot be empty"),
   check('category').not().isEmpty().withMessage("Category cannot be empty"),
   ],
   passport.authenticate('jwt', { session: false }), 
