@@ -191,7 +191,7 @@ class EditBudget extends React.Component {
       <div className="edit-budget">
         <div className="edit-budget-form-wrapper">
           <div className="edit-budget-title">
-            <h1>Break Down your Budget</h1>
+            <h1>Break Down Your Budget</h1>
           </div>
           <div className="budget-breakdown-description">
             <p>If this is your first time accessing your budget, 
