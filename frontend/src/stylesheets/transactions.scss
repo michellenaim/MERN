@@ -216,6 +216,11 @@ input[type=text], input[type=number], input[type=date], select {
 .indiv-update-errors {
   border-top: 1px solid transparent;
   padding-top: 0px;
+
+  p {
+    display: inline-block;
+    margin-right: 20px;
+  }
 }
 
 .no-transactions {
