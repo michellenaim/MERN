@@ -191,7 +191,14 @@ class EditBudget extends React.Component {
       <div className="edit-budget">
         <div className="edit-budget-form-wrapper">
           <div className="edit-budget-title">
-            <h1>Breakdown your Budget</h1>
+            <h1>Break Down your Budget</h1>
+          </div>
+          <div className="budget-breakdown-description">
+            <p>If this is your first time accessing your budget, 
+               we've broken down your budget for you. Hover over graph to see 
+               how we've split up each budget category. Use the sliders to adjust
+               how much you would like to spend for each category.
+            </p>
           </div>
           <form className="edit-budget-form" onSubmit={this.handleSubmit}>
             <div className="budget-left">
