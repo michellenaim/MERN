@@ -9,7 +9,7 @@ class Footer extends React.Component {
         <div className="footer-about-us">
           <a
             className="footer-github"
-            href="https://github.com/michellenaim/MERN"
+            href="https://github.com/michellenaim/making-cents"
             target="_blank"
           >
             <img src={github_gray} alt="" />
