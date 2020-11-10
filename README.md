@@ -47,6 +47,8 @@ The following is a list of all of the features available on Making Cent$.
 
 #### Budget Categories
 
+![Alt Text](https://github.com/michellenaim/MERN/blob/main/screenshots/budget.gif)
+
 * On their dashboard, users can click on a button that will take them to a page where they are able to update their income split (budget split page).
 * Users can input their income and their budget split amounts will update accordingly.
 * There is a default budget split set up that users can change.
