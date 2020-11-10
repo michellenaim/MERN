@@ -17,6 +17,17 @@ class EditBudget extends React.Component {
       updatedIncome: null,
       isEdited: false,
     };
+    this.isMaxed = {
+      "Home": false,
+      "Utilities": false,
+      "Savings": false,
+      "Food": false,
+      "Other": false,
+      "Health & Fitness": false,
+      "Shopping": false,
+      "Transportation": false,
+      "Entertainment": false
+    }
 
     this.handleSplit = this.handleSplit.bind(this);
     this.loadStateFromProps = this.loadStateFromProps.bind(this);
@@ -49,12 +60,18 @@ class EditBudget extends React.Component {
         let currentSliderValue = e.target.value;
         let valueChange = currentSliderValue - previousSliderValue;
         let newIncomePercentage = percentages.Income - valueChange;
-        if (newIncomePercentage < 0) return null;
+        if (newIncomePercentage < 0) {
+          if (this.isMaxed[currentCategory]) return null;
+          this.isMaxed[currentCategory] = true;
+          newIncomePercentage = 0;
+          currentSliderValue = percentages.Income + parseFloat(previousSliderValue);
+        };
         currentPercentages.Income = newIncomePercentage;
         currentPercentages[currentCategory] = currentSliderValue;
         currentIncomeSplits[currentCategory] = Math.round(
           this.state.income * currentSliderValue
         );
+        Object.keys(this.isMaxed).forEach(category => this.isMaxed[category] = false);
         currentIncomeSplits.Income = Math.round(
           newIncomePercentage * this.state.income
         );
