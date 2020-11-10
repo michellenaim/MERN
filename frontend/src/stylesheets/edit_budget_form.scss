@@ -21,12 +21,23 @@
     justify-content: center;
     width: 100%;
     padding-top: 3%;
-    padding-bottom: 3%;
 }
 
 .edit-budget-title > h1 {
     font-size: 30px;
     margin-bottom: 40px;
+}
+
+.budget-breakdown-description {
+    padding-bottom: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.budget-breakdown-description > p {
+    width: 50%;
+    text-align: center;
+    line-height: 20px;
 }
 
 .budget-left {
@@ -152,7 +163,7 @@
 }
 
 .edit-budget-income-buttons input[type=submit],
-.edit-budget-income-buttons button {
+.edit-budget-income-buttons input {
     font-family: $links;
     font-size: 14px;
     height: 38px;
@@ -170,7 +181,7 @@
 }
 
 .edit-budget-income-buttons input[type=submit]:hover,
-.edit-budget-income-buttons button:hover,
+.edit-budget-income-buttons input:hover,
 .edit-budget-income button:hover {
     cursor: pointer;
     background-color: $light-green;

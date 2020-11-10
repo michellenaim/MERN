@@ -30,7 +30,7 @@ class NavBar extends React.Component {
         buttons = <Link className="login-button" to={"/signup"}>Signup</Link>
       } 
 
-      if (this.props.loggedIn) {
+      if (this.props.loggedIn && this.props.location.pathname === "/budget/edit") {
         return (
           <div className="nav-bar">
             <div>
@@ -47,6 +47,22 @@ class NavBar extends React.Component {
             </div>
           </div>
         );
+      } else if (this.props.loggedIn) {
+        return (
+          <div className="nav-bar">
+            <div>
+              <Link className="logo" to="/">
+                <img className="logo-img" src={logo} alt="" />
+                <p>Making Cent$</p>
+              </Link>
+            </div>
+            <div>
+              <button className="login-button" onClick={this.logoutUser}>
+                Logout
+              </button>
+            </div>
+          </div>
+        )
       } else {
         return (
           <div className="nav-bar">

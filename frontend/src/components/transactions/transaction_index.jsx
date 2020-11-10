@@ -1,8 +1,8 @@
 import React from 'react';
 import TransactionIndexItem from './transaction_index_item'
-// import NotificationSystem from 'react-notification-system';
 import {toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 
 class TransactionIndex extends React.PureComponent{
     constructor(props) {      
@@ -88,11 +88,7 @@ class TransactionIndex extends React.PureComponent{
                 preventDuplicated: true,
                 });
             }
-        })        
-        //resetting placeholders:
-        // document.querySelector('.transaction-input1').value = '';
-        // document.querySelector('.transaction-input2').value = '';
-        // document.querySelector('.transaction-input3').value = '';
+        })
     }
 
     handleCategory(type) {
@@ -127,7 +123,9 @@ class TransactionIndex extends React.PureComponent{
 
     renderErrors() {
         if (!this.props.errors[2]) {
-            return null
+            return (
+                <div className="no-transaction-errors"></div>
+            )
         } else {
             return (
                 <ul className="transaction-errors">
@@ -173,64 +171,67 @@ class TransactionIndex extends React.PureComponent{
                 <div className="transaction-header">
                     <p>Expenditures</p>
                 </div>
-              <p className="transaction-title">Add a Transaction</p>
-              <div className="add-transaction">
-                <input
-                  onChange={this.update("date")}
-                  className="transaction-input1"
-                  type="date"
-                  name=""
-                  value={this.state.date}
-                  required
-                />
-                <input
-                  onChange={this.update("description")}
-                  className="transaction-input2"
-                  type="text"
-                  placeholder="Description"
-                  value={this.state.description}
-                  required
-                />
-                <input
-                  onChange={this.update("amount")}
-                  className="transaction-input3"
-                  type="number"
-                  placeholder="$ Amount"
-                  value={this.state.amount}
-                  required
-                />
-                <select
-                  onChange={this.update("category")}
-                  className="transaction-input4"
-                  name="Budgets"
-                >
-                  <option
-                    value="Select Budget Category"
-                    disabled
-                    selected
-                    required
-                  >
-                    Select Budget Category
-                  </option>
-                  <option value="Home">Home</option>
-                  <option value="Utilities">Utilities</option>
-                  <option value="Food">Food</option>
-                  <option value="Transportation">Transportation</option>
-                  <option value="Health & Fitness">Health & Fitness</option>
-                  <option value="Shopping">Shopping</option>
-                  <option value="Entertainment">Entertainment</option>
-                  <option value="Savings">Savings</option>
-                  <option value="Other">Other</option>
-                </select>
-                <button
-                  onClick={this.addTransaction}
-                  className="transaction-button"
-                >
-                  Add Transaction
-                </button>
-              </div>
+                <div>
+                    <NotificationSystem ref={this.notificationSystem} />
+                </div>
+                <p className="transaction-title">Add a Transaction</p>
+                <div className="add-transaction">
+                    <input
+                        onChange={this.update("date")}
+                        className="transaction-input1"
+                        type="date"
+                        name=""
+                        value={this.state.date}
+                        required
+                    />
+                    <input
+                        onChange={this.update("description")}
+                        className="transaction-input2"
+                        type="text"
+                        placeholder="Description"
+                        value={this.state.description}
+                        required
+                    />
+                    <input
+                        onChange={this.update("amount")}
+                        className="transaction-input3"
+                        type="number"
+                        placeholder="$ Amount"
+                        value={this.state.amount}
+                        required
+                    />
+                    <select
+                        onChange={this.update("category")}
+                        className="transaction-input4"
+                        name="Budgets"
+                    >
+                        <option
+                        value="Select Budget Category"
+                        disabled
+                        selected
+                        required
+                        >
+                        Select Budget Category
+                        </option>
+                        <option value="Home">Home</option>
+                        <option value="Utilities">Utilities</option>
+                        <option value="Food">Food</option>
+                        <option value="Transportation">Transportation</option>
+                        <option value="Health & Fitness">Health & Fitness</option>
+                        <option value="Shopping">Shopping</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Savings">Savings</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <button
+                        onClick={this.addTransaction}
+                        className="transaction-button"
+                    >
+                        Add Transaction
+                    </button>
+                </div>
 
-              <div>{this.renderErrors()}</div>
+                <div>{this.renderErrors()}</div>
 
                 <p className="transaction-title">Transactions</p>
                 <div className="transaction-category-buttons">
