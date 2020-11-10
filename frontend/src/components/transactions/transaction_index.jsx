@@ -1,7 +1,8 @@
 import React from 'react';
 import TransactionIndexItem from './transaction_index_item'
-import NotificationSystem from 'react-notification-system';
-import thunk from 'redux-thunk';
+// import NotificationSystem from 'react-notification-system';
+import {toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class TransactionIndex extends React.PureComponent{
     constructor(props) {      
@@ -17,9 +18,7 @@ class TransactionIndex extends React.PureComponent{
         this.addTransaction = this.addTransaction.bind(this)
         this.update = this.update.bind(this)
         this.renderErrors = this.renderErrors.bind(this)
-        this.addNotification = this.addNotification.bind(this)
         this.amountUsedAllocated = this.amountUsedAllocated.bind(this)
-        // debugger
     }
 
     update(field) {
@@ -27,19 +26,6 @@ class TransactionIndex extends React.PureComponent{
             [field]: e.currentTarget.value
         });
     }
-
-    notificationSystem = React.createRef();
-
-    addNotification = () => {
-    //   event.preventDefault();
-      const notification = this.notificationSystem.current;
-      notification.addNotification({
-        title: 'Warning!',
-        message: 'You have exceeded your budget set for this category',
-        level: 'error',
-      });
-    };
-
 
      amountUsedAllocated(category) {
         let transactionTotals = {
@@ -90,7 +76,17 @@ class TransactionIndex extends React.PureComponent{
         })
         .then( () => {
             if (this.amountUsedAllocated(newTransaction.transaction.category) === true) {
-                this.addNotification()
+                toast.error("Warning! You have exceeded your budget set for this category",
+                {position: "bottom-center",
+                autoClose: 8000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: 0,
+                transition: Slide,
+                preventDuplicated: true,
+                });
             }
         })        
         //resetting placeholders:
@@ -176,9 +172,6 @@ class TransactionIndex extends React.PureComponent{
             <div className="transactions">
                 <div className="transaction-header">
                     <p>Expenditures</p>
-                </div>
-                <div>
-                    <NotificationSystem ref={this.notificationSystem} />
                 </div>
               <p className="transaction-title">Add a Transaction</p>
               <div className="add-transaction">
