@@ -180,13 +180,22 @@ class EditBudget extends React.Component {
           </div>
           <span
             style={{ left: `${7.0 + this.state.percentages[slider] * 42}%` }}
-            class="tooltiptext"
+            className="tooltiptext"
           >
             {Math.round(this.state.percentages[slider] * 100)}%
           </span>
         </div>
       );
     });
+
+    let updatedIncomeVar;
+
+    if (!this.state.updatedIncome) {
+      updatedIncomeVar = "";
+    } else {
+      updatedIncomeVar = this.state.updatedIncome;
+    }
+
     return (
       <div className="edit-budget">
         <div className="edit-budget-form-wrapper">
@@ -194,10 +203,11 @@ class EditBudget extends React.Component {
             <h1>Break Down Your Budget</h1>
           </div>
           <div className="budget-breakdown-description">
-            <p>If this is your first time accessing your budget, 
-               we've broken down your budget for you. Hover over graph to see 
-               how we've split up each budget category. Use the sliders to adjust
-               how much you would like to spend for each category.
+            <p>
+              If this is your first time accessing your budget, we've broken
+              down your budget for you. Hover over graph to see how we've split
+              up each budget category. Use the sliders to adjust how much you
+              would like to spend for each category.
             </p>
           </div>
           <form className="edit-budget-form" onSubmit={this.handleSubmit}>
@@ -241,7 +251,7 @@ class EditBudget extends React.Component {
                         onChange={this.handleUpdatedIncome}
                         type="number"
                         placeholder={`$`}
-                        value={this.state.updatedIncome}
+                        value={updatedIncomeVar}
                       />
                       <button
                         className="update-income"

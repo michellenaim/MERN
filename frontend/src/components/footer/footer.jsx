@@ -16,7 +16,7 @@ class Footer extends React.Component {
           <div className="footer-names">
             by&nbsp;
             <a
-              class="linkedin"
+              className="linkedin"
               href="https://www.linkedin.com/in/aishwarya-nair22/"
               target="_blank"
             >
@@ -24,7 +24,7 @@ class Footer extends React.Component {
             </a>
             ,&nbsp;
             <a
-              class="linkedin"
+              className="linkedin"
               href="https://www.linkedin.com/in/liligevorkian/"
               target="_blank"
             >
@@ -32,7 +32,7 @@ class Footer extends React.Component {
             </a>
             ,&nbsp;
             <a
-              class="linkedin"
+              className="linkedin"
               href="https://www.linkedin.com/in/michellenaim/"
               target="_blank"
             >
@@ -40,7 +40,7 @@ class Footer extends React.Component {
             </a>
             ,&nbsp;
             <a
-              class="linkedin"
+              className="linkedin"
               href="https://www.linkedin.com/in/mcastanieto/"
               target="_blank"
             >
