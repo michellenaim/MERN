@@ -2,36 +2,36 @@ import React from 'react'
 import Chart from "chart.js";
 import classes from "./polar_graph.module.css";
 import '../../stylesheets/fonts.scss'
-Chart.defaults.global.defaultFontFamily = "'Helvetica', sans-serif;"
-// Chart.defaults.global.legend.display = false; //if we don't want to display the legend
-
+import { fetchBudgetBreakdown } from '../../util/budget_api_util';
+Chart.defaults.global.defaultFontFamily = "'Nunito', sans-serif"
+Chart.defaults.global.defaultFontColor = "#5F5F5F"
 
 class PolarGraph extends React.Component {
     constructor(props) {
-        
         super(props)
 
         this.transactionPercentages = [];
         this.incomeLeft = 0;
-        this.state = {incomeLeft: 0};
+        this.state = { incomeLeft: 0 };
     }
 
     chartRef = React.createRef();
   
     componentDidMount() {
         
+        this.props.fetchBudgetBreakdown()
         this.props.fetchCurrentUser()
             .then(() => this.props.fetchAllTransactions())
             .then(() => this.calculatePercentages())
-            
-        const myChartRef = this.chartRef.current.getContext("2d");
 
+        debugger
+        const myChartRef = this.chartRef.current.getContext("2d");
         this.chart = new Chart(myChartRef, {
             type: 'polarArea',
             data: {
-                labels: ['Home', 'Utilities', 'Food', 'Transportation', 'Health & Fitness', 'Shopping', 'Entertainment', 'Savings', 'Other'],
+                labels: ['Home', 'Utilities', 'Food', 'Transportation', 'Health & Fitness', 'Shopping', 'Entertainment', 'Savings', 'Other', 'Income Unallocated'],
                 datasets: [{
-                    data: [100, 100, 100, 100, 100, 100, 100, 100, 100],
+                    data: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100],
                     backgroundColor: [
                         'rgba(40, 147, 255, 0.3)',
                         'rgba(255, 255, 40, 0.4)',
@@ -104,6 +104,19 @@ class PolarGraph extends React.Component {
             this.props.currentUser) {
             this.calculatePercentages();
         }
+        
+        if (this.props.budgetBreakdown.data.budgetBreakdown.length) {
+            let currentLabels = []
+            let currentPercents = []
+            this.props.budgetBreakdown.data.budgetBreakdown.forEach((budget) => {
+                if (budget.percent !== 0) {
+                    currentLabels.push(budget.category)
+                    currentPercents.push(budget.percent)
+                }
+            })
+            this.chart.data.labels = currentLabels;
+            this.chart.update();
+        }
 
         this.chart.data.datasets[0].data = Object.values(this.transactionPercentages);
         this.chart.update();
@@ -111,6 +124,10 @@ class PolarGraph extends React.Component {
         if (this.state.incomeLeft !== this.incomeLeft) {
             this.setState({incomeLeft: this.incomeLeft});
         }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        debugger
     }
 
     calculatePercentages() {
@@ -133,24 +150,30 @@ class PolarGraph extends React.Component {
         this.incomeLeft = this.props.currentUser.income - transactionTotal;
         let transactionPercentages = [];
         this.props.currentUser.budgetBreakdown.forEach(breakdown => {
-            let transactionTotal = transactionTotals[breakdown.category];
-            let incomeSplit = breakdown.incomeSplit;
-            // set transaction percentage to 100% if transactionTotal exceeds income split
-            if (transactionTotal > incomeSplit) {
-                incomeSplit = transactionTotal;
+            if (breakdown.percent !== 0) {
+                let transactionTotal = transactionTotals[breakdown.category];
+                let incomeSplit = breakdown.incomeSplit;
+                // set transaction percentage to 100% if transactionTotal exceeds income split
+                if (transactionTotal > incomeSplit) {
+                    incomeSplit = transactionTotal;
+                }
+                // avoid divide by zero error 
+                if (incomeSplit === 0) {
+                    incomeSplit = 1;
+                    transactionTotal = 1;
+                }
+                let transactionPercentage = Math.round((transactionTotal / incomeSplit) * 100);
+                transactionPercentages.push(transactionPercentage);
             }
-            // avoid divide by zero error 
-            if (incomeSplit === 0) {
-                incomeSplit = 1;
-                transactionTotal = 1;
-            }
-            let transactionPercentage = Math.round((transactionTotal / incomeSplit) * 100);
-            transactionPercentages.push(transactionPercentage);
         })
         this.transactionPercentages = transactionPercentages;
     }
 
     render() {
+        if (!this.props.budgetBreakdown) {
+            return null
+        }
+
         return (
             <div className="graphpage">
                 <div className={classes.polarGraphContainer}>
