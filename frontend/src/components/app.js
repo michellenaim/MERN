@@ -9,11 +9,14 @@ import SignupFormContainer from './session/signup_form_container.js';
 import BudgetEditContainer from './budget/edit_budget_form_container.js'
 import Footer from "./footer/footer"
 import DashboardContainer from "./dashboard/dashboard_container"
+import { ToastContainer} from 'react-toastify';
+
 
 const App = () => (
   <div>
     <NavBarContainer />
     <ScrollToTop />
+    <ToastContainer/>
     <Switch>
       <AuthRoute exact path="/" component={MainPage} />
       <AuthRoute exact path="/login" component={LoginFormContainer} />

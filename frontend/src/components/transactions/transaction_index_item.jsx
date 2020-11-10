@@ -1,5 +1,7 @@
 import React from 'react';
-import NotificationSystem from 'react-notification-system';
+// import NotificationSystem from 'react-notification-system';
+import {toast, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class TransactionIndexItem extends React.Component {
     constructor(props) {
@@ -28,18 +30,6 @@ class TransactionIndexItem extends React.Component {
             [field]: e.currentTarget.value
         });
     }
-
-    notificationSystem = React.createRef();
-
-    addNotification = () => {
-    //   event.preventDefault();
-      const notification = this.props.notification.current;
-      notification.addNotification({
-        title: 'Warning!',
-        message: 'You have exceeded your budget set for this category',
-        level: 'error',
-      });
-    };
 
     amountUsedAllocated(category) {
         let transactionTotals = {
@@ -85,11 +75,21 @@ class TransactionIndexItem extends React.Component {
         })
         .then(() => {
             if (this.amountUsedAllocated(updatedTransaction.category) === true) {
-                this.addNotification()
-            }
+                toast.error("Warning! You have exceeded your budget set for this category",
+                {position: "bottom-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: 0,
+                transition: Slide,
+                preventDuplicated: true,
+                });
+            }  
         })
-
     }
+
             
     deleteTransaction(e) {
         e.preventDefault()      
@@ -171,8 +171,6 @@ class TransactionIndexItem extends React.Component {
                 {this.isEditable()}
 
                 {this.renderTransErrors()}
-
-                <NotificationSystem ref={this.notificationSystem} />
 
             </React.Fragment>
         )
