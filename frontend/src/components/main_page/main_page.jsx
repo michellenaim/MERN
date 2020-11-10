@@ -21,7 +21,7 @@ class MainPage extends React.Component {
         </div>
 
         <p className="main-about">Understand your money better and effortlessly manage your savings!</p>
-        {/* Reach your goals and help others achieve theirs! */}
+
         <div className="main-second-section">
           <img src={splash1} alt="" />
 

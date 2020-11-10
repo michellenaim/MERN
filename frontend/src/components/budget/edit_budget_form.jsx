@@ -157,7 +157,6 @@ class EditBudget extends React.Component {
   }
 
   handleSubmit(e) {
-    debugger
     e.preventDefault();
     this.props
       .updateBudgetBreakdown(this.getCurrentBudgetBreakdown())

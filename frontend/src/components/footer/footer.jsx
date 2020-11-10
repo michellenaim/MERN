@@ -10,6 +10,7 @@ class Footer extends React.Component {
           <a
             className="footer-github"
             href="https://github.com/michellenaim/MERN"
+            target="_blank"
           >
             <img src={github_gray} alt="" />
           </a>

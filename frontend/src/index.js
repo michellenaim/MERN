@@ -5,16 +5,6 @@ import configureStore from './store/store';
 import jwt_decode from 'jwt-decode';
 import { setAuthToken } from './util/session_api_util';
 import { logout } from './actions/session_actions';
-import axios from "axios";
-import { 
-  updateTransaction,
-  deleteTransaction,
-} from "./actions/transactions_actions";
-import { 
-  fetchBudgetBreakdown, 
-  updateBudgetBreakdown
-} from "./actions/budget_actions";
-
 import "./stylesheets/_index.scss";
 
 
@@ -41,14 +31,5 @@ document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('root');
 
   ReactDOM.render(<Root store={store} />, root);
-  window.axios = axios;
-  window.dispatch = store.dispatch;
-  // window.fetchAllUsers = fetchAllUsers;
-  // window.fetchCurrentUser = fetchCurrentUser;
-  window.fetchBudgetBreakdown = fetchBudgetBreakdown;
-  window.updateBudgetBreakdown = updateBudgetBreakdown;
- 
-  window.updateTransaction = updateTransaction;
-  window.deleteTransaction = deleteTransaction;
 
 });

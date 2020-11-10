@@ -63,45 +63,10 @@ passport.authenticate('jwt', { session: false }),
         budgetBreakdown: req.user.budgetBreakdown,
       });
     } catch (errors) {
-      // console.log(errors);
-      // 422 => unprocessable entity
       return res.status(422).json({ 
         ...errors
       });
     }
-    
-  // for debugging, to see updated user in server
-  // const updatedUser = await req.user.save();   // await => wait until the user saves
-  // console.log(updatedUser);
 });
 
 module.exports = router;
-
-
-// TODO: SEND FRONTEND DATA LIKE THIS. APPLICATION/JSON content-type (in handleSubmit)
-// axios.post('/url', { name: 'asdasd', age: 15});
-
-// {
-//     "income": 0,
-//     "budgetBreakdown": [
-//         {
-//             "percent": 0.4,
-//             "category": "Home"
-//         },
-//         {
-//             "percent": 0.2,
-//             "category": "Other"
-//         }
-//     ]
-// }
-
-// for debugging 
-//   res.status(200).json({
-//       user: req.user
-//   });
-
-//   res.status(200).json({
-//     userBudget: req.user.budgetBreakdown,
-//     updatedBudget: req.body.budgetBreakdown,
-//   });
-

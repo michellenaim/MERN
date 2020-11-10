@@ -9,7 +9,6 @@ const passport = require("passport");
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
 
-// router.get("/test", (req, res) => res.json({ msg: "This is the users route" }));
 
 router.get("/all", (req, res) => {
   User.find()
@@ -125,21 +124,6 @@ router.post('/login', (req, res) => {
         })
     })
 })
-
-
-
-// router.patch("/", passport.authenticate('jwt', { session: false }), (req, res) => { 
-//     // validations for whether slider values add to 100%
-
-//     // find user 
-//     User.findOne({ id: req.user.id  })
-//       .catch
-//       .then(user => {
-//         if (!user) {
-//           return res.status(404).json(errors);
-//         }
-
-// });
 
 
 module.exports = router;

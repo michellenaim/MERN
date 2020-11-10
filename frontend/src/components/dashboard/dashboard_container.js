@@ -6,7 +6,6 @@ import { fetchCurrentUser } from '../../actions/users_actions';
 
 const mapStateToProps = (state) => {
     return {
-        //need current user in our state => firstname but there is only email in the state right now
         firstname: state.session.user.firstname,
         transactions: state.entities.transactions.data,
         currentUser: state.entities.currentUser.data

@@ -13,7 +13,6 @@ import { fetchCurrentUser } from '../../actions/users_actions';
 
 const mapStateToProps = (state) => {
     return {
-        // transactions: selectTransactionsByCategory(state.entities.transactions, "Home")
         transactions: state.entities.transactions,
         errors: Object.values(state.errors.transaction),
         updateErrors: Object.values(state.errors.updatedTransaction),

@@ -37,7 +37,6 @@ app.use("/api/users", users);
 app.use("/api/budgets", budgets);
 app.use("/api/transactions", transactions);
 
-// app.get('/ok/hi', (req, res) => res.status(200).json({}));
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server is running on port ${port}`));

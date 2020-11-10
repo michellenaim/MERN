@@ -1,5 +1,4 @@
 import React from 'react';
-// import NotificationSystem from 'react-notification-system';
 import {toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

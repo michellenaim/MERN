@@ -2,7 +2,6 @@ import React from 'react'
 import Chart from "chart.js";
 import classes from "./polar_graph.module.css";
 import '../../stylesheets/fonts.scss'
-import { fetchBudgetBreakdown } from '../../util/budget_api_util';
 Chart.defaults.global.defaultFontFamily = "'Nunito', sans-serif"
 Chart.defaults.global.defaultFontColor = "#5F5F5F"
 
@@ -24,7 +23,6 @@ class PolarGraph extends React.Component {
             .then(() => this.props.fetchAllTransactions())
             .then(() => this.calculatePercentages())
 
-        debugger
         const myChartRef = this.chartRef.current.getContext("2d");
         this.chart = new Chart(myChartRef, {
             type: 'polarArea',
@@ -124,10 +122,6 @@ class PolarGraph extends React.Component {
         if (this.state.incomeLeft !== this.incomeLeft) {
             this.setState({incomeLeft: this.incomeLeft});
         }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        debugger
     }
 
     calculatePercentages() {
