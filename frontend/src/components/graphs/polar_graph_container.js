@@ -5,15 +5,15 @@ import { fetchCurrentUser } from '../../actions/users_actions';
 
 const mapStateToProps = (state) => {
     return {
-        //current user
-        //current user's percentages/categories
-        currentUser: state.entities.currentUser.data
+        currentUser: state.entities.currentUser.data,
+        budgetBreakdown: state.entities.budgetBreakdown,
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchCurrentUser: () => dispatch(fetchCurrentUser())
+        fetchCurrentUser: () => dispatch(fetchCurrentUser()),
+        fetchBudgetBreakdown: () => dispatch(fetchBudgetBreakdown())
     }
 }
 

@@ -1,8 +1,8 @@
 import React from 'react'
 import Chart from "chart.js";
 import classes from "./doughnut_graph.module.css";
-// Chart.defaults.global.legend.display = false; //if we don't want to display the legend
-
+Chart.defaults.global.defaultFontFamily = "'Nunito', sans-serif"
+Chart.defaults.global.defaultFontColor = "#5F5F5F"
 
 class DoughnutGraph extends React.Component {
   constructor(props) {
@@ -65,9 +65,6 @@ class DoughnutGraph extends React.Component {
         }]
       },
       options: {
-        // legend: {
-        //     position: 'left'
-        // },
         tooltips: {
           displayColors: false,
           callbacks: {

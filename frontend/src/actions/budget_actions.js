@@ -2,7 +2,6 @@ import * as BudgetApiUtil from "../util/budget_api_util";
 
 export const RECEIVE_BUDGET_BREAKDOWN = "RECEIVE_BUDGET_BREAKDOWN";
 export const EDIT_BUDGET_BREAKDOWN = "EDIT_BUDGET_BREAKDOWN";
-// actions to display edit errors since we want to render errors to user? 
 
 export const receiveBudgetBreakdown = (budgetBreakdown) => {
   return {
