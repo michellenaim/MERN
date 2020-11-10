@@ -171,9 +171,6 @@ class TransactionIndex extends React.PureComponent{
                 <div className="transaction-header">
                     <p>Expenditures</p>
                 </div>
-                <div>
-                    <NotificationSystem ref={this.notificationSystem} />
-                </div>
                 <p className="transaction-title">Add a Transaction</p>
                 <div className="add-transaction">
                     <input
