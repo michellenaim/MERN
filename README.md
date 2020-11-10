@@ -47,8 +47,6 @@ The following is a list of all of the features available on Making Cent$.
 
 #### Budget Categories
 
-
-
 * On their dashboard, users can click on a button that will take them to a page where they are able to update their income split (budget split page).
 * Users can input their income and their budget split amounts will update accordingly.
 * There is a default budget split set up that users can change.
@@ -56,17 +54,26 @@ The following is a list of all of the features available on Making Cent$.
 
 ### Transactions (CRUD)
 
+![Alt Text](https://github.com/michellenaim/MERN/blob/main/screenshots/transactions.gif)
+
 * On the dashboard, users can add transactions by inputting a date, description, amount and category.
 * Users can edit a transaction by clicking on the edit icon. A second row will pop up under it where users can edit the information.
 * Users can delete a transaction by clicking on the delete icon.
 
 ### Notifications
 
+![Alt Text](https://github.com/michellenaim/MERN/blob/main/screenshots/notifications.gif)
+
 * When adding a new transaction or editing an existing one, users will receive a notification if the category's total transactions exceed the budget they had initially allocated.
 
 ### Animating budget split and amount spent 
 
+![Alt Text](https://github.com/michellenaim/MERN/blob/main/screenshots/animation2.gif)
+
 * On the budget split page, a chart will reflect the budget split the users allocate. This chart updates in real time and animates every time the users move the sliders.
+
+![Alt Text](https://github.com/michellenaim/MERN/blob/main/screenshots/animation1.gif)
+
 * On the dashboard, users will first see the chart mentioned above. Underneath it, users will see a chart reflecting their transactions in relation to their budget split allocation. They will also see their remaining budget for the month.
 
 ### Authors
