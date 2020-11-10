@@ -45,7 +45,6 @@
     display: flex;
     flex-direction: column;
     width: 50vw;
-    // box-shadow: $box-shadow;
 }
 
 
@@ -63,7 +62,6 @@
 
 .edit-budget-income {
     display: flex;
-    // justify-content: space-between;
     width: 100%;
     align-items: center;
     margin-top: 10%;
@@ -97,11 +95,9 @@
 }
 
 .edit-budget-income-buttons-wrapper {
-    // border: solid 2px red;
     display: flex;
     height: 20%;
     padding-top: 5%;
-    // justify-content: space-around;
 }
 
 .apply-changes-btn {
@@ -152,8 +148,6 @@
     background: $dark-green;
     color: white;
     border: 1px solid transparent;
-    // width: 100%;
-    // padding: 8px 0px; 
     text-align: center;
     vertical-align: center;
     transition: all 0.4s ease;
@@ -215,13 +209,17 @@
     flex-direction: column;
     height: 50%;
     width: 50vw;
-    // border: 1px solid black;
     margin-left: 3%;
 }
 
 .edit-budget-slider {
     margin: 0 auto;
     padding-left: 3%;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 40px;
+    width: 75%;
+
 }
 
 .input-wrapper {
@@ -319,43 +317,39 @@ input[type=range]:active::-webkit-slider-runnable-track {
   background: $light-green;
 }
 
-.tooltip {
-  position: relative;
-  display: inline-block;
-  padding-bottom: 40px;
-  width: 75%;
+.tooltiptext {
+    visibility: hidden;
+    width: fixed;
+    width: 50px;
+    background-color: $dark-green;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    bottom: 10%;
+}
+
+.tooltiptext i {
+    position:absolute;
+    bottom: 100%;
+    left: 35%;
+    width:18px;
+    height:10px;
+    overflow:hidden;
+}
+
+.tooltiptext i::after {
+    content:'';
+    position:absolute;
+    width:12px;
+    height:12px;
+    left:50%;
+    transform:translate(-50%,50%) rotate(45deg);
+    background-color: $dark-green;
 }
 
 
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 20%;
-  background-color: $dark-green;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  position: absolute;
-  z-index: 1;
-  top: 60%;
-  left: 50%;
-  margin-left: -60px;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.tooltip .tooltiptext::after {
-  content: "";
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width:  5px;
-  border-style: solid;
-  border-color: transparent  transparent $dark-green transparent;
-}
-
-.tooltip:active .tooltiptext {
+.edit-budget-slider:active .tooltiptext {
   visibility: visible;
-  opacity: 1;
 }

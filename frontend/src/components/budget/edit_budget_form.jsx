@@ -175,7 +175,7 @@ class EditBudget extends React.Component {
   render() {
     const sliders = CATEGORY_KEYS.map((slider, idx) => {
       return (
-        <div key={idx} className="edit-budget-slider tooltip">
+        <div key={idx} className="edit-budget-slider">
           <label className="budget-category-value">
             {slider === "HealthAndFitness"
               ? "Health & Fitness"
@@ -183,23 +183,25 @@ class EditBudget extends React.Component {
           </label>
           <div className="slider-display">
             <input
+              className="tooltip"
               onChange={this.handleSplit(slider)}
               type="range"
               min="0"
               max="1"
               step="0.00001"
               value={this.state.percentages[slider]}
-            />
+              />
             <div className="display-value">
               ${this.state.incomeSplits[slider]}
             </div>
           </div>
-          <span
-            style={{ left: `${7.0 + this.state.percentages[slider] * 42}%` }}
+          <div
+            style={{ left: `${(this.state.percentages[slider]) * 69}%` }}
             className="tooltiptext"
-          >
+            >
             {Math.round(this.state.percentages[slider] * 100)}%
-          </span>
+            <i></i>
+          </div>
         </div>
       );
     });
@@ -287,15 +289,12 @@ class EditBudget extends React.Component {
                     this.state.isEdited ? "" : "-disable"
                   }`}
                 >
-                  {/* <div className="edit-budget-buttons-left-wrapper"> */}
                   <input
                     className="apply-changes-btn"
                     disabled={!this.state.isEdited}
                     type="submit"
                     value="Apply Changes"
                   />
-                  {/* </div> */}
-
                   <input
                     className="discard-changes-btn"
                     disabled={!this.state.isEdited}
