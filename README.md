@@ -40,10 +40,14 @@ The following is a list of all of the features available on Making Cent$.
 
 #### User Authentication
 
+![Alt Text](https://github.com/michellenaim/MERN/blob/main/screenshots/user_auth.gif)
+
 * Users can log in or sign up to start using the different features.
 * Users can skip signing up by clicking on the demo user - they will be redirected to the demo user's dashboard.
 
 #### Budget Categories
+
+
 
 * On their dashboard, users can click on a button that will take them to a page where they are able to update their income split (budget split page).
 * Users can input their income and their budget split amounts will update accordingly.
@@ -60,7 +64,7 @@ The following is a list of all of the features available on Making Cent$.
 
 * When adding a new transaction or editing an existing one, users will receive a notification if the category's total transactions exceed the budget they had initially allocated.
 
-#### Animating budget split and amount spent 
+### Animating budget split and amount spent 
 
 * On the budget split page, a chart will reflect the budget split the users allocate. This chart updates in real time and animates every time the users move the sliders.
 * On the dashboard, users will first see the chart mentioned above. Underneath it, users will see a chart reflecting their transactions in relation to their budget split allocation. They will also see their remaining budget for the month.
