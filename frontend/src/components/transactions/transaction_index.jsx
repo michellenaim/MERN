@@ -8,11 +8,10 @@ class TransactionIndex extends React.PureComponent{
     constructor(props) {      
         super(props)
         this.state = { 
-            selectedCategory: "All", 
-            selectedTransactions: this.props.transactions, 
             date: "",
             description: "",
             category: "",
+            All: "selected"
         }
         this.handleCategory = this.handleCategory.bind(this)
         this.addTransaction = this.addTransaction.bind(this)
