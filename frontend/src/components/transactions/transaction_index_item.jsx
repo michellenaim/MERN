@@ -11,7 +11,6 @@ class TransactionIndexItem extends React.Component {
             description: this.props.transaction.description,
             category: this.props.transaction.category,
             amount: this.props.transaction.amount,
-
             editable: false
         }
         
@@ -73,6 +72,11 @@ class TransactionIndexItem extends React.Component {
             })
         })
         .then(() => {
+            this.props.parentCallback({
+                selected: "selected"
+            });
+        })
+        .then(() => {
             if (this.amountUsedAllocated(updatedTransaction.category) === true) {
                 toast.error("Warning! You have exceeded your budget set for this category",
                 {position: "bottom-center",
@@ -93,7 +97,12 @@ class TransactionIndexItem extends React.Component {
     deleteTransaction(e) {
         e.preventDefault()      
         
-        this.props.deleteTransaction(this.props.transaction)       
+        this.props.deleteTransaction(this.props.transaction)   
+        .then(() => {
+            this.props.parentCallback({
+                selected: "selected"
+            });
+        })    
     }
             
     renderTransErrors() {
@@ -143,7 +152,8 @@ class TransactionIndexItem extends React.Component {
                         <option value="Other">Other</option>
                     </select></td>
                     <td className="edit-column"><button onClick={this.editTransaction} className="edit-transaction-button">Update Transaction</button></td>
-                </tr>               
+         
+               </tr>               
             )
         } else {
             return null

@@ -1,6 +1,5 @@
 import React from 'react';
 import DoughnutGraph from "../graphs/doughnut_graph";
-import { Link } from "react-router-dom";
 
 const CATEGORY_KEYS = ["Home", "Utilities", "Savings", "Food", "Other",
                     "HealthAndFitness", "Shopping", "Transportation",

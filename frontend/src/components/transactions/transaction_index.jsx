@@ -18,6 +18,12 @@ class TransactionIndex extends React.Component{
         this.update = this.update.bind(this)
         this.renderErrors = this.renderErrors.bind(this)
         this.amountUsedAllocated = this.amountUsedAllocated.bind(this)
+        this.setCategory = this.setCategory.bind(this)
+        this.handleCallback = this.handleCallback.bind(this)
+
+        this.CATEGORY_KEYS = ["Home", "Utilities", "Savings", "Food", "Other",
+                "Health & Fitness", "Shopping", "Transportation",
+                "Entertainment"];
     }
 
     update(field) {
@@ -26,7 +32,7 @@ class TransactionIndex extends React.Component{
         });
     }
 
-     amountUsedAllocated(category) {
+    amountUsedAllocated(category) {
         let transactionTotals = {
             'Home': 0,
             'Utilities': 0,
@@ -64,16 +70,8 @@ class TransactionIndex extends React.Component{
         }
         this.props.createTransaction(newTransaction)
         .then(() => this.props.clearTransactionErrors())
+        .then(this.setCategory)
         .then(() => {
-            this.setState({
-                date: "",
-                description: "",
-                category: "",
-                amount: "empty"
-            })            
-            document.querySelector('.transaction-input4').value = 'Select Budget Category';
-        })
-        .then( () => {
             if (this.amountUsedAllocated(newTransaction.transaction.category) === true) {
                 toast.error("Warning! You have exceeded your budget set for this category",
                 {position: "bottom-center",
@@ -90,19 +88,32 @@ class TransactionIndex extends React.Component{
         })
     }
 
+    setCategory() {
+        this.CATEGORY_KEYS.forEach((category) => {
+            this.setState({
+                [category]: '',
+            })
+        }) 
+        this.setState({
+            date: "",
+            description: "",
+            category: "",
+            amount: "empty",
+            All: "selected"
+        })            
+        document.querySelector('.transaction-input4').value = 'Select Budget Category';
+    }
+
     handleCategory(type) {
         return (e) => {
             e.preventDefault()
 
             this.props.fetchFilteredTransactions(type)
 
-            const CATEGORY_KEYS = ["Home", "Utilities", "Savings", "Food", "Other",
-                    "Health & Fitness", "Shopping", "Transportation",
-                    "Entertainment"];
-            CATEGORY_KEYS.forEach((category) => {
+            this.CATEGORY_KEYS.forEach((category) => {
                 if (type === category) {
                     this.setState({
-                        [type]: "selected"
+                        [type]: "selected",
                     })
                 } else{
                     this.setState({
@@ -118,6 +129,15 @@ class TransactionIndex extends React.Component{
                 })
             }
         }
+    }
+
+    handleCallback = (childData) => {
+        this.CATEGORY_KEYS.forEach((category) => {
+            this.setState({ 
+                All: childData.selected,
+                [category]: ""
+            })
+        })
     }
 
     renderErrors() {
@@ -137,9 +157,10 @@ class TransactionIndex extends React.Component{
     }
 
     render() {
+        
         if (!this.props.transactions.data) {
             return null
-        }
+        } 
         
         let transactionsData
         let noTransactionsInCategory
@@ -154,7 +175,18 @@ class TransactionIndex extends React.Component{
         } else if (this.props.transactions.data.transactions.map !== undefined){
             sortedData = this.props.transactions.data.transactions.sort((a, b) => (a.date < b.date) ? 1 : (a.date === b.date) ? ((a.amount < b.amount) ? 1 : -1) : -1 )
             transactionsData = sortedData.map(transaction => {
-                return <TransactionIndexItem key={transaction._id} errors={this.props.updateErrors} transactions = {this.props.transactions.data.transactions} currentUser = {this.props.currentUser} notification = {this.notificationSystem} transaction={transaction} editTransaction={this.props.editTransaction} deleteTransaction={this.props.deleteTransaction} clearUpdatedTransactionErrors={this.props.clearUpdatedTransactionErrors} />
+                return <TransactionIndexItem 
+                    key={transaction._id} 
+                    errors={this.props.updateErrors} 
+                    transactions = {this.props.transactions.data.transactions} 
+                    currentUser = {this.props.currentUser} 
+                    notification = {this.notificationSystem} 
+                    transaction={transaction} 
+                    editTransaction={this.props.editTransaction} 
+                    deleteTransaction={this.props.deleteTransaction} 
+                    clearUpdatedTransactionErrors={this.props.clearUpdatedTransactionErrors} 
+                    parentCallback = {this.handleCallback}
+                />
             })
         } else {
             noTransactionsInCategory = (
@@ -245,7 +277,7 @@ class TransactionIndex extends React.Component{
 
                 <table className="transactions-table">
                     <tr>
-                        <th className="date-column">Date</th>
+                        <th className="date-column">Date (Newest to Oldest)</th>
                         <th className="description-column">Description</th>
                         <th className="amount-column">Amount</th>
                         <th className="budget-column">Budget Category</th>

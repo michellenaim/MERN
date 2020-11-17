@@ -11,6 +11,7 @@ class Footer extends React.Component {
             className="footer-github"
             href="https://github.com/michellenaim/making-cents"
             target="_blank"
+            rel="noreferrer"
           >
             <img src={github_gray} alt="" />
           </a>
@@ -20,6 +21,7 @@ class Footer extends React.Component {
               className="linkedin"
               href="https://www.linkedin.com/in/aishwarya-nair22/"
               target="_blank"
+              rel="noreferrer"
             >
               Aishwarya Nair
             </a>
@@ -28,6 +30,7 @@ class Footer extends React.Component {
               className="linkedin"
               href="https://www.linkedin.com/in/liligevorkian/"
               target="_blank"
+              rel="noreferrer"
             >
               Lili Gevorkian
             </a>
@@ -36,6 +39,7 @@ class Footer extends React.Component {
               className="linkedin"
               href="https://www.linkedin.com/in/michellenaim/"
               target="_blank"
+              rel="noreferrer"
             >
               Michelle Naim
             </a>
@@ -44,6 +48,7 @@ class Footer extends React.Component {
               className="linkedin"
               href="https://www.linkedin.com/in/mcastanieto/"
               target="_blank"
+              rel="noreferrer"
             >
               Michael Castanieto
             </a>

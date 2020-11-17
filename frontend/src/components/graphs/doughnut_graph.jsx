@@ -5,9 +5,6 @@ Chart.defaults.global.defaultFontFamily = "'Nunito', sans-serif"
 Chart.defaults.global.defaultFontColor = "#5F5F5F"
 
 class DoughnutGraph extends React.Component {
-  constructor(props) {
-    super(props)
-  }
 
   chartRef = React.createRef();
 
