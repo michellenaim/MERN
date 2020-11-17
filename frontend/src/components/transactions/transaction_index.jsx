@@ -4,7 +4,7 @@ import {toast, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-class TransactionIndex extends React.PureComponent{
+class TransactionIndex extends React.Component{
     constructor(props) {      
         super(props)
         this.state = { 
