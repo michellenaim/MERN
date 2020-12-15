@@ -78,6 +78,62 @@ The following is a list of all of the features available on Making Cent$.
 
 * On the dashboard, users will first see the chart mentioned above. Underneath it, users will see a chart reflecting their transactions in relation to their budget split allocation. They will also see their remaining budget for the month.
 
+## Code Snippets
+
+### Updating Transactions
+
+New information received from the frontend is deconstructed through the body of the request. The information in the backend, stored underneath the transactions key as an embedded document within the user model, is accessed and set to the new information. The transaction id stored in the backend must be converted to the same type as the id in the body of the request to match the transaction. 
+
+Asynchronous functions in the request handlers allow for the promises to be resolved through use of the await keyword which ensures the changes are saved prior to sending info to the frontend.
+
+```js
+// update a transaction 
+router.patch("/update", [
+  check('date').not().isEmpty().withMessage("Date cannot be empty"),
+  check('description').not().isEmpty().withMessage("Description cannot be empty"),
+  check('amount').isNumeric().withMessage("Amount should be a number"),
+  check('amount').not().isEmpty().withMessage("Amount cannot be empty"),
+  check('category').not().isEmpty().withMessage("Category cannot be empty"),
+  ],
+  passport.authenticate('jwt', { session: false }), 
+    async (req, res) => {
+    
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() })
+    }
+
+    try {
+
+      const { date, amount, description, category } = req.body;
+
+      req.user.transactions.forEach(originalT => {
+        if (originalT._id.toString() === req.body._id) {
+          originalT.date = date;
+          originalT.amount = amount;
+          originalT.description = description;
+          originalT.category = category;
+        }
+      })
+
+      await req.user.save();
+
+      // return the information from backend
+      res.status(200).json({
+        transactions: req.user.transactions,
+      });
+    } catch (errors) {
+      
+      return res.status(422).json({
+        ...errors,
+      });
+    }   
+});
+```
+
+```js
+```
+
 ### Authors
 - Aishwarya Nair
 - Lili Gevorkian
