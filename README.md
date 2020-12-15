@@ -82,9 +82,9 @@ The following is a list of all of the features available on Making Cent$.
 
 ### Updating Transactions
 
-New information received from the frontend is deconstructed through the body of the request. The information in the backend, stored underneath the transactions key as an embedded document within the user model, is accessed and set to the new information. The transaction id stored in the backend must be converted to the same type as the id in the body of the request to match the transaction. 
+New information received from the frontend is deconstructed through the body of the request. The information in the backend, stored underneath the transactions key as an embedded document within the user model, is accessed and set to the new information. The transaction ID stored in the backend must be converted to the same type as the ID in the body of the request to find and match the transaction. 
 
-Asynchronous functions in the request handlers allow for the promises to be resolved through use of the await keyword which ensures the changes are saved prior to sending info to the frontend.
+Asynchronous functions in the request handlers allow for the promises to be resolved through use of the await keyword which ensures the changes are saved prior to sending information to the frontend.
 
 ```js
 // update a transaction 
@@ -131,7 +131,63 @@ router.patch("/update", [
 });
 ```
 
+### Filtering Transactions by Category
+
+An event handler is utilized to update the transactions table per category type. Dynamic CSS rendering via redux state illustrates the selected category. The list of transactions re-render seemlessly per category type, obtained through an action that fetches the respective transactions which are filtered on the backend.
+
+Event handler:
 ```js
+  handleCategory(type) {
+    return (e) => {
+        e.preventDefault()
+
+        this.props.fetchFilteredTransactions(type)
+
+        this.CATEGORY_KEYS.forEach((category) => {
+            if (type === category) {
+                this.setState({
+                    [type]: "selected",
+                })
+            } else{
+                this.setState({
+                    [category]: '',
+                    All : ''
+                })
+            }
+        }) 
+
+        if (type === "/") {
+            this.setState({
+                All: "selected"
+            })
+        }
+    }
+  }
+```
+
+Transaction category buttons:
+```js
+  <div className="transaction-category-buttons">
+    <button 
+      onClick={this.handleCategory("/")} 
+      className={this.state.All}
+    >
+      All
+    </button>
+    <button 
+      onClick={this.handleCategory("Home")} 
+      className={this.state.Home}
+    >
+      Home
+    </button>
+    <button 
+      onClick={this.handleCategory("Utilities")} 
+      className={this.state.Utilities}
+    >
+      Utilities
+    </button>
+    {/* ... etc */}
+  </div>
 ```
 
 ### Authors
